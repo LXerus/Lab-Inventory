@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="panel_buscar_bodegas" prefHeight="615.0" prefWidth="830.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.Bodegas.BuscarBodega_Controlador">
+   <children>
+      <ScrollPane prefHeight="615.0" prefWidth="830.0">
+         <content>
+            <AnchorPane prefHeight="615.0" prefWidth="830.0">
+               <children>
+                  <Label layoutX="116.0" layoutY="59.0" text="Numero de Bodega:" />
+                  <Label layoutX="116.0" layoutY="105.0" text="Nombre:" />
+                  <Label layoutX="120.0" layoutY="155.0" text="Region:" />
+                  <TextField fx:id="bodega_buscar_numero" layoutX="282.0" layoutY="55.0" onAction="#buscarBodegas" prefHeight="25.0" prefWidth="234.0" />
+                  <TextField fx:id="bodega_buscar_nombre" layoutX="283.0" layoutY="101.0" onAction="#buscarBodegas" prefHeight="25.0" prefWidth="233.0" />
+                  <TextField fx:id="bodega_buscar_region" layoutX="282.0" layoutY="151.0" onAction="#buscarBodegas" prefHeight="25.0" prefWidth="235.0" />
+                  <TableView fx:id="buscar_bodegas_tabla_bodegas" layoutX="66.0" layoutY="358.0" prefHeight="200.0" prefWidth="666.0">
+                    <columns>
+                      <TableColumn fx:id="bodega_clm_id" prefWidth="82.0" text="Bodega No." />
+                      <TableColumn fx:id="bodega_clm_nombre" prefWidth="105.0" text="Nombre" />
+                        <TableColumn fx:id="bodega_clm_condicion" prefWidth="207.0" text="Condicion" />
+                        <TableColumn fx:id="bodega_clm_region" prefWidth="170.0" text="Region" />
+                        <TableColumn fx:id="bodega_clm_tramo" prefWidth="101.0" text="Tramo" />
+                    </columns>
+                  </TableView>
+                  <Label layoutX="66.0" layoutY="319.0" text="Lista de Bodegas:" />
+                  <Button fx:id="bodega_btn_buscar" layoutX="232.0" layoutY="217.0" mnemonicParsing="false" onAction="#buscarBodegas" prefHeight="25.0" prefWidth="103.0" text="Buscar" />
+                  <Button fx:id="buscar_bodega_btn_cancelar" layoutX="465.0" layoutY="217.0" mnemonicParsing="false" onAction="#cancelar" prefHeight="25.0" prefWidth="103.0" text="Cancelar" />
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

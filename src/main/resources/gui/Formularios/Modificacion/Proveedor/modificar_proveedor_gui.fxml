@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.Proveedores.ModificarProveedor_Controlador">
+    <children>
+        <ScrollPane prefHeight="615.0" prefWidth="830.0">
+            <content>
+                <AnchorPane prefHeight="615.0" prefWidth="830.0">
+                    <children>
+                        <Label layoutX="201.0" layoutY="67.0" prefHeight="16.0" prefWidth="47.0" text="Nombre:" />
+                        <TextField fx:id="modificar_proveedor_txtfl_nombre" layoutX="341.0" layoutY="63.0" prefHeight="25.0" prefWidth="246.0" />
+                        <TextField fx:id="modificar_proveedor_txtfl_id" layoutX="341.0" layoutY="170.0" prefHeight="25.0" prefWidth="246.0" />
+                        <TextField fx:id="modificar_proveedor_txtfl_telefono" layoutX="341.0" layoutY="115.0" prefHeight="25.0" prefWidth="246.0" />
+                        <TextField fx:id="modificar_proveedor_txtfl_contacto" layoutX="341.0" layoutY="221.0" prefHeight="25.0" prefWidth="246.0" />
+                        <TableView fx:id="modificar_proveedor_table_proveedores" layoutX="110.0" layoutY="353.0" prefHeight="200.0" prefWidth="636.0">
+                            <columns>
+                                <TableColumn fx:id="modificar_proveedor_clm_id" prefWidth="54.0" text="Codigo" />
+                                <TableColumn fx:id="modificar_proveedor_clm_nombre" prefWidth="180.0" text="Nombre" />
+                                <TableColumn fx:id="modificar_proveedor_clm_telefono" prefWidth="169.0" text="Telefono" />
+                                <TableColumn fx:id="modificar_proveedor_clm_contacto" prefWidth="232.0" text="Contacto" />
+                                <TableColumn prefWidth="75.0" text="Servicio" />
+                            </columns>
+                        </TableView>
+                        <Label layoutX="201.0" layoutY="174.0" text="Codigo de Proveedor:" />
+                        <Label layoutX="200.0" layoutY="119.0" text="Telefono:" />
+                        <Label layoutX="200.0" layoutY="225.0" text="Contacto" />
+                        <Button fx:id="modificar_proveedor_btn_buscar" layoutX="306.0" layoutY="295.0" mnemonicParsing="false" onAction="#buscarProveedor" prefWidth="100.0" text="Buscar" />
+                        <Button fx:id="modificar_proveedor_btn_cancelar" layoutX="464.0" layoutY="295.0" mnemonicParsing="false" onAction="#cancelar" prefHeight="25.0" prefWidth="100.0" text="Cancelar" />
+                    </children>
+                </AnchorPane>
+            </content>
+        </ScrollPane>
+    </children>
+</AnchorPane>

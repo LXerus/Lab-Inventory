@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.Proveedores.DatosProveedor_Controlador">
+   <children>
+      <Button fx:id="datos_proveedor_btn_guardar" layoutX="178.0" layoutY="307.0" mnemonicParsing="false" onAction="#guardarCambios" prefWidth="110.0" text="Guardar Cambios" />
+      <Button fx:id="datos_proveedor_btn_cancelar" layoutX="355.0" layoutY="307.0" mnemonicParsing="false" onAction="#cancelar" prefWidth="110.0" text="Cancelar" />
+      <Label layoutX="19.0" layoutY="40.0" text="ID:" />
+      <Label layoutX="19.0" layoutY="78.0" text="Nombre::" />
+      <Label layoutX="19.0" layoutY="120.0" text="Telefono:" />
+      <Label layoutX="18.0" layoutY="160.0" text="Contacto:" />
+      <Label layoutX="18.0" layoutY="201.0" text="Codigo de Proveedor:" />
+      <Label layoutX="20.0" layoutY="244.0" text="Servicio:" />
+      <Label layoutX="330.0" layoutY="40.0" text="Punteo:" />
+      <Label layoutX="330.0" layoutY="77.0" text="Critico:" />
+      <Label layoutX="330.0" layoutY="120.0" text="Aprobado:" />
+      <Label layoutX="331.0" layoutY="169.0" text="Fecha de Aprobación:" />
+      <Label layoutX="329.0" layoutY="222.0" text="Fecha de Revalidación:" />
+      <TextField fx:id="datos_proveedor_txtfl_id" disable="true" editable="false" layoutX="139.0" layoutY="36.0" />
+      <TextField fx:id="datos_proveedor_txtfl_nombre" layoutX="139.0" layoutY="74.0" />
+      <TextField fx:id="datos_proveedor_txtfl_telefono" layoutX="139.0" layoutY="116.0" />
+      <TextField fx:id="datos_proveedor_txtfl_contacto" layoutX="139.0" layoutY="156.0" />
+      <TextField fx:id="datos_proveedor_txtfl_proveedor" layoutX="139.0" layoutY="197.0" />
+      <TextField fx:id="datos_proveedor_txtfl_servicio" layoutX="139.0" layoutY="240.0" />
+      <TextField fx:id="datos_proveedor_txtfl_punteo" layoutX="384.0" layoutY="36.0" />
+      <RadioButton fx:id="datos_proveedor_rdbtn_critico_si" layoutX="410.0" layoutY="77.0" mnemonicParsing="false" text="Si" />
+      <RadioButton fx:id="datos_proveedor_rdbtn_critico_no" layoutX="478.0" layoutY="77.0" mnemonicParsing="false" text="No" />
+      <RadioButton fx:id="datos_proveedor_rdbtn_aprobado_si" layoutX="410.0" layoutY="120.0" mnemonicParsing="false" text="Si" />
+      <RadioButton fx:id="datos_proveedor_rdbtn_aprobado_no" layoutX="478.0" layoutY="120.0" mnemonicParsing="false" text="No" />
+      <DatePicker fx:id="datos_proveedor_dtpicker_aprobacion" layoutX="383.0" layoutY="185.0" />
+      <DatePicker fx:id="datos_proveedor_dtpicker_revalidacion" layoutX="383.0" layoutY="240.0" />
+   </children>
+</AnchorPane>
