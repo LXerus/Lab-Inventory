@@ -1,8 +1,8 @@
 package Controladores.Bodegas;
 
-import Clases.Cruds.Bodegas_Crud;
-import Clases.Modelos.Bodega;
-import Clases.Modelos.Configuracion;
+import Clases.Cruds.CellarCrud;
+import Clases.Modelos.Cellar;
+import Clases.Modelos.Configuration;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -20,16 +20,16 @@ public class DatosBodega_Controlador implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        configuracion.leerConfiguracion();
+        configuration.readConfiguration();
     }
 
-    public void datosDeLaBodega(Bodega bodega){
+    public void datosDeLaBodega(Cellar cellar){
         //obteniendo los datos de la bodega hacia la nueva ventana
-        id = bodega.getId();
-        nombre = bodega.getNombre();
-        condicion = bodega.getCondicion();
-        tramo = bodega.getTramo();
-        region = bodega.getRegion();
+        id = cellar.getId();
+        nombre = cellar.getName();
+        condicion = cellar.getCondition();
+        tramo = cellar.getSection();
+        region = cellar.getRegion();
 
         datos_bodega_txtfl_id.setText(Integer.toString(id));
         datos_bodega_txtfl_nombre.setText(nombre);
@@ -51,7 +51,7 @@ public class DatosBodega_Controlador implements Initializable {
             confirmacion.setContentText("¿Desea continuar?");
             Optional<ButtonType> resultado = confirmacion.showAndWait();
             if(resultado.get() == ButtonType.OK) {
-                bodegasCrud.actualizarDatos(new Bodega(id, nuevo_nombre, nuevo_condicion, nuevo_tramo, nuevo_region));
+                bodegasCrud.update(new Cellar(id, nuevo_nombre, nuevo_condicion, nuevo_tramo, nuevo_region));
             }else{
                 JOptionPane.showMessageDialog(null,"No se han efectuado cambios.");
             }
@@ -110,6 +110,6 @@ public class DatosBodega_Controlador implements Initializable {
     private String condicion;
     private String tramo;
     private String region;
-    private Bodegas_Crud bodegasCrud = new Bodegas_Crud();
-    private Configuracion configuracion = new Configuracion();
+    private CellarCrud bodegasCrud = new CellarCrud();
+    private Configuration configuration = new Configuration();
 }

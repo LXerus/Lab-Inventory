@@ -16,7 +16,7 @@
    <children>
       <Button fx:id="configuracion_btn_crear" layoutX="220.0" layoutY="200.0" mnemonicParsing="false" onAction="#crearBaseDeDatos" prefWidth="110.0" text="Crear" />
       <Label layoutX="50.0" layoutY="200.0" text="Crear nuevo inventario:" />
-      <Label layoutX="50.0" layoutY="120.0" text="Direccion IP del servidor:" />
+      <Label layoutX="50.0" layoutY="120.0" text="Direccion IP del server:" />
       <TextField fx:id="configuracion_txtfl_ip" layoutX="200.0" layoutY="120.0" />
       <TextField fx:id="configuracion_txtfl_puerto" layoutX="200.0" layoutY="160.0" />
       <Label layoutX="50.0" layoutY="160.0" text="Puerto:" />

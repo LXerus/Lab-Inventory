@@ -1,28 +1,28 @@
 package Clases.BaseDeDatos;
 
-import Clases.Modelos.Configuracion;
+import Clases.Modelos.Configuration;
 
 import javax.swing.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class Conectar {
+public class JDBConnection {
     private Connection connection;
-    private static String puerto = "";
-    private static String servidor= "";
-    private static String baseDeDatos = "";
+    private static String port = "";
+    private static String server = "";
+    private static String dataBase = "";
     private static final String DRIVER = "com.mysql.jdbc.Driver";
     private static String URL;
 
-    public Conectar(String userName, String password){
+    public JDBConnection(String userName, String password){
        //Codigo para esteblecer la conexion con la base de datos con los datos del usuario actualmente en uso del programa.
-        servidor = Configuracion.getServidor();
-        puerto = Configuracion.getPuerto();
-        baseDeDatos = Configuracion.getBaseDeDatos();
+        server = Configuration.getServer();
+        port = Configuration.getPort();
+        dataBase = Configuration.getDataBase();
 
         try{
-            URL ="jdbc:mysql://"+servidor+":"+puerto+"/"+baseDeDatos+"?verifyServerCertificate=false&useSSL=true";
+            URL ="jdbc:mysql://"+ server +":"+ port +"/"+ dataBase +"?verifyServerCertificate=false&useSSL=true";
             connection = DriverManager.getConnection(URL, userName, password);
             if(connection !=null){
                 System.out.println("Conexion exitosa!");
@@ -36,16 +36,16 @@ public class Conectar {
         return connection;
     }
 
-    public  void desconectar(){
+    public  void disconnect(){
         connection = null;
     }
 
-    public static String getPuerto() {
-        return puerto;
+    public static String getPort() {
+        return port;
     }
 
-    public static void setPuerto(String puerto) {
-        Conectar.puerto = puerto;
+    public static void setPort(String port) {
+        JDBConnection.port = port;
     }
 
     public static String getURL() {
@@ -53,6 +53,6 @@ public class Conectar {
     }
 
     public static void setURL(String URL) {
-        Conectar.URL = URL;
+        JDBConnection.URL = URL;
     }
 }

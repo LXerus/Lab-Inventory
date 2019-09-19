@@ -1,7 +1,7 @@
 package Controladores.Configuracion;
 
-import Clases.Cruds.TipoDeProductos_Crud;
-import Clases.Modelos.TipoDeProducto;
+import Clases.Cruds.ProductTypeCrud;
+import Clases.Modelos.ProductType;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,11 +26,11 @@ public class ConfiguracionTipoDeProductos_Controlador implements Initializable {
     @FXML private Button config_tdp_btn_buscar;
     @FXML private Button config_tdp_btn_cancelar;
     @FXML private Button config_tdp_btn_nuevo;
-    @FXML private TableView<TipoDeProducto> config_tdp_table_tdp;
-    @FXML private TableColumn<TipoDeProducto, Integer> config_tdp_clmn_idtdp;
-    @FXML private TableColumn<TipoDeProducto, String> config_tdp_clmn_nombretdp;
-    @FXML private TableColumn<TipoDeProducto, String> config_tdp_clmn_desctdp;
-    private TipoDeProductos_Crud tipoDeProductosCrud = new TipoDeProductos_Crud();
+    @FXML private TableView<ProductType> config_tdp_table_tdp;
+    @FXML private TableColumn<ProductType, Integer> config_tdp_clmn_idtdp;
+    @FXML private TableColumn<ProductType, String> config_tdp_clmn_nombretdp;
+    @FXML private TableColumn<ProductType, String> config_tdp_clmn_desctdp;
+    private ProductTypeCrud tipoDeProductosCrud = new ProductTypeCrud();
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -42,8 +42,8 @@ public class ConfiguracionTipoDeProductos_Controlador implements Initializable {
             id = Integer.parseInt(config_tdp_txtfl_id.getText());
         }
         String tipo_de_producto = config_tdp_txtfl_reg.getText();
-        tipoDeProductosCrud.buscarTipoDeProducto(new TipoDeProducto(id, tipo_de_producto));
-        config_tdp_table_tdp.setItems(tipoDeProductosCrud.buscarTipoDeProducto(new TipoDeProducto(id, tipo_de_producto)));
+        tipoDeProductosCrud.read(new ProductType(id, tipo_de_producto));
+        config_tdp_table_tdp.setItems(tipoDeProductosCrud.read(new ProductType(id, tipo_de_producto)));
         config_tdp_clmn_idtdp.setCellValueFactory(new PropertyValueFactory<>("id"));
         config_tdp_clmn_nombretdp.setCellValueFactory(new PropertyValueFactory<>("tipoDeProducto"));
         config_tdp_clmn_desctdp.setCellValueFactory(new PropertyValueFactory<>("descripcion"));

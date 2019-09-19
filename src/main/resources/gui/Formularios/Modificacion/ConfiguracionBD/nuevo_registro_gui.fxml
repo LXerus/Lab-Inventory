@@ -12,7 +12,7 @@
       <Button fx:id="nuevo_registro_btn_cancelar" layoutX="195.0" layoutY="161.0" onAction="#cancelar" mnemonicParsing="false" prefWidth="75.0" text="Cancelar" />
       <TextField fx:id="nuevo_registro_txtfl_registro" layoutX="34.0" layoutY="41.0" />
       <TextArea fx:id="nuevo_registro_txtarea_descripcion" layoutX="34.0" layoutY="92.0" prefHeight="59.0" prefWidth="283.0" />
-      <Label layoutX="34.0" layoutY="24.0" text="Numero de registro:" />
+      <Label layoutX="34.0" layoutY="24.0" text="Numero de registry:" />
       <Label layoutX="34.0" layoutY="75.0" text="Descripcion:" />
    </children>
 </AnchorPane>

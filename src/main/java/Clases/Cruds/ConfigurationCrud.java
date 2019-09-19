@@ -1,7 +1,7 @@
 package Clases.Cruds;
 
-import Clases.BaseDeDatos.Conectar;
-import Clases.Modelos.UsuarioActividad;
+import Clases.BaseDeDatos.JDBConnection;
+import Clases.Modelos.UserActivity;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,17 +10,17 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class Configuracion_Crud {
-    Conectar conectar = null;
+public class ConfigurationCrud {
+    JDBConnection JDBConnection = null;
     Connection ConexionSQL = null;
     Statement configuracionStatement = null;
     PreparedStatement configuracionPreparedStatement = null;
     ResultSet configuracionResultSet = null;
     String sqlQuery = "";
-    UsuarioActividad actividad;
+    UserActivity actividad;
     LocalDate fecha;
     LocalTime hora;
-    LogActivades_Crud log;
+    ActivityLogCrud log;
 
 
 }

@@ -1,7 +1,7 @@
 package Controladores.Configuracion;
 
 import Clases.BaseDeDatos.DBCreador;
-import Clases.Modelos.UsuarioActual;
+import Clases.Modelos.CurrentUser;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -26,7 +26,7 @@ public class IngresarDB_Controlador implements Initializable {
     }
 
     public void registrarBaseDeDatos(){
-        DBCreador creador = new DBCreador(crear_db_nombre.getText(),UsuarioActual.getUsuarioActual().getNombres(), UsuarioActual.getUsuarioActual().getPassword());
+        DBCreador creador = new DBCreador(crear_db_nombre.getText(), CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
         creador.createDataBase();
     }
 }

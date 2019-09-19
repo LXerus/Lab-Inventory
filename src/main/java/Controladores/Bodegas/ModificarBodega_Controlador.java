@@ -1,7 +1,7 @@
 package Controladores.Bodegas;
 
-import Clases.Cruds.Bodegas_Crud;
-import Clases.Modelos.Bodega;
+import Clases.Cruds.CellarCrud;
+import Clases.Modelos.Cellar;
 import Controladores.MenuPrincipal.MenuPrincipal_Controlador;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -39,7 +39,7 @@ public class ModificarBodega_Controlador implements Initializable {
     }
 
     public void buscarBodega(){
-        modificar_bodegas_tabla_bodegas.setItems(bodegasCrud.buscarBodega(datosIntroducidos()));
+        modificar_bodegas_tabla_bodegas.setItems(bodegasCrud.read(datosIntroducidos()));
         modificar_bodega_clm_id.setCellValueFactory(new PropertyValueFactory<>("id"));
         modificiar_bodega_clm_nombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         modificar_bodega_clm_region.setCellValueFactory(new PropertyValueFactory<>("region"));
@@ -88,7 +88,7 @@ public class ModificarBodega_Controlador implements Initializable {
         return sqlQuery;
     }
 
-    private Bodegas_Crud bodegasCrud = new Bodegas_Crud();
+    private CellarCrud bodegasCrud = new CellarCrud();
     private FXMLLoader fxmlLoader;
     private AnchorPane panel_menu_bodegas;
 
@@ -96,10 +96,10 @@ public class ModificarBodega_Controlador implements Initializable {
     @FXML private TextField modificar_bodega_txtf_nombre;
     @FXML private TextField modificar_bodega_txtf_region;
 
-    @FXML private TableView<Bodega> modificar_bodegas_tabla_bodegas;
-    @FXML private TableColumn<Bodega, Integer> modificar_bodega_clm_id;
-    @FXML private TableColumn<Bodega, String> modificiar_bodega_clm_nombre;
-    @FXML private TableColumn<Bodega, String>  modificar_bodega_clm_region;
-    @FXML private TableColumn<Bodega, String>  modificar_bodega_clm_condicion;
-    @FXML private TableColumn<Bodega, String>  modificar_bodega_clm_tramo;
+    @FXML private TableView<Cellar> modificar_bodegas_tabla_bodegas;
+    @FXML private TableColumn<Cellar, Integer> modificar_bodega_clm_id;
+    @FXML private TableColumn<Cellar, String> modificiar_bodega_clm_nombre;
+    @FXML private TableColumn<Cellar, String>  modificar_bodega_clm_region;
+    @FXML private TableColumn<Cellar, String>  modificar_bodega_clm_condicion;
+    @FXML private TableColumn<Cellar, String>  modificar_bodega_clm_tramo;
 }

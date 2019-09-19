@@ -29,7 +29,7 @@
                   <Label layoutX="141.0" layoutY="322.0" text="Area de trabajo:" />
                   <Label layoutX="141.0" layoutY="382.0" text="Correo Electronico:" />
                   <ComboBox fx:id="registrar_usuario_cmbox_privilegios" layoutX="265.0" layoutY="440.0" prefHeight="25.0" prefWidth="227.0" />
-                  <Label layoutX="140.0" layoutY="444.0" text="Privilegios de usuario:" />
+                  <Label layoutX="140.0" layoutY="444.0" text="Privilegios de user:" />
                   <Button layoutX="265.0" layoutY="497.0" mnemonicParsing="false" onAction="#registrarUsuario" prefWidth="110.0" text="Registrar" />
                   <Button layoutX="510.0" layoutY="497.0" mnemonicParsing="false" onAction="#regresarMenuUsuario" prefHeight="25.0" prefWidth="110.0" text="Cancelar" />
                </children>

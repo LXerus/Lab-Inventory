@@ -1,7 +1,7 @@
 package Controladores.Productos;
 
-import Clases.Cruds.Productos_Crud;
-import Clases.Modelos.Producto;
+import Clases.Cruds.ProductCrud;
+import Clases.Modelos.Product;
 import Controladores.MenuPrincipal.MenuPrincipal_Controlador;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,7 +19,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
@@ -31,7 +30,7 @@ public class BuscarProducto_Controlador implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         generarListaProveedores();
         buscar_producto_cmbox_prov.setItems(listaDeProveedores);
-        buscar_producto_cmbox_bodega.setItems(productosCrud.obtenerListaDeBodegas());
+        buscar_producto_cmbox_bodega.setItems(productosCrud.getCellarList());
     }
 
     public void cancelar() throws IOException {
@@ -41,7 +40,7 @@ public class BuscarProducto_Controlador implements Initializable {
     }
 
     public void buscarProducto(){
-        buscar_producto_table_lista_productos.setItems(productosCrud.buscarProductos(datosIntroducidos()));
+        buscar_producto_table_lista_productos.setItems(productosCrud.read(datosIntroducidos()));
         producto_cl_id.setCellValueFactory(new PropertyValueFactory<>("id"));
         producto_cl_nombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         producto_cl_marca.setCellValueFactory(new PropertyValueFactory<>("marca"));
@@ -77,7 +76,7 @@ public class BuscarProducto_Controlador implements Initializable {
         });
     }
 
-    public Producto datosIntroducidos(){
+    public Product datosIntroducidos(){
         String nombre = buscar_producto_txtfl_nombre.getText();
         String marca = buscar_producto_txtfl_marca.getText();
         String lote = buscar_producto_txtfl_lote.getText();
@@ -89,24 +88,24 @@ public class BuscarProducto_Controlador implements Initializable {
         LocalDate fechaVencimiento = buscar_producto_dtpcker_vence.getValue();
         int idProveedor = 0;
         if(!(buscar_producto_cmbox_prov.getValue() == null)) {
-            idProveedor = productosCrud.encontrarProveedorID(buscar_producto_cmbox_prov.getValue().toString()) + 1;
+            idProveedor = productosCrud.getProviderID(buscar_producto_cmbox_prov.getValue().toString()) + 1;
         }
         int idBodega = 0;
         if(!(buscar_producto_cmbox_bodega.getValue() == null)) {
-            idBodega = productosCrud.encontrarBodegaID(buscar_producto_cmbox_bodega.getValue().toString()) + 1;
+            idBodega = productosCrud.getCellarID(buscar_producto_cmbox_bodega.getValue().toString()) + 1;
         }
 
-        return new Producto(nombre, marca, cas, codigoInterno, codigoStandard, lote, fechaIngreso, fechaVencimiento, factura, idBodega, idProveedor);
+        return new Product(nombre, marca, cas, codigoInterno, codigoStandard, lote, fechaIngreso, fechaVencimiento, factura, idBodega, idProveedor);
     }
 
     public void generarListaProveedores() {
-        for (int i = 0; i < productosCrud.obtenerProveedores().size(); i++) {
-            listaDeProveedores.add(productosCrud.obtenerProveedores().get(i).getNombre());
+        for (int i = 0; i < productosCrud.getProviderList().size(); i++) {
+            listaDeProveedores.add(productosCrud.getProviderList().get(i).getName());
         }
     }
 
     private FXMLLoader fxmlLoader;
-    private Productos_Crud productosCrud = new Productos_Crud();
+    private ProductCrud productosCrud = new ProductCrud();
     private AnchorPane panel_seleccionado;
     private ObservableList listaDeProveedores = FXCollections.observableArrayList();
     private ObservableList listaDeBodegas = FXCollections.observableArrayList();
@@ -137,35 +136,35 @@ public class BuscarProducto_Controlador implements Initializable {
     private DatePicker buscar_producto_dtpcker_vence;
 
     @FXML
-    private TableView<Producto> buscar_producto_table_lista_productos;
+    private TableView<Product> buscar_producto_table_lista_productos;
     @FXML
-    private TableColumn<Producto, Integer> producto_cl_id;
+    private TableColumn<Product, Integer> producto_cl_id;
     @FXML
-    private TableColumn<Producto, String> producto_cl_nombre;
+    private TableColumn<Product, String> producto_cl_nombre;
     @FXML
-    private TableColumn<Producto, String> producto_cl_marca;
+    private TableColumn<Product, String> producto_cl_marca;
     @FXML
-    private TableColumn<Producto, String> producto_cl_bodega;
+    private TableColumn<Product, String> producto_cl_bodega;
     @FXML
-    private TableColumn<Producto, String> producto_cl_cas;
+    private TableColumn<Product, String> producto_cl_cas;
     @FXML
-    private TableColumn<Producto, String> producto_cl_cod_interno;
+    private TableColumn<Product, String> producto_cl_cod_interno;
     @FXML
-    private TableColumn<Producto, String> producto_cl_cod_stnd;
+    private TableColumn<Product, String> producto_cl_cod_stnd;
     @FXML
-    private TableColumn<Producto, String> producto_cl_lote;
+    private TableColumn<Product, String> producto_cl_lote;
     @FXML
-    private TableColumn<Producto, LocalDate> producto_cl_fingreso;
+    private TableColumn<Product, LocalDate> producto_cl_fingreso;
     @FXML
-    private TableColumn<Producto, LocalDate> producto_cl_fvencimiento;
+    private TableColumn<Product, LocalDate> producto_cl_fvencimiento;
     @FXML
-    private TableColumn<Producto, LocalDate> producto_cl_fabierto;
+    private TableColumn<Product, LocalDate> producto_cl_fabierto;
     @FXML
-    private TableColumn<Producto, String> producto_cl_presentacion;
+    private TableColumn<Product, String> producto_cl_presentacion;
     @FXML
-    private TableColumn<Producto, Double> producto_cl_stock;
+    private TableColumn<Product, Double> producto_cl_stock;
     @FXML
-    private TableColumn<Producto, Double> producto_cl_costo;
+    private TableColumn<Product, Double> producto_cl_costo;
     @FXML
-    private TableColumn<Producto, String> producto_cl_proveedor;
+    private TableColumn<Product, String> producto_cl_proveedor;
 }

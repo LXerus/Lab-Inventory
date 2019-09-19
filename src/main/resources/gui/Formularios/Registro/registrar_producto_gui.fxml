@@ -26,7 +26,7 @@
                                   <Font name="Times New Roman" size="30.0" />
                               </font>
                           </Label>
-                          <Label layoutX="41.0" layoutY="147.0" text="Nombre de producto:" />
+                          <Label layoutX="41.0" layoutY="147.0" text="Nombre de product:" />
                           <Label layoutX="47.0" layoutY="315.0" text="Codigo Interno:" />
                           <Label layoutX="43.0" layoutY="190.0" text="Marca:" />
                           <Label layoutX="49.0" layoutY="275.0" text="CAS:" />
@@ -37,7 +37,7 @@
                           <Label layoutX="47.0" layoutY="390.0" text="Factura No.:" />
                           <Label layoutX="53.0" layoutY="430.0" text="Costo:" />
                           <Label layoutX="393.0" layoutY="229.0" text="GHS:" />
-                          <Label layoutX="52.0" layoutY="540.0" text="Tipo de producto:" />
+                          <Label layoutX="52.0" layoutY="540.0" text="Tipo de product:" />
                           <Label layoutX="55.0" layoutY="628.0" text="Ingreso:" />
                           <Label layoutX="398.0" layoutY="670.0" text="Vence:" />
                           <Label layoutX="53.0" layoutY="670.0" text="Fecha abierto:" />

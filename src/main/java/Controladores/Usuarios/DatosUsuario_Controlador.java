@@ -1,9 +1,9 @@
 package Controladores.Usuarios;
 
-import Clases.BaseDeDatos.Conectar;
-import Clases.Cruds.Usuarios_Crud;
-import Clases.Modelos.Usuario;
-import Clases.Modelos.UsuarioActual;
+import Clases.BaseDeDatos.JDBConnection;
+import Clases.Cruds.UserCrud;
+import Clases.Modelos.User;
+import Clases.Modelos.CurrentUser;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -45,7 +45,7 @@ public class DatosUsuario_Controlador implements Initializable {
                 activo = false;
             }
 
-            usuariosCrud.actualizarUsuario(new Usuario(id, nombres, apellidos, password, fechaIngreso, area, activo, email, privilegios));
+            usuariosCrud.update(new User(id, nombres, apellidos, password, fechaIngreso, area, activo, email, privilegios));
             cancelar();
             JOptionPane.showMessageDialog(null, "Los datos de usuario han sido actualizados");
         }else {
@@ -58,16 +58,16 @@ public class DatosUsuario_Controlador implements Initializable {
         stage.close();
     }
 
-    public void datosUsuario(Usuario usuario){
-        id = usuario.getId();
-        nombres = usuario.getNombres();
-        apellidos = usuario.getApellidos();
-        password = usuario.getPassword();
-        area = usuario.getArea();
-        email = usuario.getCorreo_electronico();
-        fechaIngreso = usuario.getFecha_de_ingreso();
-        activo = usuario.isActivo();
-        privilegios = usuario.getPrivilegios();
+    public void datosUsuario(User user){
+        id = user.getId();
+        nombres = user.getName();
+        apellidos = user.getLastName();
+        password = user.getPassword();
+        area = user.getArea();
+        email = user.getEmail();
+        fechaIngreso = user.getStartDate();
+        activo = user.isActive();
+        privilegios = user.getPrivileges();
 
         datos_usuario_txtfl_id.setText(Integer.toString(id));
         datos_usuario_txtfl_nombres.setText(nombres);
@@ -76,7 +76,7 @@ public class DatosUsuario_Controlador implements Initializable {
         datos_usuario_txtfl_area.setText(area);
         datos_usuario_txtfl_email.setText(email);
         datos_usuario_datepk_fdi.setValue(fechaIngreso);
-        datos_usuario_cbox_privilegios.setValue(usuariosCrud.obtenerPrivilegiosDeUsuario(usuario));
+        datos_usuario_cbox_privilegios.setValue(usuariosCrud.getUserPrivileges(user));
         if(activo){
             datos_usuario_rdbtn_si.setSelected(true);
         }else {
@@ -87,8 +87,8 @@ public class DatosUsuario_Controlador implements Initializable {
     public ObservableList<String> obtenerListaDePrivilegios(){
         javafx.collections.ObservableList<java.lang.String> listaDePrivilegios = FXCollections.observableArrayList();
         java.lang.String consultaSQL = "SELECT id, tipo_de_privilegios, descripcion FROM privilegios_de_usuario";
-        Conectar conectar = new Conectar(UsuarioActual.getUsuarioActual().getNombres(), UsuarioActual.getUsuarioActual().getPassword());
-        Connection conexionSQL = conectar.getConnection();
+        JDBConnection JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+        Connection conexionSQL = JDBConnection.getConnection();
         try{
             Statement privilegiosStatement = conexionSQL.createStatement();
             ResultSet rsPrivilegios = privilegiosStatement.executeQuery(consultaSQL);
@@ -106,7 +106,7 @@ public class DatosUsuario_Controlador implements Initializable {
             }catch (SQLException ex){
                 ex.printStackTrace();
             }
-            conectar.desconectar();
+            JDBConnection.disconnect();
         }
         return  listaDePrivilegios;
     }
@@ -142,7 +142,7 @@ public class DatosUsuario_Controlador implements Initializable {
     @FXML private RadioButton datos_usuario_rdbtn_no;
     @FXML private ComboBox datos_usuario_cbox_privilegios;
     @FXML private Button datos_usuario_btn_cancelar;
-    private Usuarios_Crud usuariosCrud = new Usuarios_Crud();
+    private UserCrud usuariosCrud = new UserCrud();
     private ToggleGroup grupoEstado =  new ToggleGroup();
     int id;
     String nombres;

@@ -1,6 +1,6 @@
 package Controladores.Configuracion;
 
-import Clases.Modelos.Configuracion;
+import Clases.Modelos.Configuration;
 import Controladores.MenuPrincipal.MenuPrincipal_Controlador;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,7 +29,7 @@ public class Configuracion_Controlador implements Initializable {
 
     public void crearBaseDeDatos(){
         //Metodo llamado desde el menu principal.
-        //Tambien es llamado desde el menu de log in, en cuando faltan datos en la configuracion.
+        //Tambien es llamado desde el menu de log in, en cuando faltan datos en la configuration.
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/Formularios/Modificacion/ConfiguracionBD/ingresar_db_gui.fxml"));
             Parent parent = loader.load();
@@ -43,23 +43,23 @@ public class Configuracion_Controlador implements Initializable {
     }
 
     public void guardarConfiguracion(){
-        //Guarda los datos en la configuracion actual.
+        //Guarda los datos en la configuration actual.
         if(validarDatos()) {
-            configuracion.archivoConfiguracion(configuracion_txtfl_ip.getText(), configuracion_txtfl_puerto.getText(), configuracion_txtfl_DB.getText());
-            JOptionPane.showMessageDialog(null, "La configuracion ha sido guardada exitosamente.");
+            configuration.configurationFile(configuracion_txtfl_ip.getText(), configuracion_txtfl_puerto.getText(), configuracion_txtfl_DB.getText());
+            JOptionPane.showMessageDialog(null, "La configuration ha sido guardada exitosamente.");
         }else {
-            JOptionPane.showMessageDialog(null, "Por favor ingrese todos los datos de configuracion.");
+            JOptionPane.showMessageDialog(null, "Por favor ingrese todos los datos de configuration.");
         }
     }
 
     public void mostrarConfiguracion(){
-        //Comprueba que el archivo de configuracion exista,
+        //Comprueba que el archivo de configuration exista,
         // si no es encontrado, lo crea y muestra los datos.
-        configuracion.leerConfiguracion();
+        configuration.readConfiguration();
 
-        configuracion_txtfl_ip.setText(Configuracion.getServidor());
-        configuracion_txtfl_puerto.setText(Configuracion.getPuerto());
-        configuracion_txtfl_DB.setText(Configuracion.getBaseDeDatos());
+        configuracion_txtfl_ip.setText(Configuration.getServer());
+        configuracion_txtfl_puerto.setText(Configuration.getPort());
+        configuracion_txtfl_DB.setText(Configuration.getDataBase());
     }
 
     public void tipoProductoConfiguracion(){
@@ -116,7 +116,7 @@ public class Configuracion_Controlador implements Initializable {
         return datosValidos;
     }
 
-    Configuracion configuracion = new Configuracion();
+    Configuration configuration = new Configuration();
     FXMLLoader fxmlLoader;
     @FXML private TextField configuracion_txtfl_DB;
     @FXML private TextField configuracion_txtfl_ip;

@@ -1,7 +1,7 @@
 package Controladores.Configuracion;
 
-import Clases.Cruds.Registro_Crud;
-import Clases.Modelos.Registro;
+import Clases.Cruds.RegistryCrud;
+import Clases.Modelos.Registry;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -23,7 +23,7 @@ public class ModificarRegistro_Controlador implements Initializable {
     private int id;
     private String nombre;
     private  String descripcion;
-    private Registro_Crud registroCrud = new Registro_Crud();
+    private RegistryCrud registroCrud = new RegistryCrud();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -35,7 +35,7 @@ public class ModificarRegistro_Controlador implements Initializable {
             id = Integer.parseInt(configurar_registro_txtfl_id.getText());
             nombre = configurar_registro_txtfl_registro.getText();
             descripcion = configurar_registro_txtarea_descripcion.getText();
-            registroCrud.actualizarRegistro(new Registro(id, nombre, descripcion));
+            registroCrud.update(new Registry(id, nombre, descripcion));
             cancelar();
             JOptionPane.showMessageDialog(null, "El registro fue actualizado exitosamente.");
         }else {
@@ -47,15 +47,15 @@ public class ModificarRegistro_Controlador implements Initializable {
         id = Integer.parseInt(configurar_registro_txtfl_id.getText());
         nombre = configurar_registro_txtfl_registro.getText();
         descripcion = configurar_registro_txtarea_descripcion.getText();
-        registroCrud.borrarRegistro(new Registro(id, nombre, descripcion));
+        registroCrud.delete(new Registry(id, nombre, descripcion));
         cancelar();
         JOptionPane.showMessageDialog(null, "Registro Eliminado.");
     }
 
-    public void datosDelRegistro(Registro registro){
-        id = registro.getId();
-        nombre = registro.getNombre();
-        descripcion = registro.getDescripcion();
+    public void datosDelRegistro(Registry registry){
+        id = registry.getId();
+        nombre = registry.getName();
+        descripcion = registry.getDescription();
 
         configurar_registro_txtfl_id.setText(Integer.toString(id));
         configurar_registro_txtfl_registro.setText(nombre);

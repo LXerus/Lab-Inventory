@@ -1,15 +1,13 @@
 package Controladores.Usuarios;
 
-import Clases.Cruds.LogActivades_Crud;
-import Clases.Modelos.Usuario;
-import Clases.Modelos.UsuarioActividad;
+import Clases.Cruds.ActivityLogCrud;
+import Clases.Modelos.UserActivity;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
-import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
@@ -24,18 +22,18 @@ public class LogDeActividades_Controlador implements Initializable {
     @FXML private ComboBox log_cbox_categoria;
     @FXML private ComboBox log_cbox_actividad;
 
-    @FXML private TableView<UsuarioActividad> log_tabla_log;
-    @FXML private TableColumn<UsuarioActividad, Integer> log_clmn_id;
-    @FXML private TableColumn<UsuarioActividad, String> log_clmn_nombres;
-    @FXML private TableColumn<UsuarioActividad, String> log_clmn_apellidos;
-    @FXML private TableColumn<UsuarioActividad, String> log_clmn_email;
-    @FXML private TableColumn<UsuarioActividad, String> log_clmn_actividad;
-    @FXML private TableColumn<UsuarioActividad, String> log_clmn_categoria;
-    @FXML private TableColumn<UsuarioActividad, LocalDate> log_clmn_fecha;
-    @FXML private TableColumn<UsuarioActividad, LocalTime> log_clmn_hora;
-    @FXML private TableColumn<UsuarioActividad, Integer> log_clmn_id_producto;
+    @FXML private TableView<UserActivity> log_tabla_log;
+    @FXML private TableColumn<UserActivity, Integer> log_clmn_id;
+    @FXML private TableColumn<UserActivity, String> log_clmn_nombres;
+    @FXML private TableColumn<UserActivity, String> log_clmn_apellidos;
+    @FXML private TableColumn<UserActivity, String> log_clmn_email;
+    @FXML private TableColumn<UserActivity, String> log_clmn_actividad;
+    @FXML private TableColumn<UserActivity, String> log_clmn_categoria;
+    @FXML private TableColumn<UserActivity, LocalDate> log_clmn_fecha;
+    @FXML private TableColumn<UserActivity, LocalTime> log_clmn_hora;
+    @FXML private TableColumn<UserActivity, Integer> log_clmn_id_producto;
 
-    LogActivades_Crud logActivadesCrud = new LogActivades_Crud();
+    ActivityLogCrud logActivadesCrud = new ActivityLogCrud();
 
 
     @Override

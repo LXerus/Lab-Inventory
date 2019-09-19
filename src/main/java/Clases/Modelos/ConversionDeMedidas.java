@@ -4,17 +4,17 @@ public class ConversionDeMedidas {
     private String unidadDeMedidaConsumo;
     private double consumo;
     private double costoPorUnidad;
-    private Producto producto;
+    private Product product;
 
-    public ConversionDeMedidas(Producto producto, String unidadDeMedidaConsumo, double consumo) {
+    public ConversionDeMedidas(Product product, String unidadDeMedidaConsumo, double consumo) {
         this.unidadDeMedidaConsumo = unidadDeMedidaConsumo;
-        this.producto = producto;
+        this.product = product;
         this.consumo = consumo;
     }
 
     public double conversionMasa(){
-        String unidadMedidaProducto = producto.getPresentacion();
-        costoPorUnidad = producto.getCostoXUnidad();
+        String unidadMedidaProducto = product.getPresentation();
+        costoPorUnidad = product.getCostPerUnit();
         double costoTotal = 0;
          switch (unidadMedidaProducto){
              case "kg":

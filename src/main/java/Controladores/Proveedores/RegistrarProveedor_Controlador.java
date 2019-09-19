@@ -1,7 +1,7 @@
 package Controladores.Proveedores;
 
-import Clases.Cruds.Proveedores_Crud;
-import Clases.Modelos.Proveedor;
+import Clases.Cruds.ProviderCrud;
+import Clases.Modelos.Provider;
 import Controladores.MenuPrincipal.MenuPrincipal_Controlador;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -47,8 +47,8 @@ public class RegistrarProveedor_Controlador implements Initializable {
             confirmacion.setContentText("¿Desea continuar?");
             Optional<ButtonType> resultado = confirmacion.showAndWait();
             if(resultado.get() == ButtonType.OK) {
-               proveedor = new Proveedor(nombre, telefono, contacto, codigo, servicio, puntaje, critico, aprobado, fechaDeAprobacion, fechaDeRevalidacion);
-                proveedoresCrud.nuevoProveedor(proveedor);
+               provider = new Provider(nombre, telefono, contacto, codigo, servicio, puntaje, critico, aprobado, fechaDeAprobacion, fechaDeRevalidacion);
+                proveedoresCrud.create(provider);
                 JOptionPane.showMessageDialog(null,"¡El proveedor se ha registrado exitosamente!");
 
                 try {
@@ -144,8 +144,8 @@ public class RegistrarProveedor_Controlador implements Initializable {
     private boolean aprobado;
     private LocalDate fechaDeAprobacion;
     private LocalDate fechaDeRevalidacion;
-    private Proveedores_Crud proveedoresCrud = new Proveedores_Crud();
-    Proveedor proveedor;
+    private ProviderCrud proveedoresCrud = new ProviderCrud();
+    Provider provider;
 
     //Paneles
     private AnchorPane panel_menu_proveedores;

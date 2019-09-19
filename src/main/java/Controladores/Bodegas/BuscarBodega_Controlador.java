@@ -1,8 +1,8 @@
 package Controladores.Bodegas;
 
-import Clases.Cruds.Bodegas_Crud;
-import Clases.Modelos.Bodega;
-import Clases.Modelos.Configuracion;
+import Clases.Cruds.CellarCrud;
+import Clases.Modelos.Cellar;
+import Clases.Modelos.Configuration;
 import Controladores.MenuPrincipal.MenuPrincipal_Controlador;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,7 +21,7 @@ public class BuscarBodega_Controlador implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        configuracion.leerConfiguracion();
+        configuration.readConfiguration();
     }
 
     public void cancelar() throws IOException {
@@ -31,7 +31,7 @@ public class BuscarBodega_Controlador implements Initializable {
     }
 
     public void buscarBodegas(){
-        buscar_bodegas_tabla_bodegas.setItems(bodegasCrud.buscarBodega(datosIntroducidos()));
+        buscar_bodegas_tabla_bodegas.setItems(bodegasCrud.read(datosIntroducidos()));
         bodega_clm_id.setCellValueFactory(new PropertyValueFactory<>("id"));
         bodega_clm_nombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         bodega_clm_condicion.setCellValueFactory(new PropertyValueFactory<>("condicion"));
@@ -73,21 +73,21 @@ public class BuscarBodega_Controlador implements Initializable {
     @FXML
     TextField bodega_buscar_region;
     @FXML
-    TableView<Bodega> buscar_bodegas_tabla_bodegas;
+    TableView<Cellar> buscar_bodegas_tabla_bodegas;
     @FXML
-    TableColumn<Bodega, Integer> bodega_clm_id;
+    TableColumn<Cellar, Integer> bodega_clm_id;
     @FXML
-    TableColumn<Bodega, String> bodega_clm_nombre;
+    TableColumn<Cellar, String> bodega_clm_nombre;
     @FXML
-    TableColumn<Bodega, String> bodega_clm_condicion;
+    TableColumn<Cellar, String> bodega_clm_condicion;
     @FXML
-    TableColumn<Bodega, String> bodega_clm_region;
+    TableColumn<Cellar, String> bodega_clm_region;
     @FXML
-    TableColumn<Bodega, String> bodega_clm_tramo;
+    TableColumn<Cellar, String> bodega_clm_tramo;
 
     FXMLLoader fxmlLoader;
-    Bodegas_Crud bodegasCrud = new Bodegas_Crud();
-    Configuracion configuracion = new Configuracion();
+    CellarCrud bodegasCrud = new CellarCrud();
+    Configuration configuration = new Configuration();
 
 
 }

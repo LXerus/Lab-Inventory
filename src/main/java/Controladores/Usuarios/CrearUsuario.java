@@ -1,41 +1,40 @@
 package Controladores.Usuarios;
 
-import Clases.BaseDeDatos.Conectar;
-import Clases.Modelos.Usuario;
-import Clases.Modelos.UsuarioActual;
+import Clases.BaseDeDatos.JDBConnection;
+import Clases.Modelos.User;
+import Clases.Modelos.CurrentUser;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 public class CrearUsuario {
 
-    public void crearUsuario(Usuario usuario){
+    public void crearUsuario(User user){
 
         try {
             String sqlQuery = "CREATE USER '?'@'%' IDENTIFIED BY '?';";
-            Conectar conectar = new Conectar(UsuarioActual.getUsuarioActual().getNombres(), UsuarioActual.getUsuarioActual().getPassword());
-            Connection sqlConnection = conectar.getConnection();
+            JDBConnection JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+            Connection sqlConnection = JDBConnection.getConnection();
 
             Statement statement = sqlConnection.createStatement();
-            statement.executeUpdate( "CREATE USER '"+usuario.getNombres()+"'@'%' IDENTIFIED BY '"+usuario.getPassword()+"';");
+            statement.executeUpdate( "CREATE USER '"+ user.getName()+"'@'%' IDENTIFIED BY '"+ user.getPassword()+"';");
 
         }catch (SQLException e){
             e.getErrorCode();
         }
     }
 
-    public void establecerPrivilegios(Usuario usuario){
+    public void establecerPrivilegios(User user){
         String sqlQuery = "";
         try {
-            Conectar conectar = new Conectar(UsuarioActual.getUsuarioActual().getNombres(), UsuarioActual.getUsuarioActual().getPassword());
-            Connection sqlConnection = conectar.getConnection();
-            if (usuario.getPrivilegios() == 1) {
-                sqlQuery = "GRANT ALL PRIVILEGES ON *.* TO '"+usuario.getNombres()+"'@'%' IDENTIFIED BY '"+usuario.getPassword()+"'";
+            JDBConnection JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+            Connection sqlConnection = JDBConnection.getConnection();
+            if (user.getPrivileges() == 1) {
+                sqlQuery = "GRANT ALL PRIVILEGES ON *.* TO '"+ user.getName()+"'@'%' IDENTIFIED BY '"+ user.getPassword()+"'";
             }
-            if (usuario.getPrivilegios() == 2) {
-                sqlQuery = "GRANT DELETE, INSERT, UPDATE, SELECT ON *.* TO '"+usuario.getNombres()+"'@'%' IDENTIFIED BY '"+usuario.getPassword()+"'";
+            if (user.getPrivileges() == 2) {
+                sqlQuery = "GRANT DELETE, INSERT, UPDATE, SELECT ON *.* TO '"+ user.getName()+"'@'%' IDENTIFIED BY '"+ user.getPassword()+"'";
             }
 
           Statement statement = sqlConnection.createStatement();

@@ -1,7 +1,7 @@
 package Controladores.Configuracion;
 
-import Clases.Cruds.Registro_Crud;
-import Clases.Modelos.Registro;
+import Clases.Cruds.RegistryCrud;
+import Clases.Modelos.Registry;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -17,7 +17,7 @@ public class NuevoRegistro_Controlador implements Initializable {
     @FXML private TextArea nuevo_registro_txtarea_descripcion;
     @FXML private Button nuevo_registro_btn_crear;
     @FXML private Button nuevo_registro_btn_cancelar;
-    private Registro_Crud registroCrud = new Registro_Crud();
+    private RegistryCrud registroCrud = new RegistryCrud();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -28,7 +28,7 @@ public class NuevoRegistro_Controlador implements Initializable {
         if(validarDatos()){
             String registro = nuevo_registro_txtfl_registro.getText();
             String descripcion = nuevo_registro_txtarea_descripcion.getText();
-            registroCrud.nuevoRegistro(new Registro(registro, descripcion));
+            registroCrud.create(new Registry(registro, descripcion));
             cancelar();
             JOptionPane.showMessageDialog(null,"El numero de registro se ha guardado con exito!");
         }else {

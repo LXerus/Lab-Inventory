@@ -1,8 +1,8 @@
 package Controladores.MenuPrincipal;
 
-import Clases.Cruds.Usuarios_Crud;
-import Clases.Modelos.Configuracion;
-import Clases.Modelos.UsuarioActual;
+import Clases.Cruds.UserCrud;
+import Clases.Modelos.Configuration;
+import Clases.Modelos.CurrentUser;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -22,12 +22,12 @@ public class MenuPrincipal_Controlador implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        configuracion.leerConfiguracion();
-        menu_principal_label_usuario.setText(UsuarioActual.getUsuarioActual().getNombres());
-        menu_principal_label_id.setText(String.valueOf(UsuarioActual.getUsuarioActual().getId()));
-        menu_principal_label_area.setText(UsuarioActual.getUsuarioActual().getArea());
-        menu_principal_label_email.setText(UsuarioActual.getUsuarioActual().getCorreo_electronico());
-        menu_principal_label_privilegios.setText(usuariosCrud.obtenerPrivilegiosDeUsuario(UsuarioActual.getUsuarioActual()));
+        configuration.readConfiguration();
+        menu_principal_label_usuario.setText(CurrentUser.getCurrentUser().getName());
+        menu_principal_label_id.setText(String.valueOf(CurrentUser.getCurrentUser().getId()));
+        menu_principal_label_area.setText(CurrentUser.getCurrentUser().getArea());
+        menu_principal_label_email.setText(CurrentUser.getCurrentUser().getEmail());
+        menu_principal_label_privilegios.setText(usuariosCrud.getUserPrivileges(CurrentUser.getCurrentUser()));
     }
 
 
@@ -41,7 +41,7 @@ public class MenuPrincipal_Controlador implements Initializable {
     }
 
     public Stage crearMenuPrincipal(Stage stage){
-        configuracion.leerConfiguracion();
+        configuration.readConfiguration();
         try {
             panelPadre = FXMLLoader.load(getClass().getResource("/gui/Menus/menu_principal_gui.fxml"));
             stage.setTitle("Inventario");
@@ -56,7 +56,7 @@ public class MenuPrincipal_Controlador implements Initializable {
     }
 
     public void irMenuProductos() {
-        configuracion.leerConfiguracion();
+        configuration.readConfiguration();
         try {
             fxmlLoader = new FXMLLoader(getClass().getResource("/gui/Menus/menu_productos_gui.fxml"));
             panel_menu_seleccionado = fxmlLoader.load();
@@ -73,7 +73,7 @@ public class MenuPrincipal_Controlador implements Initializable {
     }
 
     public void irMenuBodegas() {
-        configuracion.leerConfiguracion();
+        configuration.readConfiguration();
         try {
             fxmlLoader = new FXMLLoader(getClass().getResource("/gui/Menus/menu_bodegas_gui.fxml"));
             panel_menu_seleccionado = fxmlLoader.load();
@@ -90,7 +90,7 @@ public class MenuPrincipal_Controlador implements Initializable {
     }
 
     public void irMenuProveedores() {
-        configuracion.leerConfiguracion();
+        configuration.readConfiguration();
         try {
             fxmlLoader = new FXMLLoader(getClass().getResource("/gui/Menus/menu_proveedores_gui.fxml"));
             panel_menu_seleccionado = fxmlLoader.load();
@@ -108,7 +108,7 @@ public class MenuPrincipal_Controlador implements Initializable {
 
 
     public void menuUsuarios() {
-        configuracion.leerConfiguracion();
+        configuration.readConfiguration();
         try {
             fxmlLoader = new FXMLLoader(getClass().getResource("/gui/Menus/menu_usuarios_gui.fxml"));
             panel_menu_seleccionado = fxmlLoader.load();
@@ -125,7 +125,7 @@ public class MenuPrincipal_Controlador implements Initializable {
     }
 
     public void irLogActividades(){
-        configuracion.leerConfiguracion();
+        configuration.readConfiguration();
         try {
             fxmlLoader = new FXMLLoader(getClass().getResource("/gui/Formularios/Busquda/log_de_actividades_gui.fxml"));
             panel_menu_seleccionado = fxmlLoader.load();
@@ -142,7 +142,7 @@ public class MenuPrincipal_Controlador implements Initializable {
     }
 
     public void irConfiguracion(){
-        configuracion.leerConfiguracion();
+        configuration.readConfiguration();
         fxmlLoader = new FXMLLoader(getClass().getResource("/gui/Formularios/Modificacion/ConfiguracionBD/configuracion_gui.fxml"));
         try {
             panel_menu_seleccionado = fxmlLoader.load();
@@ -175,8 +175,8 @@ public class MenuPrincipal_Controlador implements Initializable {
     private FXMLLoader fxmlLoader;
     private AnchorPane panel_menu_seleccionado;
     private static BorderPane panelPadre;
-    private Usuarios_Crud usuariosCrud = new Usuarios_Crud();
-    private Configuracion configuracion = new Configuracion();
+    private UserCrud usuariosCrud = new UserCrud();
+    private Configuration configuration = new Configuration();
 
 
 

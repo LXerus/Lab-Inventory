@@ -1,9 +1,9 @@
 package Controladores.Usuarios;
 
-import Clases.BaseDeDatos.Conectar;
-import Clases.Cruds.Usuarios_Crud;
-import Clases.Modelos.Usuario;
-import Clases.Modelos.UsuarioActual;
+import Clases.BaseDeDatos.JDBConnection;
+import Clases.Cruds.UserCrud;
+import Clases.Modelos.User;
+import Clases.Modelos.CurrentUser;
 import Controladores.MenuPrincipal.MenuPrincipal_Controlador;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -45,8 +45,8 @@ public class RegistrarUsuario_Controlador implements Initializable {
 
     AnchorPane pane_menu_usuarios;
     FXMLLoader fxmlLoader;
-    Usuario usuario;
-    Usuarios_Crud usuariosCrud = new Usuarios_Crud();
+    User user;
+    UserCrud usuariosCrud = new UserCrud();
     String nombres;
     String apellidos;
     String password;
@@ -84,10 +84,10 @@ public class RegistrarUsuario_Controlador implements Initializable {
             confirmacion.setContentText("Esta a punto de registrar a un nuevo usuario ¿desea continuar?");
             Optional<ButtonType> resultado = confirmacion.showAndWait();
             if(resultado.get() == ButtonType.OK) {
-                usuario = new Usuario(nombres, apellidos, password, fechaDeIngreso, area, activo, email, privilegios);
-                usuariosCrud.registrarUsuario(usuario);
-                creadorUsuario.crearUsuario(usuario);
-                creadorUsuario.establecerPrivilegios(usuario);
+                user = new User(nombres, apellidos, password, fechaDeIngreso, area, activo, email, privilegios);
+                usuariosCrud.create(user);
+                creadorUsuario.crearUsuario(user);
+                creadorUsuario.establecerPrivilegios(user);
                 JOptionPane.showMessageDialog(null,"¡El usuario se ha registrado exitosamente!");
                 regresarMenuUsuario();
             }else {
@@ -103,8 +103,8 @@ public class RegistrarUsuario_Controlador implements Initializable {
     private ObservableList<String> obtenerListaDePrivilegios(){
         ObservableList<String> listaDePrivilegios = FXCollections.observableArrayList();
         String consultaSQL = "SELECT id, tipo_de_privilegios, descripcion FROM privilegios_de_usuario";
-        Conectar conectar = new Conectar(UsuarioActual.getUsuarioActual().getNombres(), UsuarioActual.getUsuarioActual().getPassword());
-        Connection conexionSQL = conectar.getConnection();
+        JDBConnection JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+        Connection conexionSQL = JDBConnection.getConnection();
         try{
             Statement privilegiosStatement = conexionSQL.createStatement();
             ResultSet rsPrivilegios = privilegiosStatement.executeQuery(consultaSQL);
@@ -116,7 +116,7 @@ public class RegistrarUsuario_Controlador implements Initializable {
             e.printStackTrace();
         }finally {
             conexionSQL = null;
-            conectar.desconectar();
+            JDBConnection.disconnect();
         }
         return  listaDePrivilegios;
     }

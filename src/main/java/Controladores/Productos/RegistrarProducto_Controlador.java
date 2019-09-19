@@ -1,10 +1,7 @@
 package Controladores.Productos;
 
-import Clases.Cruds.Productos_Crud;
-import Clases.Cruds.Proveedores_Crud;
-import Clases.Modelos.Presentacion;
-import Clases.Modelos.Producto;
-import Clases.Modelos.UsuarioActual;
+import Clases.Cruds.ProductCrud;
+import Clases.Modelos.Product;
 import Controladores.MenuPrincipal.MenuPrincipal_Controlador;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -33,9 +30,9 @@ public class RegistrarProducto_Controlador implements Initializable {
         generarListas();
         productoControladoStatus();
         registrar_producto_cmbox_presentacion.setItems(lista_presentaciones);
-        registrar_producto_cmbox_bodega.setItems(productosCrud.obtenerListaDeBodegas());
-        registrar_producto_cmbox_tipo_producto.setItems(productosCrud.obtenerListaTipoDeProductos());
-        registrar_producto_cmbox_registro.setItems(productosCrud.obtenerNumerosDeRegistro());
+        registrar_producto_cmbox_bodega.setItems(productosCrud.getCellarList());
+        registrar_producto_cmbox_tipo_producto.setItems(productosCrud.getProductList());
+        registrar_producto_cmbox_registro.setItems(productosCrud.getRegistryNumbers());
         registrar_producto_cmbox_proveedor.setItems(proveedores_nombres);
 
         registrar_producto_txtfl_codigoproveedor.setEditable(false);
@@ -77,11 +74,11 @@ public class RegistrarProducto_Controlador implements Initializable {
         fecha_de_vencimiento = registrar_producto_dtpicker_fecha_vencimiento.getValue();
 
         //Los nombres de los siguientes campos son unicos, obtiene los ID de los tales.
-        idProveedor = productosCrud.encontrarProveedorID(proveedor);
-        idBodega = productosCrud.encontrarBodegaID(bodega);
-        idTipoProdcuto = productosCrud.encontrarTipoProductoID(tipo_de_producto);
-        idPresentacion = productosCrud.encontrarPresentacionID(presentacion);
-        idRegistro = productosCrud.encontrarRegistroID(registro);
+        idProveedor = productosCrud.getProviderID(proveedor);
+        idBodega = productosCrud.getCellarID(bodega);
+        idTipoProdcuto = productosCrud.getProductTypeID(tipo_de_producto);
+        idPresentacion = productosCrud.getPresentationID(presentacion);
+        idRegistro = productosCrud.getRegistryID(registro);
 
 
         if(validarDatos()){
@@ -92,10 +89,10 @@ public class RegistrarProducto_Controlador implements Initializable {
             confirmacion.setContentText("Esta a punto de registrar a un nuevo producto ¿desea continuar?");
             Optional<ButtonType> resultado = confirmacion.showAndWait();
             if(resultado.get() == ButtonType.OK) {
-                producto = new Producto(nombre, marca, cas, codigo_interno, codigo_standard, lote, fecha_de_ingreso,
+                product = new Product(nombre, marca, cas, codigo_interno, codigo_standard, lote, fecha_de_ingreso,
                                         fecha_de_vencimiento, fecha_abierto,fecha_de_factura, numero_de_factura, stock,
                                         costo, producto_controlado, ghs, idBodega, idProveedor, idTipoProdcuto, idPresentacion,idRegistro);
-                productosCrud.registrarProducto(producto);
+                productosCrud.create(product);
                 JOptionPane.showMessageDialog(null,"¡El usuario se ha registrado exitosamente!");
 
                 try {
@@ -173,21 +170,21 @@ public class RegistrarProducto_Controlador implements Initializable {
 
     public void obtenerCodigoProveedores(){
         String proveedor = registrar_producto_cmbox_proveedor.getValue().toString();
-        for(int i = 0; i < productosCrud.obtenerProveedores().size(); i++){
-            if(proveedor.contains(productosCrud.obtenerProveedores().get(i).getNombre())){
-                registrar_producto_txtfl_codigoproveedor.setText(productosCrud.obtenerProveedores().get(i).getCodigoDeProveedor());
-                idProveedor = productosCrud.obtenerProveedores().get(i).getId();
+        for(int i = 0; i < productosCrud.getProviderList().size(); i++){
+            if(proveedor.contains(productosCrud.getProviderList().get(i).getName())){
+                registrar_producto_txtfl_codigoproveedor.setText(productosCrud.getProviderList().get(i).getProviderCode());
+                idProveedor = productosCrud.getProviderList().get(i).getId();
             }
         }
     }
 
     public void generarListas(){
-        for(int i = 0;i < productosCrud.obtenerProveedores().size(); i++){
-            proveedores_nombres.add(productosCrud.obtenerProveedores().get(i).getNombre());
-            proveedores_codigos.add(productosCrud.obtenerProveedores().get(i).getCodigoDeProveedor());
+        for(int i = 0; i < productosCrud.getProviderList().size(); i++){
+            proveedores_nombres.add(productosCrud.getProviderList().get(i).getName());
+            proveedores_codigos.add(productosCrud.getProviderList().get(i).getProviderCode());
         }
-        for(int j =0; j<productosCrud.obtenerListaDePresentaciones().size(); j++){
-            lista_presentaciones.add(productosCrud.obtenerListaDePresentaciones().get(j).getPresentacion());
+        for(int j = 0; j<productosCrud.getPresentationList().size(); j++){
+            lista_presentaciones.add(productosCrud.getPresentationList().get(j).getPresentation());
         }
     }
 
@@ -317,12 +314,12 @@ public class RegistrarProducto_Controlador implements Initializable {
 
     private FXMLLoader fxmlLoader;
     private AnchorPane panel_menu_productos;
-    private Productos_Crud productosCrud = new Productos_Crud();
+    private ProductCrud productosCrud = new ProductCrud();
     private ObservableList proveedores_nombres = FXCollections.observableArrayList();
     private ObservableList proveedores_codigos = FXCollections.observableArrayList();
     private ObservableList lista_presentaciones  = FXCollections.observableArrayList();
     private ObservableList<String> listaGHS = FXCollections.observableArrayList();
-    private Producto producto;
+    private Product product;
 
     private String nombre;
     private String marca;

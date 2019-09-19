@@ -1,7 +1,7 @@
 package Controladores.Bodegas;
 
-import Clases.Cruds.Bodegas_Crud;
-import Clases.Modelos.Bodega;
+import Clases.Cruds.CellarCrud;
+import Clases.Modelos.Cellar;
 import Controladores.MenuPrincipal.MenuPrincipal_Controlador;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -45,8 +45,8 @@ public class RegistrarBodega_Controlador implements Initializable {
             confirmacion.setContentText("¿Desea continuar?");
             Optional<ButtonType> resultado = confirmacion.showAndWait();
             if(resultado.get() == ButtonType.OK) {
-                bodega = new Bodega(nombre, condicion, region, tramo);
-                crudBodegas.nuevaBodega(bodega);
+                cellar = new Cellar(nombre, condicion, region, tramo);
+                crudBodegas.create(cellar);
                 JOptionPane.showMessageDialog(null,"¡La bodega se ha registrado exitosamente!");
                 regresarMenuBodega();
             }else{
@@ -93,8 +93,8 @@ public class RegistrarBodega_Controlador implements Initializable {
     private String condicion;
     private String region;
     private String tramo;
-    Bodega bodega;
-    Bodegas_Crud crudBodegas = new Bodegas_Crud();
+    Cellar cellar;
+    CellarCrud crudBodegas = new CellarCrud();
 
     //Paneles
     FXMLLoader fxmlLoader;

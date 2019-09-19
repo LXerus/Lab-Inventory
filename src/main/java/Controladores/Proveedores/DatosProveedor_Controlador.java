@@ -1,7 +1,7 @@
 package Controladores.Proveedores;
 
-import Clases.Cruds.Proveedores_Crud;
-import Clases.Modelos.Proveedor;
+import Clases.Cruds.ProviderCrud;
+import Clases.Modelos.Provider;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -44,7 +44,7 @@ public class DatosProveedor_Controlador implements Initializable {
            fechaAprobacion = datos_proveedor_dtpicker_aprobacion.getValue();
            fechaRevalidacion = datos_proveedor_dtpicker_revalidacion.getValue();
 
-           proveedoresCrud.actualizarProveedor(new Proveedor(id, nombre, telefono, contacto, codigoProveedor, servicio, punteo, critico, aprobado, fechaAprobacion, fechaRevalidacion));
+           proveedoresCrud.update(new Provider(id, nombre, telefono, contacto, codigoProveedor, servicio, punteo, critico, aprobado, fechaAprobacion, fechaRevalidacion));
            cancelar();
            JOptionPane.showMessageDialog(null, "Los datos del proveedor fueron actualizados correctamente.");
        }else {
@@ -57,18 +57,18 @@ public class DatosProveedor_Controlador implements Initializable {
         stage.close();
     }
 
-    public void datosProveedor(Proveedor proveedor){
-        id = proveedor.getId();
-        nombre = proveedor.getNombre();
-        telefono = proveedor.getTelefono();
-        contacto = proveedor.getContacto();
-        codigoProveedor = proveedor.getCodigoDeProveedor();
-        servicio = proveedor.getServicio();
-        punteo = proveedor.getPunteo();
-        critico = proveedor.isCritico();
-        aprobado = proveedor.isAprobado();
-        fechaAprobacion = proveedor.getFechaDeAprobacion();
-        fechaRevalidacion = proveedor.getFechaDeRevalidacion();
+    public void datosProveedor(Provider provider){
+        id = provider.getId();
+        nombre = provider.getName();
+        telefono = provider.getTelephone();
+        contacto = provider.getContact();
+        codigoProveedor = provider.getProviderCode();
+        servicio = provider.getService();
+        punteo = provider.getRating();
+        critico = provider.isCritical();
+        aprobado = provider.isApproved();
+        fechaAprobacion = provider.getApprovalDate();
+        fechaRevalidacion = provider.getRevalidationDate();
 
         datos_proveedor_txtfl_id.setText(Integer.toString(id));
         datos_proveedor_txtfl_nombre.setText(nombre);
@@ -140,7 +140,7 @@ public class DatosProveedor_Controlador implements Initializable {
     private LocalDate fechaRevalidacion;
     private ToggleGroup proveedorCritico = new ToggleGroup();
     private ToggleGroup proveedorAprobado = new ToggleGroup();
-    private Proveedores_Crud proveedoresCrud = new Proveedores_Crud();
+    private ProviderCrud proveedoresCrud = new ProviderCrud();
 
     @FXML private TextField datos_proveedor_txtfl_id;
     @FXML private TextField datos_proveedor_txtfl_nombre;

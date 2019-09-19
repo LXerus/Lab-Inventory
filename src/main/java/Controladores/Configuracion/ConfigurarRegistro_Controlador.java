@@ -1,8 +1,7 @@
 package Controladores.Configuracion;
 
-import Clases.Cruds.Registro_Crud;
-import Clases.Modelos.Registro;
-import Controladores.Bodegas.DatosBodega_Controlador;
+import Clases.Cruds.RegistryCrud;
+import Clases.Modelos.Registry;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,12 +24,12 @@ public class ConfigurarRegistro_Controlador implements Initializable {
     @FXML private TextField config_txtfl_id;
     @FXML private TextField config_txtfl_registro;
     @FXML private Button config_btn_cancelar;
-    @FXML private TableView<Registro> config_table_registros;
-    @FXML private TableColumn<Registro, Integer> config_clmn_idreg;
-    @FXML private TableColumn<Registro, String> config_clmn_registro;
-    @FXML private TableColumn<Registro, String> config_clmn_descripcion;
+    @FXML private TableView<Registry> config_table_registros;
+    @FXML private TableColumn<Registry, Integer> config_clmn_idreg;
+    @FXML private TableColumn<Registry, String> config_clmn_registro;
+    @FXML private TableColumn<Registry, String> config_clmn_descripcion;
 
-    private Registro_Crud registroCrud = new Registro_Crud();
+    private RegistryCrud registroCrud = new RegistryCrud();
     private  int id;
     private String nombre;
     private FXMLLoader fxmlLoader;
@@ -47,7 +46,7 @@ public class ConfigurarRegistro_Controlador implements Initializable {
             id = 0;
         }
         nombre = config_txtfl_registro.getText();
-        config_table_registros.setItems(registroCrud.buscarRegistro(new Registro(id, nombre)));
+        config_table_registros.setItems(registroCrud.read(new Registry(id, nombre)));
         config_clmn_idreg.setCellValueFactory(new PropertyValueFactory<>("id"));
         config_clmn_registro.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         config_clmn_descripcion.setCellValueFactory(new PropertyValueFactory<>("descripcion"));

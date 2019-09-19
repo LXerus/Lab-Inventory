@@ -14,7 +14,7 @@
         <TableView fx:id="config_tdp_table_tdp" layoutX="49.0" layoutY="178.0" prefHeight="200.0" prefWidth="414.0">
             <columns>
                 <TableColumn fx:id="config_tdp_clmn_idtdp" prefWidth="75.0" text="ID" />
-                <TableColumn fx:id="config_tdp_clmn_nombretdp" prefWidth="214.0" text="Tipo de producto" />
+                <TableColumn fx:id="config_tdp_clmn_nombretdp" prefWidth="214.0" text="Tipo de product" />
                 <TableColumn fx:id="config_tdp_clmn_desctdp" prefWidth="124.0" text="Descripcion" />
             </columns>
         </TableView>

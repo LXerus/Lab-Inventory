@@ -1,7 +1,7 @@
 package Controladores.Configuracion;
 
-import Clases.Cruds.TipoDeProductos_Crud;
-import Clases.Modelos.TipoDeProducto;
+import Clases.Cruds.ProductTypeCrud;
+import Clases.Modelos.ProductType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -17,7 +17,7 @@ public class NuevoTipoDeProducto_Controlador implements Initializable {
     @FXML private TextField nuevo_tdp_txtfl_tdp;
     @FXML private TextArea nuevo_tdp_txtarea_descripcion;
     @FXML private Button nuevo_tdp_btn_cancelar;
-    private TipoDeProductos_Crud tipoDeProductosCrud = new TipoDeProductos_Crud();
+    private ProductTypeCrud tipoDeProductosCrud = new ProductTypeCrud();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -26,7 +26,7 @@ public class NuevoTipoDeProducto_Controlador implements Initializable {
 
     public void nuevoTipoDeProducto(){
         if(validarDatos()){
-            tipoDeProductosCrud.nuevoTipoDeProducto(new TipoDeProducto(nuevo_tdp_txtfl_tdp.getText(),nuevo_tdp_txtarea_descripcion.getText() ));
+            tipoDeProductosCrud.create(new ProductType(nuevo_tdp_txtfl_tdp.getText(),nuevo_tdp_txtarea_descripcion.getText() ));
             cancelar();
             JOptionPane.showMessageDialog(null, "'"+nuevo_tdp_txtfl_tdp.getText()+"' fue registrado correctamente.");
         }

@@ -1,7 +1,7 @@
 package Controladores.Productos;
 
-import Clases.Cruds.Productos_Crud;
-import Clases.Modelos.Producto;
+import Clases.Cruds.ProductCrud;
+import Clases.Modelos.Product;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,7 +10,6 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
-import javax.swing.*;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -30,21 +29,21 @@ public class ProductoSeleccionado_Controlador implements Initializable {
         }));
     }
 
-    public void datosDelProducto(Producto producto){
-        this.productoSeleccionado = producto;
-        id = producto.getId();
-        nombre = producto.getNombre();
-        marca = producto.getMarca();
-        lote = producto.getLote();
-        CAS = producto.getCas();
-        codigoInterno = producto.getCodigo_interno();
-        codigoStandard = producto.getCodigo_standard();
-        factura = producto.getNumero_de_factura();
-        costo = producto.getCosto();
-        stock =  producto.getStock();
-        costoXUnidad = producto.getCostoXUnidad();
-        presentacion = producto.getPresentacion();
-        bodega = producto.getBodega();
+    public void datosDelProducto(Product product){
+        this.productSeleccionado = product;
+        id = product.getId();
+        nombre = product.getName();
+        marca = product.getBrand();
+        lote = product.getLot();
+        CAS = product.getCas();
+        codigoInterno = product.getInternalCode();
+        codigoStandard = product.getStandardCode();
+        factura = product.getInvoiceNumber();
+        costo = product.getCost();
+        stock =  product.getStock();
+        costoXUnidad = product.getCostPerUnit();
+        presentacion = product.getPresentation();
+        bodega = product.getCellar();
         unidadDeMedida.addAll("mg", "g", "kg");
 
         producto_seleccionado_txtfl_nombre.setText(nombre);
@@ -75,7 +74,7 @@ public class ProductoSeleccionado_Controlador implements Initializable {
         Optional<ButtonType> resultado = confirmacion.showAndWait();
         if(resultado.get() == ButtonType.OK) {
             double consumo = stock - Double.parseDouble(producto_seleccionado_txtfl_cantidad.getText());
-            productosCrud.actualizarStock(id, consumo);
+            productosCrud.updateStock(id, consumo);
             Alert confirmacionConsumo = new Alert(Alert.AlertType.INFORMATION);
             confirmacionConsumo.setTitle("Consumo");
             confirmacionConsumo.setHeaderText("Consumo realizado");
@@ -109,10 +108,10 @@ public class ProductoSeleccionado_Controlador implements Initializable {
     private double costoXUnidad = 0;
     private String presentacion;
     private String bodega;
-    private Productos_Crud productosCrud =  new Productos_Crud();
+    private ProductCrud productosCrud =  new ProductCrud();
     private ObservableList<String> unidadDeMedida = FXCollections.observableArrayList();
     private  double cantidad;
-    private Producto productoSeleccionado;
+    private Product productSeleccionado;
 
 
     @FXML private TextField producto_seleccionado_txtfl_nombre;

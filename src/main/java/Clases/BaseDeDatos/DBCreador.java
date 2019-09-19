@@ -1,6 +1,6 @@
 package Clases.BaseDeDatos;
 
-import Clases.Modelos.Presentacion;
+import Clases.Modelos.Peresentation;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -32,8 +32,8 @@ public class DBCreador {
         }else{
             try{
                 sqlQuery = "CREATE DATABASE "+DBNombre;
-                DBConnection = DriverManager.getConnection(url, user, password);
-                DBStatement = DBConnection.createStatement();
+                JDBConnection = DriverManager.getConnection(url, user, password);
+                DBStatement = JDBConnection.createStatement();
                 DBStatement.executeUpdate(sqlQuery);
                 JOptionPane.showMessageDialog(null, "Base de datos creada exitosamente!");
             }catch (SQLException e){
@@ -46,9 +46,9 @@ public class DBCreador {
                         e.printStackTrace();
                     }
                 }
-                if (DBConnection != null){
+                if (JDBConnection != null){
                     try{
-                        DBConnection.close();
+                        JDBConnection.close();
                     }catch (SQLException e){
                         e.printStackTrace();
                     }
@@ -140,13 +140,13 @@ public class DBCreador {
         sqlQuery = "INSERT INTO presentaciones(presentacion, unidad_medida) VALUES (?,?)";
         try{
             DBConnection = DriverManager.getConnection(url, user, password);
-            ObservableList<Presentacion> listaPresentaciones = FXCollections.observableArrayList();
-            listaPresentaciones.addAll(new Presentacion("mg", "Masa"), new Presentacion("g", "Masa"),
-                                        new Presentacion("kg","Masa"), new Presentacion("litro","Volumen"));
+            ObservableList<Peresentation> listaPresentaciones = FXCollections.observableArrayList();
+            listaPresentaciones.addAll(new Peresentation("mg", "Masa"), new Peresentation("g", "Masa"),
+                                        new Peresentation("kg","Masa"), new Peresentation("litro","Volumen"));
             for(int i = 0; i <listaPresentaciones.size();i++){
                 PreparedStatement DBPreparedStatement = DBConnection.prepareStatement(sqlQuery);
-                DBPreparedStatement.setString(1, listaPresentaciones.get(i).getPresentacion());
-                DBPreparedStatement.setString(2, listaPresentaciones.get(i).getUnidadDeMedida());
+                DBPreparedStatement.setString(1, listaPresentaciones.get(i).getPresentation());
+                DBPreparedStatement.setString(2, listaPresentaciones.get(i).getMeasurementUnit());
                 DBPreparedStatement.execute();
             }
         }catch (SQLException e){

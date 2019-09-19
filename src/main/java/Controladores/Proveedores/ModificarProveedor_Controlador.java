@@ -1,7 +1,7 @@
 package Controladores.Proveedores;
 
-import Clases.Cruds.Proveedores_Crud;
-import Clases.Modelos.Proveedor;
+import Clases.Cruds.ProviderCrud;
+import Clases.Modelos.Provider;
 import Controladores.MenuPrincipal.MenuPrincipal_Controlador;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -28,7 +28,7 @@ public class ModificarProveedor_Controlador implements Initializable {
     }
 
     public void buscarProveedor(){
-        modificar_proveedor_table_proveedores.setItems(proveedoresCrud.buscarProveedor(datosIntroducidos()));
+        modificar_proveedor_table_proveedores.setItems(proveedoresCrud.read(datosIntroducidos()));
         modificar_proveedor_clm_id.setCellValueFactory(new PropertyValueFactory<>("codigoDeProveedor"));
         modificar_proveedor_clm_nombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         modificar_proveedor_clm_telefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
@@ -55,12 +55,12 @@ public class ModificarProveedor_Controlador implements Initializable {
         });
     }
 
-    public Proveedor datosIntroducidos(){
+    public Provider datosIntroducidos(){
         String nombre = modificar_proveedor_txtfl_nombre.getText();
         String telefono = modificar_proveedor_txtfl_telefono.getText();
         String contacto = modificar_proveedor_txtfl_contacto.getText();
         String codigo = modificar_proveedor_txtfl_id.getText();
-        return new Proveedor(nombre, telefono, contacto, codigo);
+        return new Provider(nombre, telefono, contacto, codigo);
     }
 
     public void cancelar(){
@@ -77,12 +77,12 @@ public class ModificarProveedor_Controlador implements Initializable {
     @FXML private TextField modificar_proveedor_txtfl_telefono;
     @FXML private TextField modificar_proveedor_txtfl_id;
     @FXML private TextField modificar_proveedor_txtfl_contacto;
-    @FXML private TableView<Proveedor> modificar_proveedor_table_proveedores;
-    @FXML private TableColumn<Proveedor, Integer> modificar_proveedor_clm_id;
-    @FXML private TableColumn<Proveedor, String> modificar_proveedor_clm_nombre;
-    @FXML private TableColumn<Proveedor, String> modificar_proveedor_clm_telefono;
-    @FXML private TableColumn<Proveedor, String> modificar_proveedor_clm_contacto;
-    private Proveedores_Crud proveedoresCrud = new Proveedores_Crud();
+    @FXML private TableView<Provider> modificar_proveedor_table_proveedores;
+    @FXML private TableColumn<Provider, Integer> modificar_proveedor_clm_id;
+    @FXML private TableColumn<Provider, String> modificar_proveedor_clm_nombre;
+    @FXML private TableColumn<Provider, String> modificar_proveedor_clm_telefono;
+    @FXML private TableColumn<Provider, String> modificar_proveedor_clm_contacto;
+    private ProviderCrud proveedoresCrud = new ProviderCrud();
 
 
 }

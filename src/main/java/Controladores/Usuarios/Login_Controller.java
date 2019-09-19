@@ -1,9 +1,9 @@
 package Controladores.Usuarios;
 
-import Clases.BaseDeDatos.Conectar;
-import Clases.Modelos.Configuracion;
-import Clases.Modelos.Usuario;
-import Clases.Modelos.UsuarioActual;
+import Clases.BaseDeDatos.JDBConnection;
+import Clases.Modelos.Configuration;
+import Clases.Modelos.User;
+import Clases.Modelos.CurrentUser;
 import Controladores.MenuPrincipal.MenuPrincipal_Controlador;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -55,16 +55,16 @@ public class Login_Controller implements Initializable {
     public void loginCheck(){
         LocalDate fechaDeEntrada;
         LocalTime horaDeEntrada;
-        Usuario usuario;
+        User user;
 
         if(validarDatos()){
             userName = login_txtfl_id.getText();
             password = login_pswfl_password.getText();
-            conectar = new Conectar(userName, password);
-            SQLConnection  = conectar.getConnection();
+            JDBConnection = new JDBConnection(userName, password);
+            SQLConnection  = JDBConnection.getConnection();
             ResultSet usuarioResultSet = null;
 
-                if(conectar.getConnection() == null){
+                if(JDBConnection.getConnection() == null){
                     login_texto_loginfail.setText("El ID de usuario o contraseña son invalidos");
                 }else{
                     try {
@@ -85,8 +85,8 @@ public class Login_Controller implements Initializable {
 
                             fechaDeEntrada = LocalDate.now();
                             horaDeEntrada = LocalTime.now();
-                            usuario = new Usuario(id_usuario, nombre_usuario, apellidos_usuario, password_usuario, fdi_usuario.toLocalDate(), area_usuario, activo_usuario, correo_electronico_usuario, privilegios_usuario);
-                            UsuarioActual.obtenerDatosDeUsuario(usuario, fechaDeEntrada, horaDeEntrada);
+                            user = new User(id_usuario, nombre_usuario, apellidos_usuario, password_usuario, fdi_usuario.toLocalDate(), area_usuario, activo_usuario, correo_electronico_usuario, privilegios_usuario);
+                            CurrentUser.getUserData(user, fechaDeEntrada, horaDeEntrada);
                             usuarioResultSet.beforeFirst();
 
                             loginStage = (Stage) login_btn_login.getScene().getWindow();
@@ -110,11 +110,11 @@ public class Login_Controller implements Initializable {
     }
 
     private void comprobarDatosConfiguracion(){
-        configuracion.leerConfiguracion();
-        String servidor = Configuracion.getServidor();
-        String puerto = Configuracion.getPuerto();
-        String baseDeDatos = Configuracion.getBaseDeDatos();
-        if(Configuracion.getServidor() == null || Configuracion.getPuerto() == null || Configuracion.getBaseDeDatos() == null){
+        configuration.readConfiguration();
+        String servidor = Configuration.getServer();
+        String puerto = Configuration.getPort();
+        String baseDeDatos = Configuration.getDataBase();
+        if(Configuration.getServer() == null || Configuration.getPort() == null || Configuration.getDataBase() == null){
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/Formularios/Modificacion/ConfiguracionBD/login_configuracion_gui.fxml"));
                 Parent parent = fxmlLoader.load();
@@ -142,11 +142,11 @@ public class Login_Controller implements Initializable {
 
     private Stage loginStage;
     private MenuPrincipal_Controlador menuPrincipalControlador = new MenuPrincipal_Controlador();
-    private Conectar conectar;
+    private JDBConnection JDBConnection;
     private Connection SQLConnection;
     private String userName;
     private String password;
-    private Configuracion configuracion = new Configuracion();
+    private Configuration configuration = new Configuration();
     @FXML
     private AnchorPane panel_login;
     @FXML
