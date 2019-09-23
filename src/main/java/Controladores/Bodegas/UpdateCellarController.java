@@ -22,13 +22,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ModificarBodega_Controlador implements Initializable {
+public class UpdateCellarController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
     }
 
-    public void cancelar(){
+    public void cancel(){
         try {
             fxmlLoader = new FXMLLoader(getClass().getResource("/gui/Menus/menu_bodegas_gui.fxml"));
             panel_menu_bodegas = fxmlLoader.load();
@@ -38,21 +38,21 @@ public class ModificarBodega_Controlador implements Initializable {
         }
     }
 
-    public void buscarBodega(){
-        modificar_bodegas_tabla_bodegas.setItems(bodegasCrud.read(datosIntroducidos()));
+    public void getCellars(){
+        modificar_bodegas_tabla_bodegas.setItems(cellarCrud.read(dataInput()));
         modificar_bodega_clm_id.setCellValueFactory(new PropertyValueFactory<>("id"));
-        modificiar_bodega_clm_nombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        modificiar_bodega_clm_nombre.setCellValueFactory(new PropertyValueFactory<>("name"));
         modificar_bodega_clm_region.setCellValueFactory(new PropertyValueFactory<>("region"));
-        modificar_bodega_clm_condicion.setCellValueFactory(new PropertyValueFactory<>("condicion"));
-        modificar_bodega_clm_tramo.setCellValueFactory(new PropertyValueFactory<>("tramo"));
+        modificar_bodega_clm_condicion.setCellValueFactory(new PropertyValueFactory<>("condition"));
+        modificar_bodega_clm_tramo.setCellValueFactory(new PropertyValueFactory<>("section"));
         modificar_bodegas_tabla_bodegas.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/Formularios/Modificacion/Bodega/datos_bodega_gui.fxml"));
                 try{
                     fxmlLoader.load();
-                    DatosBodega_Controlador bodegaDatosControlador = fxmlLoader.getController();
-                    bodegaDatosControlador.datosDeLaBodega(modificar_bodegas_tabla_bodegas.getSelectionModel().getSelectedItem());
+                    CellarDataController cellarDataController = fxmlLoader.getController();
+                    cellarDataController.cellarData(modificar_bodegas_tabla_bodegas.getSelectionModel().getSelectedItem());
                     Parent parent = fxmlLoader.getRoot();
                     Stage stage = new Stage();
                     stage.setScene(new Scene(parent));
@@ -65,30 +65,18 @@ public class ModificarBodega_Controlador implements Initializable {
         });
     }
 
-    public String datosIntroducidos(){
-        String sqlQuery = "SELECT id, nombre, condicion, region, tramo FROM bodega WHERE";
-        if(!modificar_bodega_txtf_numero.getText().isEmpty()){
-            sqlQuery = sqlQuery + " id LIKE '%"+modificar_bodega_txtf_numero.getText()+"%' AND ";
+    public Cellar dataInput(){
+        int id;
+        if(modificar_bodega_txtf_numero.getText().isEmpty()){
+            id = 0;
+        }else{
+            id =  Integer.parseInt(modificar_bodega_txtf_numero.getText());
         }
-        if (!modificar_bodega_txtf_nombre.getText().isEmpty()){
-            sqlQuery = sqlQuery + " nombre LIKE '%"+modificar_bodega_txtf_nombre.getText()+"%' AND ";
-        }
-        if (!modificar_bodega_txtf_region.getText().isEmpty()){
-            sqlQuery = sqlQuery + " region LIKE '%"+modificar_bodega_txtf_region.getText()+"%' AND ";
-        }
-
-        char[] stringToArray = sqlQuery.toCharArray();
-        String limpiarDatos = "";
-
-        for(int i = 0;i < stringToArray.length-4; i ++){
-            limpiarDatos = limpiarDatos + stringToArray[i];
-        }
-
-        sqlQuery = limpiarDatos;
-        return sqlQuery;
+        Cellar cellar = new Cellar( id, modificar_bodega_txtf_nombre.getText(), modificar_bodega_txtf_region.getText());
+        return cellar;
     }
 
-    private CellarCrud bodegasCrud = new CellarCrud();
+    private CellarCrud cellarCrud = new CellarCrud();
     private FXMLLoader fxmlLoader;
     private AnchorPane panel_menu_bodegas;
 

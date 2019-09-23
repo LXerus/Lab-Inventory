@@ -1,12 +1,12 @@
 package Clases.Modelos;
 
-public class ConversionDeMedidas {
+public class UnitCoversion {
     private String unidadDeMedidaConsumo;
     private double consumo;
     private double costoPorUnidad;
     private Product product;
 
-    public ConversionDeMedidas(Product product, String unidadDeMedidaConsumo, double consumo) {
+    public UnitCoversion(Product product, String unidadDeMedidaConsumo, double consumo) {
         this.unidadDeMedidaConsumo = unidadDeMedidaConsumo;
         this.product = product;
         this.consumo = consumo;

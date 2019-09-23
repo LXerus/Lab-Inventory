@@ -11,14 +11,14 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MenuBodegas_Controlador implements Initializable {
+public class CellarMenuController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
 
-    public void irBuscarBodega()  {
+    public void searchCellar()  {
         try {
             fxmlLoader = new FXMLLoader(getClass().getResource("/gui/Formularios/Busquda/buscar_bodega_gui.fxml"));
             panel_seleccionado = fxmlLoader.load();
@@ -28,7 +28,7 @@ public class MenuBodegas_Controlador implements Initializable {
         }
   }
 
-  public void irRegistrarBodega() {
+  public void registerCellar() {
        try {
            fxmlLoader = new FXMLLoader(getClass().getResource("/gui/Formularios/Registro/registrar_bodega_gui.fxml"));
            panel_seleccionado = fxmlLoader.load();
@@ -38,7 +38,7 @@ public class MenuBodegas_Controlador implements Initializable {
        }
   }
 
-  public void irModificarBodega(){
+  public void updateCellar(){
         try{
             fxmlLoader = new FXMLLoader(getClass().getResource("/gui/Formularios/Modificacion/Bodega/modificar_bodegas_gui.fxml"));
             panel_seleccionado = fxmlLoader.load();
@@ -48,9 +48,6 @@ public class MenuBodegas_Controlador implements Initializable {
         }
   }
 
-
-    @FXML
-    private AnchorPane panel_menu_bodegas;
     private FXMLLoader fxmlLoader;
     private AnchorPane panel_seleccionado;
 }

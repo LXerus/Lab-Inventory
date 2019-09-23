@@ -4,6 +4,7 @@ import Clases.BaseDeDatos.JDBConnection;
 import Clases.Modelos.Cellar;
 import Clases.Modelos.UserActivity;
 import Clases.Modelos.CurrentUser;
+import Iterfaces.ICrudable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -11,7 +12,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class CellarCrud {
+public class CellarCrud implements ICrudable {
     private Connection connection;
     private JDBConnection JDBConnection;
     private ObservableList<Cellar> cellarList;
@@ -22,7 +23,8 @@ public class CellarCrud {
     ActivityLogCrud log;
 
 
-    public void create(Cellar cellar){
+    public void create(Object object){
+        Cellar cellar = (Cellar) object;
         String nombre = cellar.getName();
         String condicion = cellar.getCondition();
         String region = cellar.getRegion();
@@ -67,23 +69,44 @@ public class CellarCrud {
         }
     }
 
- public ObservableList<Cellar> read(String query) {
-        ResultSet resultSetConsultarBodegas = null;
-        cellarList = FXCollections.observableArrayList();
-        JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
-        connection = JDBConnection.getConnection();
-        try {
-            Statement consultarBase = connection.createStatement();
-            resultSetConsultarBodegas = consultarBase.executeQuery(query);
+ public ObservableList<Cellar> read(Object object) {
+     Cellar cellar = (Cellar) object;
+     String sqlQuery = "SELECT id, nombre, condicion, region, tramo FROM bodega WHERE";
+     if(!(cellar.getId() == 0)){
+         sqlQuery = sqlQuery + " id LIKE '%"+ cellar.getId()+"%' AND ";
+     }
+     if (!cellar.getName().isEmpty()){
+         sqlQuery = sqlQuery + " nombre LIKE '%"+cellar.getName()+"%' AND ";
+     }
+     if (!cellar.getRegion().isEmpty()){
+         sqlQuery = sqlQuery + " region LIKE '%"+cellar.getRegion()+"%' AND ";
+     }
 
-            while (resultSetConsultarBodegas.next()) {
-                int id_bodega = resultSetConsultarBodegas.getInt(1);
-                String name = resultSetConsultarBodegas.getString(2);
-                String condition = resultSetConsultarBodegas.getString(3);
-                String region = resultSetConsultarBodegas.getString(4);
-                String section = resultSetConsultarBodegas.getString(5);
-                cellarList.add(new Cellar(id_bodega, name, condition, region, section));
-            }
+     char[] stringToArray = sqlQuery.toCharArray();
+     String cleanQuery = "";
+
+     for(int i = 0;i < stringToArray.length-4; i ++){
+         cleanQuery = cleanQuery + stringToArray[i];
+     }
+
+     sqlQuery = cleanQuery;
+
+    ResultSet resultSet = null;
+    cellarList = FXCollections.observableArrayList();
+    JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+    connection = JDBConnection.getConnection();
+    try {
+        Statement consultarBase = connection.createStatement();
+        resultSet = consultarBase.executeQuery(sqlQuery);
+
+        while (resultSet.next()) {
+            int id_bodega = resultSet.getInt(1);
+            String name = resultSet.getString(2);
+            String condition = resultSet.getString(3);
+            String region = resultSet.getString(4);
+            String section = resultSet.getString(5);
+            cellarList.add(new Cellar(id_bodega, name, condition, region, section));
+        }
             log = new ActivityLogCrud();
             Date = LocalDate.now();
             time = LocalTime.now();
@@ -101,8 +124,8 @@ public class CellarCrud {
         }catch (SQLException e){
             e.printStackTrace();
         }finally {
-            if(resultSetConsultarBodegas != null){
-                resultSetConsultarBodegas = null;
+            if(resultSet != null){
+                resultSet = null;
             }
             if (connection != null){
                 connection = null;
@@ -112,7 +135,8 @@ public class CellarCrud {
      return cellarList;
     }
 
-    public void update(Cellar cellar){
+    public void update(Object object){
+        Cellar cellar = (Cellar) object;
         String sqlInstruccion = "UPDATE bodega SET nombre='?', condicion='?', tramo='?', region='?' WHERE id="+ cellar.getId();
         try {
             JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
@@ -146,5 +170,10 @@ public class CellarCrud {
                 JDBConnection.disconnect();
             }
         }
+    }
+
+    @Override
+    public void delete(Object object) {
+
     }
 }

@@ -8,10 +8,10 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.Bodegas.DatosBodega_Controlador">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.Bodegas.CellarDataController">
    <children>
-      <Button fx:id="datos_bodega_btn_guardar" layoutX="167.0" layoutY="328.0" mnemonicParsing="false" onAction="#guardarCambios" prefWidth="110.0" text="Guardar Cambios" />
-      <Button fx:id="datos_bodega_btn_cancelar" layoutX="367.0" layoutY="328.0" mnemonicParsing="false" onAction="#cancelar" prefWidth="110.0" text="Cancelar" />
+      <Button fx:id="datos_bodega_btn_guardar" layoutX="167.0" layoutY="328.0" mnemonicParsing="false" onAction="#updateData" prefWidth="110.0" text="Guardar Cambios" />
+      <Button fx:id="datos_bodega_btn_cancelar" layoutX="367.0" layoutY="328.0" mnemonicParsing="false" onAction="#cancel" prefWidth="110.0" text="Cancelar" />
       <Label layoutX="151.0" layoutY="48.0" text="ID:" />
       <Label layoutX="153.0" layoutY="101.0" text="Nombre:" />
       <Label layoutX="155.0" layoutY="150.0" text="Condicion:" />

@@ -39,7 +39,7 @@
             <TableColumn fx:id="log_clmn_categoria" prefWidth="63.0" text="Categoria" />
             <TableColumn fx:id="log_clmn_fecha" prefWidth="75.0" text="Fecha" />
             <TableColumn fx:id="log_clmn_hora" prefWidth="91.0" text="Hora" />
-            <TableColumn fx:id="log_clmn_id_producto" prefWidth="75.0" text="ID del producto" />
+            <TableColumn fx:id="log_clmn_id_producto" prefWidth="75.0" text="ID del product" />
         </columns>
       </TableView>
       <ComboBox fx:id="log_cbox_actividad" layoutX="312.0" layoutY="255.0" prefWidth="150.0" />

@@ -15,7 +15,7 @@
       <Button fx:id="configurar_registro_btn_guardar" layoutX="420.0" layoutY="80.0" mnemonicParsing="false" onAction="#actualizarRegistro" prefWidth="110.0" text="Guardar Cambios" />
       <Button fx:id="configurar_registro_btn_cancelar" layoutX="420.0" layoutY="130.0" mnemonicParsing="false" onAction="#cancelar" prefWidth="110.0" text="Cancelar" />
       <Label layoutX="40.0" layoutY="34.0" text="ID:" />
-      <Label layoutX="40.0" layoutY="72.0" text="Numero de registro:" />
+      <Label layoutX="40.0" layoutY="72.0" text="Numero de registry:" />
       <Label layoutX="40.0" layoutY="114.0" text="Descripcion:" />
    </children>
 </AnchorPane>

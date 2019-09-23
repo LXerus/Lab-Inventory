@@ -46,13 +46,13 @@ public class BuscarUsuarios_Controlador implements Initializable {
     public void buscarUsuario(){
         buscar_usuario_tabla_lista_usuarios.setItems(usuariosCrud.read(datosIntroducidos()));
         buscar_usuario_cl_id.setCellValueFactory(new PropertyValueFactory<>("id"));
-        buscar_usuario_cl_nombres.setCellValueFactory(new PropertyValueFactory<>("nombres"));
-        buscar_usuario_cl_apellidos.setCellValueFactory(new PropertyValueFactory<>("apellidos"));
-        buscar_usuario_cl_fdi.setCellValueFactory(new PropertyValueFactory<>("fecha_de_ingreso"));
+        buscar_usuario_cl_nombres.setCellValueFactory(new PropertyValueFactory<>("name"));
+        buscar_usuario_cl_apellidos.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        buscar_usuario_cl_fdi.setCellValueFactory(new PropertyValueFactory<>("entryDae"));
         buscar_usuario_cl_area.setCellValueFactory(new PropertyValueFactory<>("area"));
-        buscar_usuario_cl_activo.setCellValueFactory(new PropertyValueFactory<>("estado"));
-        buscar_usuario_cl_email.setCellValueFactory(new PropertyValueFactory<>("correo_electronico"));
-        buscar_usuario_cl_privilegios.setCellValueFactory(new PropertyValueFactory<>("tipoPrivilegios"));
+        buscar_usuario_cl_activo.setCellValueFactory(new PropertyValueFactory<>("status"));
+        buscar_usuario_cl_email.setCellValueFactory(new PropertyValueFactory<>("email"));
+        buscar_usuario_cl_privilegios.setCellValueFactory(new PropertyValueFactory<>("privilegesType"));
     }
 
     public ObservableList<String> obtenerListaDePrivilegios(){

@@ -16,86 +16,86 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class DatosBodega_Controlador implements Initializable {
+public class CellarDataController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         configuration.readConfiguration();
     }
 
-    public void datosDeLaBodega(Cellar cellar){
+    public void cellarData(Cellar cellar){
         //obteniendo los datos de la bodega hacia la nueva ventana
         id = cellar.getId();
-        nombre = cellar.getName();
-        condicion = cellar.getCondition();
-        tramo = cellar.getSection();
+        name = cellar.getName();
+        condition = cellar.getCondition();
+        section = cellar.getSection();
         region = cellar.getRegion();
 
         datos_bodega_txtfl_id.setText(Integer.toString(id));
-        datos_bodega_txtfl_nombre.setText(nombre);
-        datos_bodega_txtfl_condicion.setText(condicion);
-        datos_bodega_txtfl_tramo.setText(tramo);
+        datos_bodega_txtfl_nombre.setText(name);
+        datos_bodega_txtfl_condicion.setText(condition);
+        datos_bodega_txtfl_tramo.setText(section);
         datos_bodega_txtfl_region.setText(region);
     }
 
-    public void guardarCambios(){
-        if(validarDatos()){
-            String nuevo_nombre =  datos_bodega_txtfl_nombre.getText();
-            String nuevo_condicion = datos_bodega_txtfl_condicion.getText();
-            String nuevo_tramo = datos_bodega_txtfl_tramo.getText();
-            String nuevo_region = datos_bodega_txtfl_region.getText();
+    public void updateData(){
+        if(verifyData()){
+            String name =  datos_bodega_txtfl_nombre.getText();
+            String condition = datos_bodega_txtfl_condicion.getText();
+            String section = datos_bodega_txtfl_tramo.getText();
+            String region = datos_bodega_txtfl_region.getText();
 
-            Alert confirmacion = new Alert(Alert.AlertType.CONFIRMATION);
-            confirmacion.setTitle("Actualizar Bodega");
-            confirmacion.setHeaderText("Cambiando datos de la bodega.");
-            confirmacion.setContentText("¿Desea continuar?");
-            Optional<ButtonType> resultado = confirmacion.showAndWait();
+            Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
+            confirmation.setTitle("Actualizar Bodega");
+            confirmation.setHeaderText("Cambiando datos de la bodega.");
+            confirmation.setContentText("¿Desea continuar?");
+            Optional<ButtonType> resultado = confirmation.showAndWait();
             if(resultado.get() == ButtonType.OK) {
-                bodegasCrud.update(new Cellar(id, nuevo_nombre, nuevo_condicion, nuevo_tramo, nuevo_region));
+                cellarCrud.update(new Cellar(id, name, condition, section, region));
             }else{
                 JOptionPane.showMessageDialog(null,"No se han efectuado cambios.");
             }
         }
     }
 
-    public void cancelar(){
+    public void cancel(){
         Stage stage = (Stage) datos_bodega_btn_cancelar.getScene().getWindow();
         stage.close();
     }
 
-    private boolean validarDatos(){
+    private boolean verifyData(){
         //Se asegura que todos los datos necesarios sean ingresados.
-        boolean datosValidos = true;
+        boolean valid = true;
         if(datos_bodega_txtfl_id.getText().isEmpty()){
-            datosValidos = false;
+            valid = false;
         }else {
-            datosValidos = true;
+            valid = true;
         }
 
         if(datos_bodega_txtfl_nombre.getText().isEmpty()){
-            datosValidos = false;
+            valid = false;
         }else {
-            datosValidos = true;
+            valid = true;
         }
 
         if(datos_bodega_txtfl_condicion.getText().isEmpty()){
-            datosValidos = false;
+            valid = false;
         }else {
-            datosValidos = true;
+            valid = true;
         }
 
         if(datos_bodega_txtfl_tramo.getText().isEmpty()){
-            datosValidos = false;
+            valid = false;
         }else {
-            datosValidos = true;
+            valid = true;
         }
 
         if(datos_bodega_txtfl_region.getText().isEmpty()){
-            datosValidos = false;
+            valid = false;
         }else {
-            datosValidos = true;
+            valid = true;
         }
-        return  datosValidos;
+        return  valid;
     }
 
     @FXML private TextField datos_bodega_txtfl_id;
@@ -106,10 +106,10 @@ public class DatosBodega_Controlador implements Initializable {
     @FXML private Button datos_bodega_btn_cancelar;
 
     private int id = 0;
-    private String nombre;
-    private String condicion;
-    private String tramo;
+    private String name;
+    private String condition;
+    private String section;
     private String region;
-    private CellarCrud bodegasCrud = new CellarCrud();
+    private CellarCrud cellarCrud = new CellarCrud();
     private Configuration configuration = new Configuration();
 }

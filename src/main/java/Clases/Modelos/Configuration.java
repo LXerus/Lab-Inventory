@@ -7,7 +7,7 @@ public class Configuration {
     public Configuration(){}
 
     public void configurationFile(String server_config, String port_config, String dataBase_config){
-        directory = new File("../Configuration");
+        directory = new File("/Configuration");
         file = new File(directory, "config.txt");
         try{
             if(!file.exists()){

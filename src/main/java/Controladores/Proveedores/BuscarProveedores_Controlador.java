@@ -52,10 +52,10 @@ public class BuscarProveedores_Controlador implements Initializable {
 
     public void buscarProveedor(){
         buscar_proveedor_table_proveedores.setItems(proveedoresCrud.read(datosIntroducidos()));
-        buscar_proveedor_clm_id.setCellValueFactory(new PropertyValueFactory<>("codigoDeProveedor"));
-        buscar_proveedor_clm_nombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-        buscar_proveedor_clm_tellefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
-        buscar_proveedor_clm_contacto.setCellValueFactory(new PropertyValueFactory<>("contacto"));
+        buscar_proveedor_clm_id.setCellValueFactory(new PropertyValueFactory<>("providerCode"));
+        buscar_proveedor_clm_nombre.setCellValueFactory(new PropertyValueFactory<>("name"));
+        buscar_proveedor_clm_tellefono.setCellValueFactory(new PropertyValueFactory<>("telephone"));
+        buscar_proveedor_clm_contacto.setCellValueFactory(new PropertyValueFactory<>("contact"));
     }
 
     public Provider datosIntroducidos(){

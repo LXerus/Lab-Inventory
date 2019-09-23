@@ -26,7 +26,7 @@
                       <Font name="Times New Roman" size="30.0" />
                   </font>
               </Label>
-              <Label layoutX="50.0" layoutY="140.0" text="Nombre de producto:" />
+              <Label layoutX="50.0" layoutY="140.0" text="Nombre de product:" />
               <Label layoutX="50.0" layoutY="300.0" text="Codigo Interno:" />
               <Label layoutX="50.0" layoutY="180.0" text="Marca:" />
               <Label layoutX="50.0" layoutY="260.0" text="CAS:" />

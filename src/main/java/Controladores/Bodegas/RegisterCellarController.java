@@ -18,7 +18,7 @@ import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class RegistrarBodega_Controlador implements Initializable {
+public class RegisterCellarController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -26,7 +26,7 @@ public class RegistrarBodega_Controlador implements Initializable {
     }
 
     //*********************************** Acciones de botones ***********************************
-    public void regresarMenuBodega(){
+    public void returnCellarMenu(){
         try {
             fxmlLoader = new FXMLLoader(getClass().getResource("/gui/Menus/menu_bodegas_gui.fxml"));
             panel_menu_bodegas = fxmlLoader.load();
@@ -36,19 +36,18 @@ public class RegistrarBodega_Controlador implements Initializable {
         }
     }
 
-    public void registrarBodega() throws SQLException {
-
-        if(validarDatos()){
-            Alert confirmacion = new Alert(Alert.AlertType.CONFIRMATION);
-            confirmacion.setTitle("Registrar Bodega");
-            confirmacion.setHeaderText("Registrando una nueva bodega");
-            confirmacion.setContentText("¿Desea continuar?");
-            Optional<ButtonType> resultado = confirmacion.showAndWait();
+    public void createCellar(){
+        if(checkInformation()){
+            Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
+            confirmation.setTitle("Registrar Bodega");
+            confirmation.setHeaderText("Registrando una nueva bodega");
+            confirmation.setContentText("¿Desea continuar?");
+            Optional<ButtonType> resultado = confirmation.showAndWait();
             if(resultado.get() == ButtonType.OK) {
-                cellar = new Cellar(nombre, condicion, region, tramo);
-                crudBodegas.create(cellar);
+                cellar = new Cellar(name, condition, region, section);
+                cellarCrud.create(cellar);
                 JOptionPane.showMessageDialog(null,"¡La bodega se ha registrado exitosamente!");
-                regresarMenuBodega();
+                returnCellarMenu();
             }else{
                 JOptionPane.showMessageDialog(null, "No se han efectuado cambios en la base de datos.");
             }
@@ -57,51 +56,49 @@ public class RegistrarBodega_Controlador implements Initializable {
         }
     }
 
-    public Boolean validarDatos(){
+    public Boolean checkInformation(){
        //Asegurandonos de que todos los datos hayan sido ingresados
-        Boolean datosValidos = true;
+        Boolean validInformation = true;
 
         if(registrar_bodega_txtfl_nombre.getText().isEmpty()){
-            datosValidos = false;
+            validInformation = false;
         }else{
-            nombre = this.registrar_bodega_txtfl_nombre.getText();
+            name = this.registrar_bodega_txtfl_nombre.getText();
         }
 
         if(registrar_bodega_txtfl_condicion.getText().isEmpty()){
-            datosValidos = false;
+            validInformation = false;
         }else{
-            condicion = this.registrar_bodega_txtfl_condicion.getText();
+            condition = this.registrar_bodega_txtfl_condicion.getText();
         }
 
         if(registrar_bodega_txtfl_region.getText().isEmpty()){
-            datosValidos = false;
+            validInformation = false;
         }else{
             region = this.registrar_bodega_txtfl_region.getText();
         }
 
         if(registrar_bodega_txtfl_tramo.getText().isEmpty()){
-            datosValidos = false;
+            validInformation = false;
         }else{
-            tramo = this.registrar_bodega_txtfl_tramo.getText();
+            section = this.registrar_bodega_txtfl_tramo.getText();
         }
 
-        return datosValidos;
+        return validInformation;
     }
 
     //Datos
-    private String nombre;
-    private String condicion;
+    private String name;
+    private String condition;
     private String region;
-    private String tramo;
+    private String section;
     Cellar cellar;
-    CellarCrud crudBodegas = new CellarCrud();
-
+    CellarCrud cellarCrud = new CellarCrud();
     //Paneles
     FXMLLoader fxmlLoader;
     AnchorPane panel_menu_bodegas;
     @FXML
     AnchorPane panel_ingresar_bodega;
-
     //TextFields
     @FXML
     private TextField registrar_bodega_txtfl_nombre;

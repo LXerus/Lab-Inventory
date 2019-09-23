@@ -42,20 +42,20 @@ public class BuscarProducto_Controlador implements Initializable {
     public void buscarProducto(){
         buscar_producto_table_lista_productos.setItems(productosCrud.read(datosIntroducidos()));
         producto_cl_id.setCellValueFactory(new PropertyValueFactory<>("id"));
-        producto_cl_nombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-        producto_cl_marca.setCellValueFactory(new PropertyValueFactory<>("marca"));
-        producto_cl_bodega.setCellValueFactory(new PropertyValueFactory<>("idBodega"));
+        producto_cl_nombre.setCellValueFactory(new PropertyValueFactory<>("name"));
+        producto_cl_marca.setCellValueFactory(new PropertyValueFactory<>("brand"));
+        producto_cl_bodega.setCellValueFactory(new PropertyValueFactory<>("cellarID"));
         producto_cl_cas.setCellValueFactory(new PropertyValueFactory<>("cas"));
-        producto_cl_cod_interno.setCellValueFactory(new PropertyValueFactory<>("codigo_interno"));
-        producto_cl_cod_stnd.setCellValueFactory(new PropertyValueFactory<>("codigo_standard"));
-        producto_cl_lote.setCellValueFactory(new PropertyValueFactory<>("lote"));
-        producto_cl_fingreso.setCellValueFactory(new PropertyValueFactory<>("fecha_de_ingreso"));
-        producto_cl_fvencimiento.setCellValueFactory(new PropertyValueFactory<>("fecha_de_vencimiento"));
-        producto_cl_fabierto.setCellValueFactory(new PropertyValueFactory<>("fecha_abierto"));
-        producto_cl_presentacion.setCellValueFactory(new PropertyValueFactory<>("idPresentacion"));
+        producto_cl_cod_interno.setCellValueFactory(new PropertyValueFactory<>("internalCode"));
+        producto_cl_cod_stnd.setCellValueFactory(new PropertyValueFactory<>("standardCode"));
+        producto_cl_lote.setCellValueFactory(new PropertyValueFactory<>("lot"));
+        producto_cl_fingreso.setCellValueFactory(new PropertyValueFactory<>("entryDate"));
+        producto_cl_fvencimiento.setCellValueFactory(new PropertyValueFactory<>("expiryDate"));
+        producto_cl_fabierto.setCellValueFactory(new PropertyValueFactory<>("openDate"));
+        producto_cl_presentacion.setCellValueFactory(new PropertyValueFactory<>("presentationID"));
         producto_cl_stock.setCellValueFactory(new PropertyValueFactory<>("stock"));
-        producto_cl_costo.setCellValueFactory(new PropertyValueFactory<>("costo"));
-        producto_cl_proveedor.setCellValueFactory(new PropertyValueFactory<>("idProveedor"));
+        producto_cl_costo.setCellValueFactory(new PropertyValueFactory<>("cost"));
+        producto_cl_proveedor.setCellValueFactory(new PropertyValueFactory<>("providerID"));
         buscar_producto_table_lista_productos.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
