@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="300.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.Configuracion.LoginConfiguracion_Controlador">
+<AnchorPane prefHeight="300.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.Configuracion.LoginConfigurationController">
    <children>
       <Label layoutX="77.0" layoutY="65.0" text="Servidor:" />
       <Label layoutX="77.0" layoutY="110.0" text="Puerto:" />
@@ -15,7 +15,7 @@
       <TextField fx:id="login_config_txtfl_servidor" layoutX="177.0" layoutY="61.0" prefHeight="25.0" prefWidth="200.0" />
       <TextField fx:id="login_config_txtfl_puerto" layoutX="177.0" layoutY="106.0" prefWidth="200.0" />
       <TextField fx:id="login_config_txtfl_db" layoutX="177.0" layoutY="146.0" prefWidth="200.0" />
-      <Button fx:id="login_config_btn_guardar" layoutX="177.0" layoutY="200.0" mnemonicParsing="false" onAction="#guardarConfiguracion" prefWidth="90.0" text="Guardar">
+      <Button fx:id="login_config_btn_guardar" layoutX="177.0" layoutY="200.0" mnemonicParsing="false" onAction="#updateConfiguration" prefWidth="90.0" text="Guardar">
          <font>
             <Font name="Microsoft YaHei Bold" size="12.0" />
          </font>

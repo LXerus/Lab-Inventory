@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="panel_ingresar_producto" minHeight="-Infinity" minWidth="-Infinity" prefHeight="615.0" prefWidth="830.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.Productos.RegistrarProducto_Controlador">
+<AnchorPane fx:id="panel_ingresar_producto" minHeight="-Infinity" minWidth="-Infinity" prefHeight="615.0" prefWidth="830.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.Productos.CreateProductController">
    <children>
       <ScrollPane fitToHeight="true" fitToWidth="true" pannable="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <content>
@@ -49,7 +49,7 @@
                         <ImageView fx:id="registrar_producto_img_ghs" fitHeight="150.0" fitWidth="150.0" layoutX="480.0" layoutY="261.0" pickOnBounds="true" preserveRatio="true" />
                           <TextField fx:id="registrar_producto_txtfl_nombre" layoutX="178.0" layoutY="143.0" prefHeight="25.0" prefWidth="230.0" />
                           <TextField fx:id="registrar_producto_txtfl_marca" layoutX="178.0" layoutY="186.0" prefHeight="25.0" prefWidth="150.0" />
-                          <ComboBox fx:id="registrar_producto_cmbox_ghs" layoutX="480.0" layoutY="225.0" onAction="#ghsSeleccionado" prefWidth="150.0" />
+                          <ComboBox fx:id="registrar_producto_cmbox_ghs" layoutX="480.0" layoutY="225.0" onAction="#selectedGHS" prefWidth="150.0" />
                           <TextField fx:id="registrar_producto_txtfl_lote" layoutX="179.0" layoutY="225.0" prefWidth="150.0" />
                           <TextField fx:id="registrar_producto_txtfl_cas" layoutX="180.0" layoutY="272.0" prefHeight="25.0" prefWidth="150.0" />
                           <TextField fx:id="registrar_producto_txtfl_codigo_interno" layoutX="181.0" layoutY="311.0" prefHeight="25.0" prefWidth="150.0" />
@@ -65,13 +65,13 @@
                         <ComboBox fx:id="registrar_producto_cmbox_registro" layoutX="482.0" layoutY="624.0" prefWidth="150.0" />
                           <DatePicker fx:id="registrar_producto_dtpicker_fecha_abierto" layoutX="180.0" layoutY="666.0" />
                           <DatePicker fx:id="registrar_producto_dtpicker_fecha_vencimiento" layoutX="484.0" layoutY="666.0" />
-                        <ComboBox fx:id="registrar_producto_cmbox_proveedor" layoutX="181.0" layoutY="707.0" onAction="#obtenerCodigoProveedores" prefWidth="150.0" />
+                        <ComboBox fx:id="registrar_producto_cmbox_proveedor" layoutX="181.0" layoutY="707.0" onAction="#getProvderCode" prefWidth="150.0" />
                         <TextField fx:id="registrar_producto_txtfl_codigoproveedor" layoutX="484.0" layoutY="707.0" prefHeight="25.0" prefWidth="129.0" />
-                          <Button fx:id="btn_guardar_producto" layoutX="272.0" layoutY="786.0" mnemonicParsing="false" onAction="#registrarProducto" prefHeight="25.0" prefWidth="112.0" text="Guardar Producto">
+                          <Button fx:id="btn_guardar_producto" layoutX="272.0" layoutY="786.0" mnemonicParsing="false" onAction="#createProduct" prefHeight="25.0" prefWidth="112.0" text="Guardar Producto">
                            <padding>
                               <Insets bottom="10.0" top="10.0" />
                            </padding></Button>
-                          <Button fx:id="ingresar_producto_btn_cancelar" layoutX="421.0" layoutY="786.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#cancelar" prefHeight="38.0" prefWidth="115.0" text="Cancelar">
+                          <Button fx:id="ingresar_producto_btn_cancelar" layoutX="421.0" layoutY="786.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#cancel" prefHeight="38.0" prefWidth="115.0" text="Cancelar">
                            <padding>
                               <Insets bottom="10.0" top="10.0" />
                            </padding></Button>

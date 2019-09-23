@@ -12,9 +12,9 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="615.0" prefWidth="830.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.Configuracion.Configuracion_Controlador">
+<AnchorPane prefHeight="615.0" prefWidth="830.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.Configuracion.ConfigurationController">
    <children>
-      <Button fx:id="configuracion_btn_crear" layoutX="220.0" layoutY="200.0" mnemonicParsing="false" onAction="#crearBaseDeDatos" prefWidth="110.0" text="Crear" />
+      <Button fx:id="configuracion_btn_crear" layoutX="220.0" layoutY="200.0" mnemonicParsing="false" onAction="#createDataBase" prefWidth="110.0" text="Crear" />
       <Label layoutX="50.0" layoutY="200.0" text="Crear nuevo inventario:" />
       <Label layoutX="50.0" layoutY="120.0" text="Direccion IP del server:" />
       <TextField fx:id="configuracion_txtfl_ip" layoutX="200.0" layoutY="120.0" />
@@ -22,11 +22,11 @@
       <Label layoutX="50.0" layoutY="160.0" text="Puerto:" />
       <TextField fx:id="configuracion_txtfl_DB" layoutX="200.0" layoutY="80.0" />
       <Label layoutX="50.0" layoutY="80.0" text="Inventario en uso:" />
-      <Button fx:id="configuracion_btn_cancelar" layoutX="294.0" layoutY="275.0" mnemonicParsing="false" onAction="#cancelar" prefHeight="50.0" prefWidth="110.0" text="Cancelar" />
-      <Button fx:id="configuracion_btn_guardar" layoutX="165.0" layoutY="275.0" mnemonicParsing="false" onAction="#guardarConfiguracion" prefHeight="50.0" prefWidth="110.0" text="Guardar" />
-      <Button fx:id="configuracion_btn_registros" layoutX="495.0" layoutY="76.0" mnemonicParsing="false" onAction="#registroConfiguracion" prefHeight="35.0" prefWidth="120.0" text="Registros" />
-      <Button fx:id="configuracion_btn_presentaciones" layoutX="495.0" layoutY="125.0" mnemonicParsing="false" onAction="#presentacionesConfiguracion" prefHeight="35.0" prefWidth="120.0" text="Presentaciones" />
-      <Button fx:id="configuracion_btn_tipo_productos" layoutX="495.0" layoutY="173.0" mnemonicParsing="false" onAction="#tipoProductoConfiguracion" prefHeight="35.0" prefWidth="120.0" text="Tipo de Productos" />
+      <Button fx:id="configuracion_btn_cancelar" layoutX="294.0" layoutY="275.0" mnemonicParsing="false" onAction="#cancel" prefHeight="50.0" prefWidth="110.0" text="Cancelar" />
+      <Button fx:id="configuracion_btn_guardar" layoutX="165.0" layoutY="275.0" mnemonicParsing="false" onAction="#updateConfiguration" prefHeight="50.0" prefWidth="110.0" text="Guardar" />
+      <Button fx:id="configuracion_btn_registros" layoutX="495.0" layoutY="76.0" mnemonicParsing="false" onAction="#registryConfiguration" prefHeight="35.0" prefWidth="120.0" text="Registros" />
+      <Button fx:id="configuracion_btn_presentaciones" layoutX="495.0" layoutY="125.0" mnemonicParsing="false" onAction="#presentationConfiguration" prefHeight="35.0" prefWidth="120.0" text="Presentaciones" />
+      <Button fx:id="configuracion_btn_tipo_productos" layoutX="495.0" layoutY="173.0" mnemonicParsing="false" onAction="#productTypeConfiguration" prefHeight="35.0" prefWidth="120.0" text="Tipo de Productos" />
    </children>
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

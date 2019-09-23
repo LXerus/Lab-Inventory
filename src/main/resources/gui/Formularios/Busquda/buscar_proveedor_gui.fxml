@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="panel_buscar_proveedor" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.Proveedores.BuscarProveedores_Controlador">
+<AnchorPane fx:id="panel_buscar_proveedor" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.Proveedores.SearchProviderController">
    <children>
       <ScrollPane prefHeight="615.0" prefWidth="830.0">
          <content>
@@ -41,8 +41,8 @@
                   <Label layoutX="110.0" layoutY="217.0" text="Codigo de Proveedor:" />
                   <Label layoutX="401.0" layoutY="157.0" text="Telefono:" />
                   <Label layoutX="401.0" layoutY="217.0" text="Contacto" />
-                  <Button fx:id="buscar_proveedor_btn_buscar" layoutX="450.0" layoutY="295.0" mnemonicParsing="false" onAction="#buscarProveedor" prefWidth="70.0" text="Buscar" />
-                  <Button fx:id="buscar_proveedor_btn_cancelar" layoutX="544.0" layoutY="295.0" mnemonicParsing="false" onAction="#irMenuProveedores" prefHeight="25.0" prefWidth="70.0" text="Cancelar" />
+                  <Button fx:id="buscar_proveedor_btn_buscar" layoutX="450.0" layoutY="295.0" mnemonicParsing="false" onAction="#searchProvider" prefWidth="70.0" text="Buscar" />
+                  <Button fx:id="buscar_proveedor_btn_cancelar" layoutX="544.0" layoutY="295.0" mnemonicParsing="false" onAction="#getProvidersMenu" prefHeight="25.0" prefWidth="70.0" text="Cancelar" />
                </children>
             </AnchorPane>
          </content>

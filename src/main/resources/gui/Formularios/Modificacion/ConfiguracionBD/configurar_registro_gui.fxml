@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.Configuracion.ConfigurarRegistro_Controlador">
+<AnchorPane prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.Configuracion.RegistryConfigurationController">
    <children>
       <TextField fx:id="config_txtfl_id" layoutX="125.0" layoutY="50.0" />
       <TextField fx:id="config_txtfl_registro" layoutX="125.0" layoutY="100.0" />
@@ -17,9 +17,9 @@
             <TableColumn fx:id="config_clmn_descripcion" prefWidth="124.0" text="Descripcion" />
         </columns>
       </TableView>
-      <Button fx:id="config_btn_buscar" layoutX="350.0" layoutY="50.0" mnemonicParsing="false" onAction="#buscarRegistros" prefWidth="100.0" text="Buscar" />
-      <Button fx:id="config_btn_nuevo" layoutX="350.0" layoutY="85.0" mnemonicParsing="false" onAction="#nuevoRegistro" prefWidth="100.0" text="Nuevo Registro" />
-      <Button fx:id="config_btn_cancelar" layoutX="350.0" layoutY="120.0" mnemonicParsing="false" onAction="#cancelar" prefWidth="100.0" text="Cancelar" />
+      <Button fx:id="config_btn_buscar" layoutX="350.0" layoutY="50.0" mnemonicParsing="false" onAction="#getRegistries" prefWidth="100.0" text="Buscar" />
+      <Button fx:id="config_btn_nuevo" layoutX="350.0" layoutY="85.0" mnemonicParsing="false" onAction="#createRegistry" prefWidth="100.0" text="Nuevo Registro" />
+      <Button fx:id="config_btn_cancelar" layoutX="350.0" layoutY="120.0" mnemonicParsing="false" onAction="#cancel" prefWidth="100.0" text="Cancelar" />
       <Label layoutX="50.0" layoutY="50.0" text="ID:" />
       <Label layoutX="50.0" layoutY="100.0" text="Registro:" />
    </children>

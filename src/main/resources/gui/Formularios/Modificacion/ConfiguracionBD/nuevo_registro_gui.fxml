@@ -6,10 +6,10 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="200.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.Configuracion.NuevoRegistro_Controlador">
+<AnchorPane prefHeight="200.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.Configuracion.CreateRegistryController">
    <children>
-      <Button fx:id="nuevo_registro_btn_crear" layoutX="76.0" layoutY="161.0" mnemonicParsing="false" onAction="#crearNuevoRegistro" prefWidth="75.0" text="Crear" />
-      <Button fx:id="nuevo_registro_btn_cancelar" layoutX="195.0" layoutY="161.0" onAction="#cancelar" mnemonicParsing="false" prefWidth="75.0" text="Cancelar" />
+      <Button fx:id="nuevo_registro_btn_crear" layoutX="76.0" layoutY="161.0" mnemonicParsing="false" onAction="#createRegistry" prefWidth="75.0" text="Crear" />
+      <Button fx:id="nuevo_registro_btn_cancelar" layoutX="195.0" layoutY="161.0" onAction="#cancel" mnemonicParsing="false" prefWidth="75.0" text="Cancelar" />
       <TextField fx:id="nuevo_registro_txtfl_registro" layoutX="34.0" layoutY="41.0" />
       <TextArea fx:id="nuevo_registro_txtarea_descripcion" layoutX="34.0" layoutY="92.0" prefHeight="59.0" prefWidth="283.0" />
       <Label layoutX="34.0" layoutY="24.0" text="Numero de registry:" />

@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="615.0" prefWidth="830.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.Usuarios.LogDeActividades_Controlador">
+<AnchorPane prefHeight="615.0" prefWidth="830.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.Usuarios.ActivityLogController">
    <children>
       <TextField fx:id="log_txtfl_nombres" layoutX="80.0" layoutY="114.0" prefHeight="25.0" prefWidth="203.0" />
       <TextField fx:id="log_txtfl_id" layoutX="80.0" layoutY="181.0" prefHeight="25.0" prefWidth="203.0" />
@@ -46,7 +46,7 @@
       <Label layoutX="313.0" layoutY="234.0" text="Actividad" />
       <TextField fx:id="log_txtfl_id_producto" layoutX="80.0" layoutY="255.0" prefHeight="25.0" prefWidth="203.0" />
       <Label layoutX="80.0" layoutY="234.0" text="ID del Pproducto:" />
-      <Button layoutX="530.0" layoutY="255.0" mnemonicParsing="false" onAction="#obtenerLog" prefWidth="100.0" text="Buscar" />
+      <Button layoutX="530.0" layoutY="255.0" mnemonicParsing="false" onAction="#getLog" prefWidth="100.0" text="Buscar" />
       <Button fx:id="log_btn_cancelar" layoutX="644.0" layoutY="255.0" mnemonicParsing="false" prefWidth="100.0" text="Cancelar" />
    </children>
 </AnchorPane>

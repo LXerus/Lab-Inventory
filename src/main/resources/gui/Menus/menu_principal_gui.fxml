@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="panel_menu_principal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1075.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.MenuPrincipal.MenuPrincipal_Controlador">
+<BorderPane fx:id="panel_menu_principal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1075.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.MenuPrincipal.MainMenuController">
    <center>
       <AnchorPane fx:id="menu_principal_panel_central" BorderPane.alignment="CENTER">
          <BorderPane.margin>
@@ -40,36 +40,36 @@
                         <Font name="Times New Roman" size="20.0" />
                      </font>
                   </Label>
-                  <Button fx:id="menu_principal_btn_productos" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#irMenuProductos" prefHeight="50.0" prefWidth="170.0" text="Productos">
+                  <Button fx:id="menu_principal_btn_productos" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#getProductMenu" prefHeight="50.0" prefWidth="170.0" text="Productos">
                      <VBox.margin>
                         <Insets bottom="2.0" top="2.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="menu_principal_btn_bodegas" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#irMenuBodegas" prefHeight="50.0" prefWidth="170.0" text="Bodegas">
+                  <Button fx:id="menu_principal_btn_bodegas" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#getCellarMenu" prefHeight="50.0" prefWidth="170.0" text="Bodegas">
                      <VBox.margin>
                         <Insets bottom="2.0" top="2.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="menu_principal_btn_proveedores" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#irMenuProveedores" prefHeight="50.0" prefWidth="170.0" text="Proveedores">
+                  <Button fx:id="menu_principal_btn_proveedores" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#getProviderMenu" prefHeight="50.0" prefWidth="170.0" text="Proveedores">
                      <VBox.margin>
                         <Insets bottom="2.0" top="2.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="menu_principal_btn_configuracion" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#irConfiguracion" prefHeight="50.0" prefWidth="170.0" text="Configuracion">
+                  <Button fx:id="menu_principal_btn_configuracion" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#getConfigurationGUI" prefHeight="50.0" prefWidth="170.0" text="Configuracion">
                      <VBox.margin>
                         <Insets bottom="2.0" top="2.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="menu_principal_btn_usuarios" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#menuUsuarios" prefHeight="50.0" prefWidth="170.0" text="Usuarios">
+                  <Button fx:id="menu_principal_btn_usuarios" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#getUserMenu" prefHeight="50.0" prefWidth="170.0" text="Usuarios">
                      <VBox.margin>
                         <Insets bottom="2.0" top="2.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="menu_principal_btn_log" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#irLogActividades" prefHeight="50.0" prefWidth="170.0" text="Logs">
+                  <Button fx:id="menu_principal_btn_log" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#getActivityLog" prefHeight="50.0" prefWidth="170.0" text="Logs">
                      <VBox.margin>
                         <Insets bottom="2.0" top="2.0" />
                      </VBox.margin></Button>
-                  <Button fx:id="menu_principal_btn_salir" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#salir" prefHeight="50.0" prefWidth="170.0" text="Salir">
+                  <Button fx:id="menu_principal_btn_salir" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#close" prefHeight="50.0" prefWidth="170.0" text="Salir">
                      <VBox.margin>
                         <Insets bottom="10.0" top="2.0" />
                      </VBox.margin>

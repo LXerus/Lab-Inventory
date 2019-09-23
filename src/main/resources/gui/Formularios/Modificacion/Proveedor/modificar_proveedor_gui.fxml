@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.Proveedores.ModificarProveedor_Controlador">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.Proveedores.UpdateProviderController">
     <children>
         <ScrollPane prefHeight="615.0" prefWidth="830.0">
             <content>
@@ -35,8 +35,8 @@
                         <Label layoutX="201.0" layoutY="174.0" text="Codigo de Proveedor:" />
                         <Label layoutX="200.0" layoutY="119.0" text="Telefono:" />
                         <Label layoutX="200.0" layoutY="225.0" text="Contacto" />
-                        <Button fx:id="modificar_proveedor_btn_buscar" layoutX="306.0" layoutY="295.0" mnemonicParsing="false" onAction="#buscarProveedor" prefWidth="100.0" text="Buscar" />
-                        <Button fx:id="modificar_proveedor_btn_cancelar" layoutX="464.0" layoutY="295.0" mnemonicParsing="false" onAction="#cancelar" prefHeight="25.0" prefWidth="100.0" text="Cancelar" />
+                        <Button fx:id="modificar_proveedor_btn_buscar" layoutX="306.0" layoutY="295.0" mnemonicParsing="false" onAction="#searchProvider" prefWidth="100.0" text="Buscar" />
+                        <Button fx:id="modificar_proveedor_btn_cancelar" layoutX="464.0" layoutY="295.0" mnemonicParsing="false" onAction="#cancel" prefHeight="25.0" prefWidth="100.0" text="Cancelar" />
                     </children>
                 </AnchorPane>
             </content>

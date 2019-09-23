@@ -8,7 +8,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.Bodegas.CellarDataController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.Cellar.CellarDataController">
    <children>
       <Button fx:id="datos_bodega_btn_guardar" layoutX="167.0" layoutY="328.0" mnemonicParsing="false" onAction="#updateData" prefWidth="110.0" text="Guardar Cambios" />
       <Button fx:id="datos_bodega_btn_cancelar" layoutX="367.0" layoutY="328.0" mnemonicParsing="false" onAction="#cancel" prefWidth="110.0" text="Cancelar" />
