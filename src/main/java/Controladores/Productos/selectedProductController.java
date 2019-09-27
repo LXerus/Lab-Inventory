@@ -74,7 +74,7 @@ public class selectedProductController implements Initializable {
         Optional<ButtonType> resultado = confirmacion.showAndWait();
         if(resultado.get() == ButtonType.OK) {
             double consumo = stock - Double.parseDouble(producto_seleccionado_txtfl_cantidad.getText());
-            productCrud.updateStock(id, consumo);
+            productCrud.update(id, consumo);
             Alert confirmacionConsumo = new Alert(Alert.AlertType.INFORMATION);
             confirmacionConsumo.setTitle("Consumo");
             confirmacionConsumo.setHeaderText("Consumo realizado");

@@ -26,15 +26,12 @@ public class UserActivity {
         this.id_product = id_product;
     }
 
-    public UserActivity(int id_user, String userName, String userLastName, String userEmail, String activityType, String table, LocalDate date, LocalTime time) {
+    public UserActivity(int id_user, String userName, String userLastName, String userEmail, LocalDate date) {
         this.id_user = id_user;
         this.userName = userName;
         this.userLastName = userLastName;
-        this.activityType = activityType;
         this.userEmail = userEmail;
-        this.table = table;
         this.date = date;
-        this.time = time;
     }
 
     public String getUserLastName() {

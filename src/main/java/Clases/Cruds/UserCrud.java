@@ -52,7 +52,7 @@ public class UserCrud {
                     date,
                     time
             );
-            log.registrarActividad(activity);
+            log.create(activity);
         } catch (SQLException e) {
             e.printStackTrace();
         }finally {
@@ -136,7 +136,7 @@ public class UserCrud {
                     date,
                     time
             );
-            log.registrarActividad(activity);
+            log.create(activity);
         }catch (SQLException e){
             e.printStackTrace();
         }finally {
@@ -176,7 +176,7 @@ public class UserCrud {
             preparedStatement.setInt(8, user.getPrivileges());
             preparedStatement.executeUpdate();
 
-        /*    privilegiosActualizar = sqlConnection.createStatement();
+        /*    privilegiosActualizar = connection.createStatement();
             if(usuario.getPrivilegios() == 1){
                 sqlQuery = "REVOKE ALL PRIVILEGES ON *.* FROM '"+usuario.getNombres()+"'@'%'";
                 privilegiosActualizar.executeUpdate(sqlQuery);
@@ -208,7 +208,7 @@ public class UserCrud {
                     date,
                     time
             );
-            log.registrarActividad(activity);
+            log.create(activity);
         }catch (SQLException ex){
             ex.printStackTrace();
             ex.getErrorCode();

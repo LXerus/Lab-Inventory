@@ -36,7 +36,7 @@ public class ProductTypeCrud {
                     date,
                     time
             );
-            log.registrarActividad(activity);
+            log.create(activity);
         }catch (SQLException ex){
             ex.printStackTrace();
         }finally {
@@ -133,7 +133,7 @@ public class ProductTypeCrud {
                     date,
                     time
             );
-            log.registrarActividad(activity);
+            log.create(activity);
         }catch (SQLException ex){
             ex.printStackTrace();
         }finally {
@@ -173,7 +173,7 @@ public class ProductTypeCrud {
                     date,
                     time
             );
-            log.registrarActividad(activity);
+            log.create(activity);
         }catch (SQLException ex){
             ex.printStackTrace();
         }finally {

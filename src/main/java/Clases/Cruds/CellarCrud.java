@@ -16,7 +16,7 @@ public class CellarCrud implements ICrudable {
     private Connection connection;
     private JDBConnection JDBConnection;
     private ObservableList<Cellar> cellarList;
-    private PreparedStatement preparedStatementCellar;
+    private PreparedStatement preparedStatement;
     UserActivity activity;
     LocalDate Date;
     LocalTime time;
@@ -34,12 +34,12 @@ public class CellarCrud implements ICrudable {
         try {
             String sqlInstruction = "INSERT INTO bodega(nombre, condicion, region, tramo) VALUES(?, ?, ?, ?)";
             connection = JDBConnection.getConnection();
-            preparedStatementCellar = connection.prepareStatement(sqlInstruction);
-            preparedStatementCellar.setString(1, nombre);
-            preparedStatementCellar.setString(2, condicion);
-            preparedStatementCellar.setString(3, region);
-            preparedStatementCellar.setString(4, tramo);
-            preparedStatementCellar.executeUpdate();
+            preparedStatement = connection.prepareStatement(sqlInstruction);
+            preparedStatement.setString(1, nombre);
+            preparedStatement.setString(2, condicion);
+            preparedStatement.setString(3, region);
+            preparedStatement.setString(4, tramo);
+            preparedStatement.executeUpdate();
 
             log = new ActivityLogCrud();
             Date = LocalDate.now();
@@ -54,13 +54,13 @@ public class CellarCrud implements ICrudable {
                     Date,
                     time
             );
-            log.registrarActividad(activity);
+            log.create(activity);
 
         }catch (SQLException e){
             e.printStackTrace();
         }finally{
-            if(preparedStatementCellar != null){
-                preparedStatementCellar = null;
+            if(preparedStatement != null){
+                preparedStatement = null;
             }
             if (connection != null){
                 connection = null;
@@ -120,7 +120,7 @@ public class CellarCrud implements ICrudable {
                     Date,
                     time
             );
-            log.registrarActividad(activity);
+            log.create(activity);
         }catch (SQLException e){
             e.printStackTrace();
         }finally {
@@ -141,18 +141,18 @@ public class CellarCrud implements ICrudable {
         try {
             JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
             connection = JDBConnection.getConnection();
-            preparedStatementCellar = connection.prepareStatement(sqlInstruccion);
-            preparedStatementCellar.setString(1, cellar.getName());
-            preparedStatementCellar.setString(2, cellar.getCondition());
-            preparedStatementCellar.setString(3, cellar.getSection());
-            preparedStatementCellar.setString(4, cellar.getRegion());
-            preparedStatementCellar.executeUpdate();
+            preparedStatement = connection.prepareStatement(sqlInstruccion);
+            preparedStatement.setString(1, cellar.getName());
+            preparedStatement.setString(2, cellar.getCondition());
+            preparedStatement.setString(3, cellar.getSection());
+            preparedStatement.setString(4, cellar.getRegion());
+            preparedStatement.executeUpdate();
         }catch (SQLException ex){
             ex.printStackTrace();
         }finally {
             try{
-                if (preparedStatementCellar != null){
-                    preparedStatementCellar.close();
+                if (preparedStatement != null){
+                    preparedStatement.close();
                 }
             }catch (SQLException ex){
                 ex.printStackTrace();

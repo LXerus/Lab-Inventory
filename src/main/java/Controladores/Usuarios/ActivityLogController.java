@@ -13,14 +13,44 @@ import java.time.LocalTime;
 import java.util.ResourceBundle;
 
 public class ActivityLogController implements Initializable {
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        log_txtfl_id.setText("0");
+    }
+
+    public void getLog(){
+        log_tabla_log.setItems(activityLogCrud.read(dataInput()));
+        log_clmn_id.setCellValueFactory(new PropertyValueFactory<>("id_user"));
+        log_clmn_nombres.setCellValueFactory(new PropertyValueFactory<>("userName"));
+        log_clmn_apellidos.setCellValueFactory(new PropertyValueFactory<>("userLastName"));
+        log_clmn_email.setCellValueFactory(new PropertyValueFactory<>("userEmail"));
+        log_clmn_actividad.setCellValueFactory(new PropertyValueFactory<>("activityType"));
+        log_clmn_categoria.setCellValueFactory(new PropertyValueFactory<>("table"));
+        log_clmn_fecha.setCellValueFactory(new PropertyValueFactory<>("date"));
+        log_clmn_hora.setCellValueFactory(new PropertyValueFactory<>("time"));
+    }
+
+    private UserActivity dataInput() {
+        int id;
+        if (log_txtfl_id.getText().isEmpty()) {
+            id = 0;
+        } else {
+            id = Integer.parseInt(log_txtfl_id.getText());
+        }
+        String userName = log_txtfl_nombres.getText();
+        String userLastName = log_txtfl_apellidos.getText();
+        String userEmail = log_txtfl_email.getText();
+        LocalDate date = log_dpicker_fecha.getValue();
+
+        return new UserActivity(id, userName, userLastName, userEmail, date);
+    }
+
     @FXML private TextField log_txtfl_nombres;
     @FXML private TextField log_txtfl_apellidos;
     @FXML private TextField log_txtfl_email;
     @FXML private TextField log_txtfl_id;
-    @FXML private TextField log_txtfl_id_producto;
     @FXML private DatePicker log_dpicker_fecha;
-    @FXML private ComboBox log_cbox_categoria;
-    @FXML private ComboBox log_cbox_actividad;
 
     @FXML private TableView<UserActivity> log_tabla_log;
     @FXML private TableColumn<UserActivity, Integer> log_clmn_id;
@@ -31,71 +61,7 @@ public class ActivityLogController implements Initializable {
     @FXML private TableColumn<UserActivity, String> log_clmn_categoria;
     @FXML private TableColumn<UserActivity, LocalDate> log_clmn_fecha;
     @FXML private TableColumn<UserActivity, LocalTime> log_clmn_hora;
-    @FXML private TableColumn<UserActivity, Integer> log_clmn_id_producto;
 
     ActivityLogCrud activityLogCrud = new ActivityLogCrud();
 
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
-    }
-
-    public void getLog(){
-        log_tabla_log.setItems(activityLogCrud.obtenerLogActividades(dataInput()));
-        log_clmn_id.setCellValueFactory(new PropertyValueFactory<>("id_usuario"));
-        log_clmn_nombres.setCellValueFactory(new PropertyValueFactory<>("nombre_usuario"));
-        log_clmn_apellidos.setCellValueFactory(new PropertyValueFactory<>("apellidos_usuario"));
-        log_clmn_email.setCellValueFactory(new PropertyValueFactory<>("correo_electronico"));
-        log_clmn_actividad.setCellValueFactory(new PropertyValueFactory<>("tipo_de_actividad"));
-        log_clmn_categoria.setCellValueFactory(new PropertyValueFactory<>("tabla"));
-        log_clmn_fecha.setCellValueFactory(new PropertyValueFactory<>("fecha"));
-        log_clmn_hora.setCellValueFactory(new PropertyValueFactory<>("hora"));
-        log_clmn_id_producto.setCellValueFactory(new PropertyValueFactory<>("id_producto"));
-    }
-
-    public String dataInput(){
-        String sqlQuery = "SELECT id_usuario, nombre, apellidos, correo_electronico, tipo_de_actividad, tabla, fecha, hora, id_producto FROM registro_de_actividades WHERE ";
-        if(!log_txtfl_nombres.getText().isEmpty()){
-            sqlQuery += "nombre LIKE '%"+log_txtfl_nombres.getText()+"%' AND ";
-        }
-
-        if(!log_txtfl_apellidos.getText().isEmpty()){
-            sqlQuery += "apellidos LIKE '%"+log_txtfl_apellidos.getText()+"%' AND ";
-        }
-
-        if(!log_txtfl_email.getText().isEmpty()){
-            sqlQuery += "correo_electronico LIKE '%"+log_txtfl_email.getText()+"%' AND ";
-        }
-
-        if(!log_txtfl_id.getText().isEmpty()){
-            sqlQuery += "id_usuario LIKE '%"+log_txtfl_id.getText()+"%' AND ";
-        }
-
-        if(!log_txtfl_id_producto.getText().isEmpty()){
-            sqlQuery += "id_producto LIKE '%"+log_txtfl_id_producto.getText()+"%' AND ";
-        }
-
-        if(!(log_dpicker_fecha.getValue() == null)){
-            sqlQuery += "fecha = '"+ log_dpicker_fecha.getValue()+"' AND ";
-        }
-
-        if(!(log_cbox_categoria.getValue() == null)){
-            sqlQuery += "tabla LIKE '%"+log_cbox_categoria.getValue()+"%' AND ";
-        }
-
-        if(!(log_cbox_actividad.getValue() == null)){
-            sqlQuery += "tipo_de_actividad LIKE '%"+log_cbox_actividad.getValue()+"%' AND ";
-        }
-
-        char[] stringToArray = sqlQuery.toCharArray();
-        String limpiarDatos = "";
-
-        for(int i = 0;i < stringToArray.length-4; i ++){
-            limpiarDatos = limpiarDatos + stringToArray[i];
-        }
-
-        sqlQuery = limpiarDatos;
-        return sqlQuery;
-    }
 }

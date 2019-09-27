@@ -8,11 +8,11 @@ import javax.swing.*;
 import java.sql.*;
 
 public class DBCreador {
-    private Connection DBConnection = null;
-    private ResultSet DBResultSet = null;
+    private Connection connection = null;
+    private ResultSet resultSet = null;
     private String DBNombre = null;
     private String sqlQuery = null;
-    private Statement DBStatement = null;
+    private Statement statement = null;
     private String url = "jdbc:mysql://localhost:3306/";
     private String url2 = "jdbc:mysql://localhost:3306/?verifyServerCertificate=false&useSSL=true";
     private String user = "";
@@ -69,13 +69,13 @@ public class DBCreador {
         boolean existe = false;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            DBConnection = DriverManager.getConnection(url2, user, password);
+            connection = DriverManager.getConnection(url2, user, password);
 
-            if(DBConnection != null){
-                DBResultSet = DBConnection.getMetaData().getCatalogs();
+            if(connection != null){
+                resultSet = connection.getMetaData().getCatalogs();
 
-                while (DBResultSet.next()) {
-                    String cataLog = DBResultSet.getString(1);
+                while (resultSet.next()) {
+                    String cataLog = resultSet.getString(1);
                     if (DBNombre.equals(cataLog)) {
                         existe = true;
                     }else{
@@ -89,16 +89,16 @@ public class DBCreador {
         }catch (ClassNotFoundException |SQLException ex) {
             ex.printStackTrace();
         }finally {
-            if(DBResultSet != null){
+            if(resultSet != null){
                 try{
-                    DBResultSet.close();
+                    resultSet.close();
                 }catch (SQLException e){
                     e.printStackTrace();
                 }
             }
-            if (DBConnection != null){
+            if (connection != null){
                 try{
-                    DBConnection.close();
+                    connection.close();
                 }catch (SQLException e){
                     e.printStackTrace();
                 }
@@ -114,22 +114,22 @@ public class DBCreador {
                 "unidad_medida varcahr(255) not null, " +
                 "constraint pk_id_presentacion primary key(id))";
         try{
-            DBConnection = DriverManager.getConnection(url, user, password);
-            DBStatement = DBConnection.createStatement();
-            DBStatement.executeUpdate(sqlQuery);
+            connection = DriverManager.getConnection(url, user, password);
+            statement = connection.createStatement();
+            statement.executeUpdate(sqlQuery);
         }catch (SQLException e){
             e.printStackTrace();
         }finally {
-            if(DBStatement != null){
+            if(statement != null){
                 try{
-                    DBStatement.close();
+                    statement.close();
                 }catch (SQLException ex){
                     ex.printStackTrace();
                 }
             }
-            if (DBConnection != null){
+            if (connection != null){
                 try{
-                    DBConnection.close();
+                    connection.close();
                 }catch (SQLException ex){
                     ex.printStackTrace();
                 }
@@ -139,12 +139,12 @@ public class DBCreador {
 
         sqlQuery = "INSERT INTO presentaciones(presentacion, unidad_medida) VALUES (?,?)";
         try{
-            DBConnection = DriverManager.getConnection(url, user, password);
+            connection = DriverManager.getConnection(url, user, password);
             ObservableList<Peresentation> listaPresentaciones = FXCollections.observableArrayList();
             listaPresentaciones.addAll(new Peresentation("mg", "Masa"), new Peresentation("g", "Masa"),
                                         new Peresentation("kg","Masa"), new Peresentation("litro","Volumen"));
             for(int i = 0; i <listaPresentaciones.size();i++){
-                PreparedStatement DBPreparedStatement = DBConnection.prepareStatement(sqlQuery);
+                PreparedStatement DBPreparedStatement = connection.prepareStatement(sqlQuery);
                 DBPreparedStatement.setString(1, listaPresentaciones.get(i).getPresentation());
                 DBPreparedStatement.setString(2, listaPresentaciones.get(i).getMeasurementUnit());
                 DBPreparedStatement.execute();
@@ -152,16 +152,16 @@ public class DBCreador {
         }catch (SQLException e){
             e.printStackTrace();
         }finally {
-            if(DBStatement != null){
+            if(statement != null){
                 try{
-                    DBStatement.close();
+                    statement.close();
                 }catch (SQLException ex){
                     ex.printStackTrace();
                 }
             }
-            if (DBConnection != null){
+            if (connection != null){
                 try{
-                    DBConnection.close();
+                    connection.close();
                 }catch (SQLException ex){
                     ex.printStackTrace();
                 }
@@ -179,22 +179,22 @@ public class DBCreador {
                 "tramo varchar(255) not null, " +
                 "constraint pk_bodegas primary key(id))";
         try{
-            DBConnection = DriverManager.getConnection(url, user, password);
-            DBStatement = DBConnection.createStatement();
-            DBStatement.executeUpdate(sqlQuery);
+            connection = DriverManager.getConnection(url, user, password);
+            statement = connection.createStatement();
+            statement.executeUpdate(sqlQuery);
         }catch (SQLException e){
             e.printStackTrace();
         }finally {
-            if(DBStatement != null){
+            if(statement != null){
                 try{
-                    DBStatement.close();
+                    statement.close();
                 }catch (SQLException ex){
                     ex.printStackTrace();
                 }
             }
-            if (DBConnection != null){
+            if (connection != null){
                 try{
-                    DBConnection.close();
+                    connection.close();
                 }catch (SQLException ex){
                     ex.printStackTrace();
                 }
@@ -218,22 +218,22 @@ public class DBCreador {
                 "fecha_revalidacion date not null, " +
                 "constraint pk_proveedores primary key(id))";
         try{
-            DBConnection = DriverManager.getConnection(url, user, password);
-            DBStatement = DBConnection.createStatement();
-            DBStatement.executeUpdate(sqlQuery);
+            connection = DriverManager.getConnection(url, user, password);
+            statement = connection.createStatement();
+            statement.executeUpdate(sqlQuery);
         }catch (SQLException e){
             e.printStackTrace();
         }finally {
-            if(DBStatement != null){
+            if(statement != null){
                 try{
-                    DBStatement.close();
+                    statement.close();
                 }catch (SQLException ex){
                     ex.printStackTrace();
                 }
             }
-            if (DBConnection != null){
+            if (connection != null){
                 try{
-                    DBConnection.close();
+                    connection.close();
                 }catch (SQLException ex){
                     ex.printStackTrace();
                 }
@@ -255,22 +255,22 @@ public class DBCreador {
                 "id_privilegios int(11) not null, " +
                 "constraint pk_usuarios primary key(id))";
         try{
-            DBConnection = DriverManager.getConnection(url, user, password);
-            DBStatement = DBConnection.createStatement();
-            DBStatement.executeUpdate(sqlQuery);
+            connection = DriverManager.getConnection(url, user, password);
+            statement = connection.createStatement();
+            statement.executeUpdate(sqlQuery);
         }catch (SQLException e){
             e.printStackTrace();
         }finally {
-            if(DBStatement != null){
+            if(statement != null){
                 try{
-                    DBStatement.close();
+                    statement.close();
                 }catch (SQLException ex){
                     ex.printStackTrace();
                 }
             }
-            if (DBConnection != null){
+            if (connection != null){
                 try{
-                    DBConnection.close();
+                    connection.close();
                 }catch (SQLException ex){
                     ex.printStackTrace();
                 }
@@ -304,22 +304,22 @@ public class DBCreador {
                 "foreing key(id_bodega) references bodega(id)," +
                 "foreing key(id_proveedor) references proveedores(id))";
         try{
-            DBConnection = DriverManager.getConnection(url, user, password);
-            DBStatement = DBConnection.createStatement();
-            DBStatement.executeUpdate(sqlQuery);
+            connection = DriverManager.getConnection(url, user, password);
+            statement = connection.createStatement();
+            statement.executeUpdate(sqlQuery);
         }catch (SQLException e){
             e.printStackTrace();
         }finally {
-            if(DBStatement != null){
+            if(statement != null){
                 try{
-                    DBStatement.close();
+                    statement.close();
                 }catch (SQLException ex){
                     ex.printStackTrace();
                 }
             }
-            if (DBConnection != null){
+            if (connection != null){
                 try{
-                    DBConnection.close();
+                    connection.close();
                 }catch (SQLException ex){
                     ex.printStackTrace();
                 }

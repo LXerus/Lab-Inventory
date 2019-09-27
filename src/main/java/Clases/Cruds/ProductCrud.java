@@ -1,6 +1,7 @@
 package Clases.Cruds;
 import Clases.BaseDeDatos.JDBConnection;
 import Clases.Modelos.*;
+import Iterfaces.ICrudable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -9,10 +10,12 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class ProductCrud {
+public class ProductCrud implements ICrudable {
     //Clase encargada de todas las conexiones con la base de datos para la tabla productos.
 
-    public void create(Product product){
+    @Override
+    public void create(Object object){
+        Product product = (Product) object;
         JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
         connection = JDBConnection.getConnection();
         String sqlQuery = "INSERT INTO productos(nombre, marca, cas, codigo_interno, codigo_standard, lote, fecha_ingreso, fecha_vence, " +
@@ -55,7 +58,7 @@ public class ProductCrud {
                     date,
                     time
             );
-            log.registrarActividad(activity);
+            log.create(activity);
 
         }catch (SQLException e){
             e.printStackTrace();
@@ -74,7 +77,9 @@ public class ProductCrud {
         }
     }
 
-    public ObservableList<Product> read(Product product){
+    @Override
+    public ObservableList<Product> read(Object object){
+        Product product = (Product) object;
         String sqlQuery = "SELECT id, nombre, marca, cas, codigo_interno, codigo_standard, lote, fecha_ingreso, fecha_vence, fecha_abierto," +
                           " fecha_factura, factura, stock, costo, costo_x_unidad, producto_controlado, ghs, id_bodega, id_proveedor, id_tipo_producto, id_presentacion," +
                           " id_registro FROM productos WHERE ";
@@ -179,7 +184,7 @@ public class ProductCrud {
                     date,
                     time
             );
-            log.registrarActividad(activity);
+            log.create(activity);
         }catch (SQLException e){
             e.printStackTrace();
         }finally {
@@ -195,7 +200,7 @@ public class ProductCrud {
         return productList;
     }
 
-    public void updateStock(int idProducto, double consumo){
+    public void update(int idProducto, double consumo){
         String sqlQuery = "UPDATE productos SET stock=? WHERE id="+idProducto;
         JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
         connection = JDBConnection.getConnection();
@@ -217,7 +222,7 @@ public class ProductCrud {
                     date,
                     time
             );
-            log.registrarActividad(activity);
+            log.create(activity);
         }catch (SQLException ex){
             JOptionPane.showMessageDialog(null, ex);
         }finally {
@@ -234,7 +239,18 @@ public class ProductCrud {
             }
         }
     }
-//*****************************************************Listas para los ComboBox para los formularios de productos********************************************
+
+    @Override
+    public void update(Object object) {
+
+    }
+
+    @Override
+    public void delete(Object object) {
+
+    }
+
+    //*****************************************************Listas para los ComboBox para los formularios de productos********************************************
     public ObservableList<Peresentation> getPresentationList(){
         ObservableList<Peresentation> presentationList = FXCollections.observableArrayList();
         String sqlQuery = "SELECT id, presentacion, unidad_medida FROM presentaciones";

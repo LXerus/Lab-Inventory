@@ -67,7 +67,7 @@ public class ProviderCrud {
                     date,
                     time
             );
-            log.registrarActividad(activity);
+            log.create(activity);
         }catch (SQLException e){
             e.printStackTrace();
         }finally {
@@ -144,7 +144,7 @@ public class ProviderCrud {
                         date,
                         time
                 );
-                log.registrarActividad(activity);
+                log.create(activity);
             }
         }catch (SQLException e){
             e.printStackTrace();
@@ -207,7 +207,7 @@ public class ProviderCrud {
                     date,
                     time
             );
-            log.registrarActividad(activity);
+            log.create(activity);
         }catch (SQLException ex){
             ex.printStackTrace();
         }finally {
