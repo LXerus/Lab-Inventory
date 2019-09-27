@@ -14,7 +14,7 @@ public class UserActivity {
     private LocalTime time;
     private int id_product;
 
-    public UserActivity(int id_user, String userName, String userLastName, String userEmail, String activityType, String table, LocalDate date, LocalTime time, int id_product) {
+    public UserActivity(int id_user, String userName, String userLastName, String userEmail, String activityType, String table, LocalDate date, LocalTime time) {
         this.id_user = id_user;
         this.userName = userName;
         this.userLastName = userLastName;
@@ -23,7 +23,6 @@ public class UserActivity {
         this.table = table;
         this.date = date;
         this.time = time;
-        this.id_product = id_product;
     }
 
     public UserActivity(int id_user, String userName, String userLastName, String userEmail, LocalDate date) {

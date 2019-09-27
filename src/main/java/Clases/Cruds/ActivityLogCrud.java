@@ -98,7 +98,7 @@ public class ActivityLogCrud implements ICrudable {
                 LocalTime hora = resultSet.getTime(8).toLocalTime();
                 int id_producto = resultSet.getInt(9);
 
-                logActividades.add(new UserActivity(id, nombres, apellidos, email, actividad, categoria, fecha, hora, id_producto));
+                logActividades.add(new UserActivity(id, nombres, apellidos, email, actividad, categoria, fecha, hora));
             }
         }catch (SQLException e){
             e.getErrorCode();
