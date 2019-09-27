@@ -68,10 +68,6 @@ public class ActivityLogCrud implements ICrudable {
             sqlQuery += "id_usuario LIKE '%"+userActivity.getId_user()+"%' AND ";
         }
 
-        if(!(userActivity.getActivityType().isEmpty())){
-            sqlQuery += "tipo_de_actividad LIKE '%"+userActivity.getActivityType()+"%' AND ";
-        }
-
         char[] stringToArray = sqlQuery.toCharArray();
         String cleanQuery = "";
 

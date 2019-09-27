@@ -17,28 +17,23 @@
 
 <AnchorPane fx:id="loginPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.Usuarios.LoginController">
    <children>
-      <Label layoutX="238.0" layoutY="53.0" text="Inventario">
-         <font>
-            <Font name="Times New Roman" size="30.0" />
-         </font>
-      </Label>
-      <Label layoutX="273.0" layoutY="103.0" text="Log In">
+      <Label layoutX="266.0" layoutY="50.0" text="Log In">
          <font>
             <Font name="Times New Roman" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="164.0" layoutY="227.0" text="Password:">
+      <Label layoutX="210.0" layoutY="200.0" text="Password:">
          <font>
             <Font name="Times New Roman" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="161.0" layoutY="147.0" text="ID:">
+      <Label layoutX="210.0" layoutY="125.0" text="ID:">
          <font>
             <Font name="Times New Roman" size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="login_txtfl_id" layoutX="164.0" layoutY="175.0" onAction="#loginCheck" prefHeight="25.0" prefWidth="272.0" />
-      <PasswordField fx:id="login_pswfl_password" layoutX="164.0" layoutY="261.0" onAction="#loginCheck" prefHeight="25.0" prefWidth="272.0" />
+      <TextField fx:id="login_txtfl_id" layoutX="210.0" layoutY="150.0" onAction="#loginCheck" prefHeight="25.0" prefWidth="180.0" />
+      <PasswordField fx:id="login_pswfl_password" layoutX="210.0" layoutY="225.0" onAction="#loginCheck" prefHeight="25.0" prefWidth="180.0" />
       <Button fx:id="login_btn_login" layoutX="300.0" layoutY="302.0" mnemonicParsing="false" onAction="#loginCheck" prefHeight="30.0" prefWidth="62.0" text="Log In" />
       <Button fx:id="login_btn_cancelar" layoutX="368.0" layoutY="302.0" mnemonicParsing="false" onAction="#cancel" prefHeight="30.0" prefWidth="62.0" text="Cancelar" />
       <Button layoutX="169.0" layoutY="302.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#getConfiguration" prefHeight="30.0" prefWidth="124.0" text="Configuracion" />
