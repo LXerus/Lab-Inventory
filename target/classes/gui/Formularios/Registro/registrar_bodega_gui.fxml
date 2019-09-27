@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="panel_ingresar_bodega" prefHeight="615.0" prefWidth="830.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.Bodegas.RegistrarBodega_Controlador">
+<AnchorPane fx:id="panel_ingresar_bodega" prefHeight="615.0" prefWidth="830.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.Cellar.RegisterCellarController">
    <children>
       <ScrollPane prefHeight="615.0" prefWidth="830.0">
          <content>
@@ -26,8 +26,8 @@
                   <Label layoutX="65.0" layoutY="212.0" text="Condicion:" />
                   <Label layoutX="65.0" layoutY="290.0" text="Region:" />
                   <Label layoutX="65.0" layoutY="374.0" text="Tramo:" />
-                  <Button fx:id="bodega_btn_guardar" layoutX="573.0" layoutY="208.0" mnemonicParsing="false" onAction="#registrarBodega" text="Registrar Bodega" />
-                  <Button fx:id="ingresar_bodega_btn_cancelar" layoutX="573.0" layoutY="286.0" mnemonicParsing="false" onAction="#regresarMenuBodega" prefHeight="25.0" prefWidth="107.0" text="Cancelar" />
+                  <Button fx:id="bodega_btn_guardar" layoutX="573.0" layoutY="208.0" mnemonicParsing="false" onAction="#createCellar" text="Registrar Bodega" />
+                  <Button fx:id="ingresar_bodega_btn_cancelar" layoutX="573.0" layoutY="286.0" mnemonicParsing="false" onAction="#returnCellarMenu" prefHeight="25.0" prefWidth="107.0" text="Cancelar" />
                </children>
             </AnchorPane>
          </content>

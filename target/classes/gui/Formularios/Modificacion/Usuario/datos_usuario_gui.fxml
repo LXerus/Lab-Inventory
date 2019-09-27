@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.Usuarios.DatosUsuario_Controlador">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.Usuarios.UserDataController">
    <children>
       <Label layoutX="235.0" layoutY="10.0" text="Usuario">
          <font>
@@ -34,7 +34,7 @@
       <Label layoutX="430.0" layoutY="77.0" text="Fecha de Ingreso" />
       <Label layoutX="458.0" layoutY="153.0" text="Activo" />
       <Label layoutX="448.0" layoutY="233.0" text="Privilegios" />
-      <Button fx:id="datos_usuario_btn_guardar" layoutX="200.0" layoutY="312.0" mnemonicParsing="false" onAction="#actualizarDatos" prefHeight="35.0" prefWidth="100.0" text="Guardar" />
-      <Button fx:id="datos_usuario_btn_cancelar" layoutX="325.0" onAction="#cancelar" layoutY="312.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" text="Cancelar" />
+      <Button fx:id="datos_usuario_btn_guardar" layoutX="200.0" layoutY="312.0" mnemonicParsing="false" onAction="#updateData" prefHeight="35.0" prefWidth="100.0" text="Guardar" />
+      <Button fx:id="datos_usuario_btn_cancelar" layoutX="325.0" onAction="#cancel" layoutY="312.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" text="Cancelar" />
    </children>
 </AnchorPane>

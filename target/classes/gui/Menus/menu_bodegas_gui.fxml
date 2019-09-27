@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="panel_menu_bodegas" prefHeight="615.0" prefWidth="830.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.Bodegas.MenuBodegas_Controlador">
+<AnchorPane fx:id="panel_menu_bodegas" prefHeight="615.0" prefWidth="830.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.Cellar.CellarMenuController">
    <children>
       <ScrollPane prefHeight="615.0" prefWidth="830.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <content>
@@ -14,17 +14,17 @@
                <children>
                   <VBox alignment="CENTER">
                      <children>
-                        <Button fx:id="menu_bodega_btn_ingresar" mnemonicParsing="false" onAction="#irRegistrarBodega" prefHeight="50.0" prefWidth="175.0" text="Registrar Nueva Bodega">
+                        <Button fx:id="menu_bodega_btn_ingresar" mnemonicParsing="false" onAction="#registerCellar" prefHeight="50.0" prefWidth="175.0" text="Registrar Nueva Bodega">
                            <VBox.margin>
                               <Insets bottom="50.0" left="320.0" right="320.0" top="125.0" />
                            </VBox.margin>
                         </Button>
-                        <Button fx:id="menu_bogdega_btn_buscar" mnemonicParsing="false" onAction="#irBuscarBodega" prefHeight="50.0" prefWidth="175.0" text="Buscar Bodega">
+                        <Button fx:id="menu_bogdega_btn_buscar" mnemonicParsing="false" onAction="#searchCellar" prefHeight="50.0" prefWidth="175.0" text="Buscar Bodega">
                            <VBox.margin>
                               <Insets bottom="50.0" left="320.0" right="320.0" top="50.0" />
                            </VBox.margin>
                         </Button>
-                        <Button fx:id="menu_bodega_btn_remover" mnemonicParsing="false" onAction="#irModificarBodega" prefHeight="50.0" prefWidth="175.0" text="Modificar Bodega">
+                        <Button fx:id="menu_bodega_btn_remover" mnemonicParsing="false" onAction="#updateCellar" prefHeight="50.0" prefWidth="175.0" text="Modificar Bodega">
                            <VBox.margin>
                               <Insets bottom="120.0" left="320.0" right="320.0" top="50.0" />
                            </VBox.margin>

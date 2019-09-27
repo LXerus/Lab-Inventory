@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane fx:id="scroll_pane_consumo" prefHeight="615.0" prefWidth="830.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.Productos.ProductoSeleccionado_Controlador">
+<ScrollPane fx:id="scroll_pane_consumo" prefHeight="615.0" prefWidth="830.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.Productos.selectedProductController">
    <content>
       <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="615.0" prefWidth="830.0">
           <children>
@@ -52,12 +52,12 @@
               <TextField fx:id="producto_seleccionado_txtfl_numero_factura" disable="true" layoutX="175.0" layoutY="380.0" prefHeight="25.0" prefWidth="150.0" />
               <TextField fx:id="producto_seleccionado_txtfl_costo" disable="true" layoutX="175.0" layoutY="420.0" prefWidth="150.0" />
               <TextField fx:id="producto_seleccionado_txtfl_stock" disable="true" layoutX="175.0" layoutY="460.0" prefHeight="25.0" prefWidth="150.0" />
-              <Button fx:id="btn_guardar_producto" layoutX="432.0" layoutY="496.0" mnemonicParsing="false" onAction="#efectuarConsumo" prefHeight="25.0" prefWidth="112.0" text="Proceder">
+              <Button fx:id="btn_guardar_producto" layoutX="432.0" layoutY="496.0" mnemonicParsing="false" onAction="#consume" prefHeight="25.0" prefWidth="112.0" text="Proceder">
                   <padding>
                       <Insets bottom="10.0" top="10.0" />
                   </padding>
             </Button>
-            <Button fx:id="btn_guardar_cancelar" layoutX="583.0" layoutY="496.0" mnemonicParsing="false" onAction="#cancelar" prefHeight="25.0" prefWidth="112.0" text="Cancelar">
+            <Button fx:id="btn_guardar_cancelar" layoutX="583.0" layoutY="496.0" mnemonicParsing="false" onAction="#cancel" prefHeight="25.0" prefWidth="112.0" text="Cancelar">
                <padding>
                   <Insets bottom="10.0" top="10.0" />
                </padding>

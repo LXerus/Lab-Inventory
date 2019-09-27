@@ -7,10 +7,10 @@
 <?import javafx.scene.layout.*?>
 
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.Proveedores.DatosProveedor_Controlador">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.Proveedores.ProviderDataController">
    <children>
-      <Button fx:id="datos_proveedor_btn_guardar" layoutX="178.0" layoutY="307.0" mnemonicParsing="false" onAction="#guardarCambios" prefWidth="110.0" text="Guardar Cambios" />
-      <Button fx:id="datos_proveedor_btn_cancelar" layoutX="355.0" layoutY="307.0" mnemonicParsing="false" onAction="#cancelar" prefWidth="110.0" text="Cancelar" />
+      <Button fx:id="datos_proveedor_btn_guardar" layoutX="178.0" layoutY="307.0" mnemonicParsing="false" onAction="#updateProvider" prefWidth="110.0" text="Guardar Cambios" />
+      <Button fx:id="datos_proveedor_btn_cancelar" layoutX="355.0" layoutY="307.0" mnemonicParsing="false" onAction="#cancel" prefWidth="110.0" text="Cancelar" />
       <Label layoutX="19.0" layoutY="40.0" text="ID:" />
       <Label layoutX="19.0" layoutY="78.0" text="Nombre::" />
       <Label layoutX="19.0" layoutY="120.0" text="Telefono:" />

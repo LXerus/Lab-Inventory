@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="panel_buscar_producto" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.Productos.BuscarProducto_Controlador">
+<AnchorPane fx:id="panel_buscar_producto" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.Productos.SearchProductController">
    <children>
       <ScrollPane fx:id="spane_buscarp" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="615.0" prefWidth="830.0">
          <content>
@@ -51,8 +51,8 @@
                         <Label layoutX="532.0" layoutY="198.0" text="Fecha de vencimiento:" />
                         <Label layoutX="315.0" layoutY="253.0" text="Fecha de ingreso:" />
                         <DatePicker fx:id="buscar_producto_dtpcker_ingreso" layoutX="315.0" layoutY="270.0" />
-                        <Button layoutX="535.0" layoutY="270.0" mnemonicParsing="false" onAction="#buscarProducto" prefWidth="75.0" text="Buscar" />
-                        <Button fx:id="buscar_producto_btn_cancelar" layoutX="631.0" layoutY="270.0" mnemonicParsing="false" onAction="#cancelar" prefWidth="75.0" text="Cancelar" />
+                        <Button layoutX="535.0" layoutY="270.0" mnemonicParsing="false" onAction="#getProduct" prefWidth="75.0" text="Buscar" />
+                        <Button fx:id="buscar_producto_btn_cancelar" layoutX="631.0" layoutY="270.0" mnemonicParsing="false" onAction="#cancel" prefWidth="75.0" text="Cancelar" />
                         <TableView fx:id="buscar_producto_table_lista_productos" layoutX="39.0" layoutY="356.0" prefHeight="232.0" prefWidth="753.0">
                           <columns>
                             <TableColumn fx:id="producto_cl_id" prefWidth="46.0" text="ID" />

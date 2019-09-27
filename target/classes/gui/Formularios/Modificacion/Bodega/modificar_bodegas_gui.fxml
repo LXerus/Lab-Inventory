@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="615.0" prefWidth="830.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.Bodegas.ModificarBodega_Controlador">
+<AnchorPane prefHeight="615.0" prefWidth="830.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.Cellar.UpdateCellarController">
 
     <children>
         <ScrollPane prefHeight="615.0" prefWidth="830.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -19,7 +19,7 @@
                         <Label layoutX="145.0" layoutY="59.0" text="Numero de Bodega:" />
                         <Label layoutX="145.0" layoutY="115.0" text="Nombre:" />
                         <Label layoutX="145.0" layoutY="167.0" text="Region:" />
-                        <TextField fx:id="modificar_bodega_txtf_numero" layoutX="298.0" layoutY="55.0" onAction="#buscarBodega" prefHeight="25.0" prefWidth="234.0" />
+                        <TextField fx:id="modificar_bodega_txtf_numero" layoutX="298.0" layoutY="55.0" onAction="#getCellars" prefHeight="25.0" prefWidth="234.0" />
                         <TableView fx:id="modificar_bodegas_tabla_bodegas" layoutX="74.0" layoutY="336.0" prefHeight="200.0" prefWidth="666.0">
                             <columns>
                                 <TableColumn fx:id="modificar_bodega_clm_id" prefWidth="82.0" text="Bodega No." />
@@ -33,10 +33,10 @@
                             <font>
                                 <Font name="Lucida Bright Regular" size="25.0" />
                             </font></Label>
-                        <Button fx:id="bodega_btn_buscar" layoutX="278.0" layoutY="235.0" mnemonicParsing="false" onAction="#buscarBodega" prefHeight="25.0" prefWidth="103.0" text="Buscar" />
-                        <Button fx:id="buscar_bodega_btn_cancelar" layoutX="458.0" layoutY="235.0" mnemonicParsing="false" onAction="#cancelar" prefHeight="25.0" prefWidth="103.0" text="Cancelar" />
-                        <TextField fx:id="modificar_bodega_txtf_nombre" layoutX="298.0" layoutY="111.0" onAction="#buscarBodega" prefHeight="25.0" prefWidth="234.0" />
-                        <TextField fx:id="modificar_bodega_txtf_region" layoutX="298.0" layoutY="163.0" onAction="#buscarBodega" prefHeight="25.0" prefWidth="234.0" />
+                        <Button fx:id="bodega_btn_buscar" layoutX="278.0" layoutY="235.0" mnemonicParsing="false" onAction="#getCellars" prefHeight="25.0" prefWidth="103.0" text="Buscar" />
+                        <Button fx:id="buscar_bodega_btn_cancelar" layoutX="458.0" layoutY="235.0" mnemonicParsing="false" onAction="#cancel" prefHeight="25.0" prefWidth="103.0" text="Cancelar" />
+                        <TextField fx:id="modificar_bodega_txtf_nombre" layoutX="298.0" layoutY="111.0" onAction="#getCellars" prefHeight="25.0" prefWidth="234.0" />
+                        <TextField fx:id="modificar_bodega_txtf_region" layoutX="298.0" layoutY="163.0" onAction="#getCellars" prefHeight="25.0" prefWidth="234.0" />
                     </children>
                 </AnchorPane>
             </content>

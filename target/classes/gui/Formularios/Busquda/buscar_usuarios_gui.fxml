@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="panel_buscar_usuarios" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.Usuarios.BuscarUsuarios_Controlador">
+<AnchorPane fx:id="panel_buscar_usuarios" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controladores.Usuarios.SearchUserController">
    <children>
       <ScrollPane prefHeight="615.0" prefWidth="830.0">
          <content>
@@ -48,8 +48,8 @@
                         <Font name="Times New Roman" size="20.0" />
                      </font>
                   </Label>
-                  <Button layoutX="484.0" layoutY="267.0" mnemonicParsing="false" onAction="#buscarUsuario" prefWidth="90.0" text="Buscar" />
-                  <Button fx:id="buscar_usuario_btn_cancelar" layoutX="622.0" layoutY="267.0" mnemonicParsing="false" onAction="#regresarMenuUsuarios" prefWidth="90.0" text="Cancelar" />
+                  <Button layoutX="484.0" layoutY="267.0" mnemonicParsing="false" onAction="#getUser" prefWidth="90.0" text="Buscar" />
+                  <Button fx:id="buscar_usuario_btn_cancelar" layoutX="622.0" layoutY="267.0" mnemonicParsing="false" onAction="#getUserMenu" prefWidth="90.0" text="Cancelar" />
                </children>
             </AnchorPane>
          </content>
