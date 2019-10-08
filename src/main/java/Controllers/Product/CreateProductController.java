@@ -16,6 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 import javax.swing.*;
@@ -58,6 +59,18 @@ public class CreateProductController implements Initializable {
         registrar_producto_rbtn_masa.setToggleGroup(measurementUnits);
         registrar_producto_rbtn_masa.setSelected(true);
         registrar_producto_rbtn_volumen.setToggleGroup(measurementUnits);
+        registrar_producto_rbtn_masa.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                registrar_producto_cmbox_presentacion.setItems(listGenerator.getPresentationListMass());
+            }
+        });
+        registrar_producto_rbtn_volumen.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                registrar_producto_cmbox_presentacion.setItems(listGenerator.getPresentationListVolume());
+            }
+        });
         if(registrar_producto_rbtn_masa.isSelected()){
             registrar_producto_cmbox_presentacion.setItems(listGenerator.getPresentationListMass());
         }else if(registrar_producto_rbtn_volumen.isSelected()){
