@@ -2,8 +2,6 @@ package Controllers.Product;
 
 import Clases.Cruds.ProductCrud;
 import Clases.Models.*;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -81,7 +79,7 @@ public class selectedProductController implements Initializable {
         Optional<ButtonType> resultado = confirmacion.showAndWait();
         if(resultado.get() == ButtonType.OK) {
             double stockLeft = stock - Double.parseDouble(producto_seleccionado_txtfl_cantidad.getText());
-            productCrud.update(id, stockLeft);
+            productCrud.updateStock(id, stockLeft);
             Alert confirmacionConsumo = new Alert(Alert.AlertType.INFORMATION);
             confirmacionConsumo.setTitle("Consumo");
             confirmacionConsumo.setHeaderText("Consumo realizado");

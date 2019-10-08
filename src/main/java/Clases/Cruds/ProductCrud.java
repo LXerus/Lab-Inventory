@@ -20,8 +20,8 @@ public class ProductCrud implements ICrudable {
         JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
         connection = JDBConnection.getConnection();
         String sqlQuery = "INSERT INTO productos(nombre, marca, cas, codigo_interno, codigo_standard, lote, fecha_ingreso, fecha_vence, " +
-                "fecha_abierto, fecha_factura, factura, stock, costo, producto_controlado, ghs, id_bodega, id_proveedor, " +
-                "id_tipo_producto, id_presentacion, id_registro) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                "fecha_abierto, fecha_factura, factura, stock, costo, producto_controlado, ghs, presentacion,  id_bodega, id_proveedor, " +
+                "id_tipo_producto, id_registro) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
             preparedStatement = connection.prepareStatement(sqlQuery);
             preparedStatement.setString(1, product.getName());
@@ -39,27 +39,14 @@ public class ProductCrud implements ICrudable {
             preparedStatement.setDouble(13, product.getCost());
             preparedStatement.setBoolean(14, product.isControlledProduct());
             preparedStatement.setInt(15, product.getGhs());
-            preparedStatement.setInt(16, product.getCellarID());
-            preparedStatement.setInt(17, product.getProviderID());
-            preparedStatement.setInt(18, product.getProductTypeID());
-            preparedStatement.setInt(19, product.getPresentationID());
+            preparedStatement.setString(16, product.getPresentation());
+            preparedStatement.setInt(17, product.getCellarID());
+            preparedStatement.setInt(18, product.getProviderID());
+            preparedStatement.setInt(19, product.getProductTypeID());
             preparedStatement.setInt(20, product.getRegistryID());
             preparedStatement.executeUpdate();
 
-            log = new ActivityLogCrud();
-            date = LocalDate.now();
-            time = LocalTime.now();
-            activity = new UserActivity(
-                    CurrentUser.getCurrentUser().getId(),
-                    CurrentUser.getCurrentUser().getName(),
-                    CurrentUser.getCurrentUser().getLastName(),
-                    CurrentUser.getCurrentUser().getEmail(),
-                    "Register de producto",
-                    "Product",
-                    date,
-                    time
-            );
-            log.create(activity);
+            activity.registerActivity(activity.REGISTER, "Producto");
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -82,7 +69,7 @@ public class ProductCrud implements ICrudable {
     public ObservableList<Product> read(Object object) {
         Product product = (Product) object;
         String sqlQuery = "SELECT id, nombre, marca, cas, codigo_interno, codigo_standard, lote, fecha_ingreso, fecha_vence, fecha_abierto," +
-                " fecha_factura, factura, stock, costo, costo_x_unidad, producto_controlado, ghs, id_bodega, id_proveedor, id_tipo_producto, id_presentacion," +
+                " fecha_factura, factura, stock, costo, costo_x_unidad, producto_controlado, ghs, presentacion, id_bodega, id_proveedor, id_tipo_producto," +
                 " id_registro FROM productos WHERE ";
         ObservableList<Product> productList = FXCollections.observableArrayList();
         JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
@@ -161,31 +148,17 @@ public class ProductCrud implements ICrudable {
                 double costPerUnit = resultSetProduct.getDouble("costo_x_unidad");
                 Boolean controlledProduct = resultSetProduct.getBoolean("producto_controlado");
                 int ghs = resultSetProduct.getInt("ghs");
+                String presentation = resultSetProduct.getString("presentacion");
                 int idCellar = resultSetProduct.getInt("id_bodega");
                 int idProvider = resultSetProduct.getInt("id_proveedor");
                 int idProductType = resultSetProduct.getInt("id_tipo_producto");
-                int idPresentation = resultSetProduct.getInt("id_presentacion");
                 int idRegistry = resultSetProduct.getInt("id_registro");
                 productList.add(new Product(
                         id, name, brand, cas, internalCode, standardCode, lot, entryDate, expiryDate, openDate, invoiceDate,
-                        invoice, stock, cost, costPerUnit, controlledProduct, ghs, idCellar, idProvider, idProductType, idPresentation, idRegistry
+                        invoice, stock, cost, costPerUnit, controlledProduct, ghs, presentation, idCellar, idProvider, idProductType, idRegistry
                 ));
             }
-
-            log = new ActivityLogCrud();
-            date = LocalDate.now();
-            time = LocalTime.now();
-            activity = new UserActivity(
-                    CurrentUser.getCurrentUser().getId(),
-                    CurrentUser.getCurrentUser().getName(),
-                    CurrentUser.getCurrentUser().getLastName(),
-                    CurrentUser.getCurrentUser().getEmail(),
-                    "Busqueda de producto",
-                    "Product",
-                    date,
-                    time
-            );
-            log.create(activity);
+            activity.registerActivity(activity.SEARCH, "Producto");
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -201,7 +174,7 @@ public class ProductCrud implements ICrudable {
         return productList;
     }
 
-    public void update(int idProducto, double consumo) {
+    public void updateStock(int idProducto, double consumo) {
         String sqlQuery = "UPDATE productos SET stock=? WHERE id=" + idProducto;
         JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
         connection = JDBConnection.getConnection();
@@ -209,21 +182,7 @@ public class ProductCrud implements ICrudable {
             preparedStatement = connection.prepareStatement(sqlQuery);
             preparedStatement.setDouble(1, consumo);
             preparedStatement.executeUpdate();
-
-            log = new ActivityLogCrud();
-            date = LocalDate.now();
-            time = LocalTime.now();
-            activity = new UserActivity(
-                    CurrentUser.getCurrentUser().getId(),
-                    CurrentUser.getCurrentUser().getName(),
-                    CurrentUser.getCurrentUser().getLastName(),
-                    CurrentUser.getCurrentUser().getEmail(),
-                    "Consumo de producto",
-                    "Product",
-                    date,
-                    time
-            );
-            log.create(activity);
+            activity.registerActivity("Actualizar Stock", "Producto");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
         } finally {
@@ -276,34 +235,6 @@ public class ProductCrud implements ICrudable {
     }
 
     //*****************************************************Listas para los ComboBox para los formularios de productos********************************************
-    public ObservableList<Presentation> getPresentationList() {
-        ObservableList<Presentation> presentationList = FXCollections.observableArrayList();
-        String sqlQuery = "SELECT id, presentacion, unidad_medida FROM presentaciones";
-        JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
-        connection = JDBConnection.getConnection();
-        try {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(sqlQuery);
-            while (resultSet.next()) {
-                int id = resultSet.getInt(1);
-                String presentation = resultSet.getString(2);
-                String measurementUnit = resultSet.getString(3);
-                presentationList.add(new Presentation(id, presentation, measurementUnit));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (connection != null) {
-                    connection.close();
-                }
-                JDBConnection.disconnect();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-        }
-        return presentationList;
-    }
 
     public ObservableList<String> getCellarList() {
         ObservableList<String> cellarList = FXCollections.observableArrayList();
@@ -823,7 +754,4 @@ public class ProductCrud implements ICrudable {
     private ObservableList<Cellar> productList;
     private PreparedStatement preparedStatement;
     UserActivity activity;
-    LocalDate date;
-    LocalTime time;
-    ActivityLogCrud log;
 }

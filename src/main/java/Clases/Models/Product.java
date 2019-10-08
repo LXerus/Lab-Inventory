@@ -24,18 +24,17 @@ public class Product {
     private double costPerUnit;
     private boolean controlledProduct;
     private int ghs;
+    private String presentation;
     private int cellarID;
     private int providerID;
     private int productTypeID;
-    private int presentationID;
     private int registryID;
     private String cellar; //Atributo cuya funcion es almacenar el nombre correscpondiente a idBodega
     private String provider;//Atributo cuya funcion es almacenar el nombre correscpondiente a idProveedor
     private String productType;//Atributo cuya funcion es almacenar el nombre correscpondiente a id_tipo_de_producto
-    private String presentation;//Atributo cuya funcion es almacenar el nombre correscpondiente a idPresentacion
     private String registry;//Atributo cuya funcion es almacenar el nombre correscpondiente a idRegistro
 
-    public Product(int id, String name, String brand, String cas, String internalCode, String standardCode, String lot, LocalDate entryDate, LocalDate expiryDate, LocalDate invoiceDate, LocalDate openDate, String invoiceNumber, double stock, double cost, double costPerUnit, boolean controlledProduct, int ghs, int cellarID, int providerID, int productTypeID, int presentationID, int registryID) {
+    public Product(int id, String name, String brand, String cas, String internalCode, String standardCode, String lot, LocalDate entryDate, LocalDate expiryDate, LocalDate invoiceDate, LocalDate openDate, String invoiceNumber, double stock, double cost, double costPerUnit, boolean controlledProduct, int ghs, String presentation,  int cellarID, int providerID, int productTypeID, int registryID) {
         this.id = id;
         this.name = name;
         this.brand = brand;
@@ -53,19 +52,18 @@ public class Product {
         this.costPerUnit = costPerUnit;
         this.controlledProduct = controlledProduct;
         this.ghs = ghs;
+        this.presentation = presentation;
         this.cellarID = cellarID;
         this.providerID = providerID;
         this.productTypeID = productTypeID;
-        this.presentationID = presentationID;
         this.registryID = registryID;
         this.provider = productosCrud.getProvider(providerID).getName();
         this.cellar = productosCrud.getCellar(cellarID).getName();
         this.productType = productosCrud.getProductType(productTypeID).getProductType();
-        this.presentation = productosCrud.getPresentation(presentationID).getPresentation();
         this.registry = productosCrud.getRegistry(registryID).getName();
     }
 
-    public Product(String name, String brand, String cas, String internalCode, String standardCode, String lot, LocalDate entryDate, LocalDate expiryDate, LocalDate openDate, LocalDate invoiceDate, String invoiceNumber, double stock, double cost, boolean controlledProduct, int ghs, int cellarID, int providerID, int productTypeID, int presentationID, int registryID) {
+    public Product(String name, String brand, String cas, String internalCode, String standardCode, String lot, LocalDate entryDate, LocalDate expiryDate, LocalDate invoiceDate, LocalDate openDate, String invoiceNumber, double stock, double cost, double costPerUnit, boolean controlledProduct, int ghs, String presentation, int cellarID, int providerID, int productTypeID, int registryID) {
         this.name = name;
         this.brand = brand;
         this.cas = cas;
@@ -79,17 +77,17 @@ public class Product {
         this.invoiceNumber = invoiceNumber;
         this.stock = stock;
         this.cost = cost;
+        this.costPerUnit = costPerUnit;
         this.controlledProduct = controlledProduct;
         this.ghs = ghs;
+        this.presentation = presentation;
         this.cellarID = cellarID;
         this.providerID = providerID;
         this.productTypeID = productTypeID;
-        this.presentationID = presentationID;
         this.registryID = registryID;
         this.provider = productosCrud.getProvider(providerID).getName();
         this.cellar = productosCrud.getCellar(cellarID).getName();
         this.productType = productosCrud.getProductType(productTypeID).getProductType();
-        this.presentation = productosCrud.getPresentation(presentationID).getPresentation();
         this.registry = productosCrud.getRegistry(registryID).getName();
     }
 
@@ -113,12 +111,7 @@ public class Product {
         }
     }
 
-    public int getPresentationID() {
-        return presentationID;
-    }
-    public void setPresentationID(int presentationID) {
-        this.presentationID = presentationID;
-    }
+
 
     public int getRegistryID() {
         return registryID;

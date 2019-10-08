@@ -16,7 +16,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 import javax.swing.*;
@@ -65,9 +64,9 @@ public class CreateProductController implements Initializable {
                 registrar_producto_cmbox_presentacion.setItems(listGenerator.getPresentationListMass());
             }
         });
-        registrar_producto_rbtn_volumen.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        registrar_producto_rbtn_volumen.setOnAction(new EventHandler<ActionEvent>() {
             @Override
-            public void handle(MouseEvent event) {
+            public void handle(ActionEvent event) {
                 registrar_producto_cmbox_presentacion.setItems(listGenerator.getPresentationListVolume());
             }
         });
@@ -102,7 +101,6 @@ public class CreateProductController implements Initializable {
         providerID = productosCrud.getProviderID(provider);
         cellarID = productosCrud.getCellarID(cellar);
         productTypeID = productosCrud.getProductTypeID(productType);
-        presentationID = productosCrud.getPresentationID(presentation);
         registryID = productosCrud.getRegistryID(registry);
 
 
@@ -114,9 +112,8 @@ public class CreateProductController implements Initializable {
             confirmacion.setContentText("Esta a punto de registrar a un nuevo producto ¿desea continuar?");
             Optional<ButtonType> resultado = confirmacion.showAndWait();
             if(resultado.get() == ButtonType.OK) {
-                product = new Product(name, brand, cas, internalCode, standardCode, lot, entryDate,
-                        expiryDate, openedDate, invoiceDate, invoiceNumber, stock,
-                        cost, controlledProduct, ghs, cellarID, providerID, productTypeID, presentationID, registryID);
+                product = new Product(name, brand, cas, internalCode, standardCode, lot, entryDate, expiryDate, invoiceDate, openedDate, invoiceNumber, stock, cost,
+                        costPerUnit, controlledProduct, ghs, presentation, cellarID, providerID, productTypeID, registryID);
                 productosCrud.create(product);
                 JOptionPane.showMessageDialog(null,"¡El usuario se ha registrado exitosamente!");
 
@@ -207,9 +204,6 @@ public class CreateProductController implements Initializable {
         for(int i = 0; i < productosCrud.getProviderList().size(); i++){
             proveedores_nombres.add(productosCrud.getProviderList().get(i).getName());
             proveedores_codigos.add(productosCrud.getProviderList().get(i).getProviderCode());
-        }
-        for(int j = 0; j<productosCrud.getPresentationList().size(); j++){
-            lista_presentaciones.add(productosCrud.getPresentationList().get(j).getPresentation());
         }
     }
 
@@ -354,7 +348,6 @@ public class CreateProductController implements Initializable {
     private String internalCode;
     private String standardCode;
     private String lot;
-    private String presentation;
     private String invoiceNumber;
     private double cost;
     private double stock;
@@ -370,10 +363,10 @@ public class CreateProductController implements Initializable {
     private LocalDate openedDate;
     private boolean controlledProduct = false;
     private int ghs = 0;
+    private String presentation;
     private int providerID;
     private int cellarID;
     private int productTypeID;
-    private int presentationID;
     private int registryID;
     private LocalDate todaysDate = LocalDate.now();
 
