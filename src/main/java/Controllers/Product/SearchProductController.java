@@ -53,7 +53,7 @@ public class SearchProductController implements Initializable {
         producto_cl_fingreso.setCellValueFactory(new PropertyValueFactory<>("entryDate"));
         producto_cl_fvencimiento.setCellValueFactory(new PropertyValueFactory<>("expiryDate"));
         producto_cl_fabierto.setCellValueFactory(new PropertyValueFactory<>("openDate"));
-        producto_cl_presentacion.setCellValueFactory(new PropertyValueFactory<>("presentationID"));
+        producto_cl_presentacion.setCellValueFactory(new PropertyValueFactory<>("presentation"));
         producto_cl_stock.setCellValueFactory(new PropertyValueFactory<>("stock"));
         producto_cl_costo.setCellValueFactory(new PropertyValueFactory<>("cost"));
         producto_cl_proveedor.setCellValueFactory(new PropertyValueFactory<>("providerID"));

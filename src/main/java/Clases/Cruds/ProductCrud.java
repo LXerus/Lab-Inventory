@@ -753,5 +753,5 @@ public class ProductCrud implements ICrudable {
     Configuration configuration = new Configuration();
     private ObservableList<Cellar> productList;
     private PreparedStatement preparedStatement;
-    UserActivity activity;
+    private UserActivity activity = new UserActivity();
 }

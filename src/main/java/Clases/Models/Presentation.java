@@ -4,7 +4,7 @@ public class Presentation {
     private int id;
     private String presentation;
     private String measurementUnit;
-    private String presentationType;
+    private String presentationType = "";
 
     public Presentation() {
     }

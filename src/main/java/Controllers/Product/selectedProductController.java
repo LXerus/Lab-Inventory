@@ -17,7 +17,6 @@ public class selectedProductController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        checkProductPresentation();
         if (ghs != 0){
             selectedGHS();
         }
@@ -58,13 +57,14 @@ public class selectedProductController implements Initializable {
         producto_seleccionado_txtfl_stock.setText(Double.toString(stock));
         producto_seleccionado_txtfl_presentacion.setText(presentation);
         producto_seleccionado_txtfl_bodega.setText(cellar);
+        checkProductPresentation();
     }
 
 
     public void consumeCost(){
         amount = Double.parseDouble(producto_seleccionado_txtfl_cantidad.getText());
         if(presentationConfirmer.presentationType(selectedProduct).equals("mass")){
-            producto_seleccionado_txtfl_costo_consumo.setText(Double.toString(consumptionMass.calculateConsumeCost(producto_seleccionado_cbox_unidad_medida.getValue().toString(), amount)));
+            producto_seleccionado_txtfl_costo_consumo.setText(Double.toString(consumptionMass.calculateConsumeCost(producto_seleccionado_cbox_unidad_medida.getValue().toString(), selectedProduct.getPresentation(), amount, selectedProduct.getCostPerUnit())));
         }else if (presentationConfirmer.presentationType(selectedProduct).equals("volume")){
             producto_seleccionado_txtfl_costo_consumo.setText(Double.toString(consumptionVolume.calculateConsumeCost(producto_seleccionado_cbox_unidad_medida.getValue().toString(), amount)));
         }

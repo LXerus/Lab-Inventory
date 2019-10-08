@@ -16,20 +16,20 @@ public class ConsumptionMass {
     private double consumeCost = 1;
     private Product product;
 
-    public ConsumptionMass(Product product) {
-        this.product = product;
+    public ConsumptionMass(Product selectedProduct) {
+        product = selectedProduct;
     }
 
-    public double calculateConsumeCost(String unit, double consumeAmount){
+    public double calculateConsumeCost(String unit, String unitProduct, double consumeAmount, double costPerUnit){
         this.consumeAmount = consumeAmount;
         this.unitConsume = unit;
-        costPerUnit = product.getCostPerUnit();
-        consumeCost = costPerUnit * convert();
+        this.costPerUnit = costPerUnit;
+        this.unitProduct = unitProduct;
+        consumeCost = this.costPerUnit * convert();
         return consumeCost;
     }
 
-    public double convert(){
-        unitProduct = product.getPresentation();
+    private double convert(){
         switch (unitProduct){
             case "kg":
                 kgConvert();
