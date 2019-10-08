@@ -1,9 +1,10 @@
 package Clases.Cruds;
 
 import Clases.BaseDeDatos.JDBConnection;
-import Clases.Modelos.Registry;
-import Clases.Modelos.UserActivity;
-import Clases.Modelos.CurrentUser;
+import Clases.Models.Registry;
+import Clases.Models.UserActivity;
+import Clases.Models.CurrentUser;
+import Iterfaces.ICrudable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -11,9 +12,11 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class RegistryCrud {
+public class RegistryCrud implements ICrudable {
 
-    public void create(Registry registry){
+    @Override
+    public void create(Object object){
+        Registry registry = (Registry) object;
         sqlQuery ="INSERT INTO registro(nombre, descripcion) VALUES(?,?);";
         try{
             JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
@@ -23,20 +26,7 @@ public class RegistryCrud {
             preparedStatement.setString(2, registry.getDescription());
             preparedStatement.executeUpdate();
 
-            log = new ActivityLogCrud();
-            date = LocalDate.now();
-            time = LocalTime.now();
-            activity = new UserActivity(
-                    CurrentUser.getCurrentUser().getId(),
-                    CurrentUser.getCurrentUser().getName(),
-                    CurrentUser.getCurrentUser().getLastName(),
-                    CurrentUser.getCurrentUser().getEmail(),
-                    "Nuevo registro",
-                    "Registro.",
-                    date,
-                    time
-            );
-            log.create(activity);
+            activity.registerActivity(activity.REGISTER, "Registro");
         }catch (SQLException ex){
            ex.printStackTrace();
         }finally {
@@ -54,7 +44,9 @@ public class RegistryCrud {
         }
     }
 
-    public ObservableList<Registry> read(Registry registry){
+    @Override
+    public ObservableList<Registry> read(Object object){
+        Registry registry = (Registry) object;
         ObservableList<Registry> registryList = FXCollections.observableArrayList();
         sqlQuery = "SELECT id, nombre, descripcion FROM registro WHERE ";
         if(registry.getId() != 0){
@@ -88,6 +80,8 @@ public class RegistryCrud {
                 registryList.add(new Registry(id, name, description));
             }
 
+            activity.registerActivity(activity.SEARCH, "Registro");
+
         }catch (SQLException ex){
             ex.printStackTrace();
          }finally {
@@ -109,7 +103,9 @@ public class RegistryCrud {
         }
     }
 
-    public void update(Registry registry){
+    @Override
+    public void update(Object object){
+        Registry registry = (Registry) object;
         sqlQuery = "UPDATE registro SET nombre = ?, descripcion = ? WHERE id = ?";
         try{
             JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
@@ -120,20 +116,7 @@ public class RegistryCrud {
             preparedStatement.setInt(3, registry.getId());
             preparedStatement.executeUpdate();
 
-            log = new ActivityLogCrud();
-            date = LocalDate.now();
-            time = LocalTime.now();
-            activity = new UserActivity(
-                    CurrentUser.getCurrentUser().getId(),
-                    CurrentUser.getCurrentUser().getName(),
-                    CurrentUser.getCurrentUser().getLastName(),
-                    CurrentUser.getCurrentUser().getEmail(),
-                    "Actualizar registro",
-                    "Registro.",
-                    date,
-                    time
-            );
-            log.create(activity);
+            activity.registerActivity(activity.UPDATE, "Registro");
         }catch (SQLException ex){
             ex.printStackTrace();
         }finally {
@@ -151,7 +134,9 @@ public class RegistryCrud {
         }
     }
 
-    public void delete(Registry registry){
+    @Override
+    public void delete(Object object){
+        Registry registry = (Registry) object;
         sqlQuery = "DELETE FROM registro WHERE id=?";
         try {
             JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
@@ -160,20 +145,7 @@ public class RegistryCrud {
             preparedStatement.setInt(1, registry.getId());
             preparedStatement.executeUpdate();
 
-            log = new ActivityLogCrud();
-            date = LocalDate.now();
-            time = LocalTime.now();
-            activity = new UserActivity(
-                    CurrentUser.getCurrentUser().getId(),
-                    CurrentUser.getCurrentUser().getName(),
-                    CurrentUser.getCurrentUser().getLastName(),
-                    CurrentUser.getCurrentUser().getEmail(),
-                    "Borrar registro",
-                    "Registro.",
-                    date,
-                    time
-            );
-            log.create(activity);
+            activity.registerActivity(activity.DELETE, "Registro");
         }catch (SQLException ex){
             ex.printStackTrace();
         }finally {
@@ -197,8 +169,5 @@ public class RegistryCrud {
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
     String sqlQuery = "";
-    UserActivity activity;
-    LocalDate date;
-    LocalTime time;
-    ActivityLogCrud log;
+    UserActivity activity = new UserActivity();
 }

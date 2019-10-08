@@ -1,9 +1,9 @@
 package Clases.Cruds;
 
 import Clases.BaseDeDatos.JDBConnection;
-import Clases.Modelos.Cellar;
-import Clases.Modelos.UserActivity;
-import Clases.Modelos.CurrentUser;
+import Clases.Models.Cellar;
+import Clases.Models.UserActivity;
+import Clases.Models.CurrentUser;
 import Iterfaces.ICrudable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,48 +13,26 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class CellarCrud implements ICrudable {
-    private Connection connection;
-    private JDBConnection JDBConnection;
-    private ObservableList<Cellar> cellarList;
-    private PreparedStatement preparedStatement;
-    UserActivity activity;
-    LocalDate Date;
-    LocalTime time;
-    ActivityLogCrud log;
-
 
     public void create(Object object){
         Cellar cellar = (Cellar) object;
-        String nombre = cellar.getName();
-        String condicion = cellar.getCondition();
+        String name = cellar.getName();
+        String condition = cellar.getCondition();
         String region = cellar.getRegion();
-        String tramo = cellar.getSection();
+        String section = cellar.getSection();
         JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
 
         try {
-            String sqlInstruction = "INSERT INTO bodega(nombre, condicion, region, tramo) VALUES(?, ?, ?, ?)";
+            String sqlQuery = "INSERT INTO bodega(nombre, condicion, region, tramo) VALUES(?, ?, ?, ?)";
             connection = JDBConnection.getConnection();
-            preparedStatement = connection.prepareStatement(sqlInstruction);
-            preparedStatement.setString(1, nombre);
-            preparedStatement.setString(2, condicion);
+            preparedStatement = connection.prepareStatement(sqlQuery);
+            preparedStatement.setString(1, name);
+            preparedStatement.setString(2, condition);
             preparedStatement.setString(3, region);
-            preparedStatement.setString(4, tramo);
+            preparedStatement.setString(4, section);
             preparedStatement.executeUpdate();
 
-            log = new ActivityLogCrud();
-            Date = LocalDate.now();
-            time = LocalTime.now();
-            activity = new UserActivity(
-                    CurrentUser.getCurrentUser().getId(),
-                    CurrentUser.getCurrentUser().getName(),
-                    CurrentUser.getCurrentUser().getLastName(),
-                    CurrentUser.getCurrentUser().getEmail(),
-                    "Registro de Bodega",
-                    "Bodegas",
-                    Date,
-                    time
-            );
-            log.create(activity);
+            activity .registerActivity(activity.REGISTER, "Bodegas");
 
         }catch (SQLException e){
             e.printStackTrace();
@@ -107,20 +85,7 @@ public class CellarCrud implements ICrudable {
             String section = resultSet.getString(5);
             cellarList.add(new Cellar(id_bodega, name, condition, region, section));
         }
-            log = new ActivityLogCrud();
-            Date = LocalDate.now();
-            time = LocalTime.now();
-            activity = new UserActivity(
-                    CurrentUser.getCurrentUser().getId(),
-                    CurrentUser.getCurrentUser().getName(),
-                    CurrentUser.getCurrentUser().getLastName(),
-                    CurrentUser.getCurrentUser().getEmail(),
-                    "Busqueda de Bodega",
-                    "Bodegas",
-                    Date,
-                    time
-            );
-            log.create(activity);
+        activity .registerActivity(activity.SEARCH, "Bodegas");
         }catch (SQLException e){
             e.printStackTrace();
         }finally {
@@ -137,16 +102,18 @@ public class CellarCrud implements ICrudable {
 
     public void update(Object object){
         Cellar cellar = (Cellar) object;
-        String sqlInstruccion = "UPDATE bodega SET nombre='?', condicion='?', tramo='?', region='?' WHERE id="+ cellar.getId();
+        String sqlQuery = "UPDATE bodega SET nombre='?', condicion='?', tramo='?', region='?' WHERE id="+ cellar.getId();
         try {
             JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
             connection = JDBConnection.getConnection();
-            preparedStatement = connection.prepareStatement(sqlInstruccion);
+            preparedStatement = connection.prepareStatement(sqlQuery);
             preparedStatement.setString(1, cellar.getName());
             preparedStatement.setString(2, cellar.getCondition());
             preparedStatement.setString(3, cellar.getSection());
             preparedStatement.setString(4, cellar.getRegion());
             preparedStatement.executeUpdate();
+
+            activity .registerActivity(activity.UPDATE, "Bodegas");
         }catch (SQLException ex){
             ex.printStackTrace();
         }finally {
@@ -174,6 +141,37 @@ public class CellarCrud implements ICrudable {
 
     @Override
     public void delete(Object object) {
+        Cellar cellar = (Cellar) object;
+        String sqlQuery = "DELETE FROM bodega Where id = ?";
+        try {
+            JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+            connection = JDBConnection.getConnection();
+            preparedStatement = connection.prepareStatement(sqlQuery);
+            preparedStatement.setInt(1, cellar.getId());
+            preparedStatement.executeUpdate();
+
+            activity .registerActivity(activity.DELETE, "Bodegas");
+        }catch (SQLException ex){
+            ex.printStackTrace();
+        }finally {
+            try {
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+                JDBConnection.disconnect();
+            }catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
 
     }
+
+    private Connection connection;
+    private JDBConnection JDBConnection;
+    private ObservableList<Cellar> cellarList;
+    private PreparedStatement preparedStatement;
+    UserActivity activity = new UserActivity();
 }

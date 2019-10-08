@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="panel_ingresar_bodega" prefHeight="615.0" prefWidth="830.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.Cellar.RegisterCellarController">
+   <children>
+      <ScrollPane prefHeight="615.0" prefWidth="830.0">
+         <content>
+            <AnchorPane prefHeight="615.0" prefWidth="830.0">
+               <children>
+                  <Label layoutX="303.0" layoutY="37.0" text="Registrar Bodega">
+                     <font>
+                        <Font name="Times New Roman" size="32.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="62.0" layoutY="142.0" text="Nombre:" />
+                  <TextField fx:id="registrar_bodega_txtfl_nombre" layoutX="143.0" layoutY="138.0" prefHeight="25.0" prefWidth="299.0" />
+                  <TextField fx:id="registrar_bodega_txtfl_condicion" layoutX="143.0" layoutY="208.0" prefHeight="25.0" prefWidth="299.0" />
+                  <TextField fx:id="registrar_bodega_txtfl_region" layoutX="143.0" layoutY="286.0" prefHeight="25.0" prefWidth="299.0" />
+                  <TextField fx:id="registrar_bodega_txtfl_tramo" layoutX="143.0" layoutY="370.0" prefHeight="25.0" prefWidth="299.0" />
+                  <Label layoutX="65.0" layoutY="212.0" text="Condicion:" />
+                  <Label layoutX="65.0" layoutY="290.0" text="Region:" />
+                  <Label layoutX="65.0" layoutY="374.0" text="Tramo:" />
+                  <Button fx:id="bodega_btn_guardar" layoutX="573.0" layoutY="208.0" mnemonicParsing="false" onAction="#createCellar" text="Registrar Bodega" />
+                  <Button fx:id="ingresar_bodega_btn_cancelar" layoutX="573.0" layoutY="286.0" mnemonicParsing="false" onAction="#returnCellarMenu" prefHeight="25.0" prefWidth="107.0" text="Cancelar" />
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

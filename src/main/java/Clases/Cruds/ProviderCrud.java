@@ -1,7 +1,8 @@
 package Clases.Cruds;
 
 import Clases.BaseDeDatos.JDBConnection;
-import Clases.Modelos.*;
+import Clases.Models.*;
+import Iterfaces.ICrudable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -9,20 +10,13 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class ProviderCrud {
-    private Connection connection;
-    private JDBConnection JDBConnection;
-    private ObservableList<Provider> providersList;
-    UserActivity activity;
-    LocalDate date;
-    LocalTime time;
-    ActivityLogCrud log;
+public class ProviderCrud implements ICrudable {
 
     public ProviderCrud(){}
 
-    //clase encargada para todas las conexiones con la base de datos para los datos de proveedores.
-
-    public void create(Provider provider){
+    @Override
+    public void create(Object object){
+        Provider provider = (Provider) object;
         String name = provider.getName();
         String telephone = provider.getTelephone();
         String contact = provider.getContact();
@@ -54,20 +48,7 @@ public class ProviderCrud {
             preparedStatement.setDate(10, Date.valueOf(revalidationDate));
             preparedStatement.executeUpdate();
 
-            log = new ActivityLogCrud();
-            date = LocalDate.now();
-            time = LocalTime.now();
-            activity = new UserActivity(
-                    CurrentUser.getCurrentUser().getId(),
-                    CurrentUser.getCurrentUser().getName(),
-                    CurrentUser.getCurrentUser().getLastName(),
-                    CurrentUser.getCurrentUser().getEmail(),
-                    "Registro de proveedor",
-                    "Proveedores",
-                    date,
-                    time
-            );
-            log.create(activity);
+            activity.registerActivity(activity.REGISTER, "Proveedores");
         }catch (SQLException e){
             e.printStackTrace();
         }finally {
@@ -81,7 +62,9 @@ public class ProviderCrud {
         }
     }
 
-    public ObservableList<Provider> read(Provider provider){
+    @Override
+    public ObservableList<Provider> read(Object object){
+        Provider provider = (Provider) object;
         providersList = null; //Esta linea es para regresar la lista a null cada vez que se vuelva a llamar la referencia
         providersList = FXCollections.observableArrayList();
         Statement statement = null;
@@ -131,20 +114,7 @@ public class ProviderCrud {
                LocalDate revalidationDate = resultSet.getDate(11).toLocalDate();
                providersList.add(new Provider(id, name, telephone, contact, code, service, rating, critical, approved, approvalDate, revalidationDate));
 
-                log = new ActivityLogCrud();
-                date = LocalDate.now();
-                time = LocalTime.now();
-                activity = new UserActivity(
-                        CurrentUser.getCurrentUser().getId(),
-                        CurrentUser.getCurrentUser().getName(),
-                        CurrentUser.getCurrentUser().getLastName(),
-                        CurrentUser.getCurrentUser().getEmail(),
-                        "Busqueda de proveedores.",
-                        "Proveedores.",
-                        date,
-                        time
-                );
-                log.create(activity);
+               activity.registerActivity(activity.SEARCH, "Proveedores");
             }
         }catch (SQLException e){
             e.printStackTrace();
@@ -175,7 +145,9 @@ public class ProviderCrud {
         return providersList;
     }
 
-    public void update(Provider provider){
+    @Override
+    public void update(Object object){
+        Provider provider = (Provider) object;
         String sqlInstruccion = "UPDATE proveedores SET nombre=?, telefono=?, contacto=?, codigo_de_proveedor=?, servicio=?, critico=?, aprobado=?, punteo=?, fecha_aprobacion=?, fecha_revalidacion=? WHERE id="+ provider.getId();
         PreparedStatement preparedStatement = null;
         try {
@@ -194,20 +166,7 @@ public class ProviderCrud {
             preparedStatement.setDate(10, Date.valueOf(provider.getRevalidationDate()));
             preparedStatement.executeUpdate();
 
-            log = new ActivityLogCrud();
-            date = LocalDate.now();
-            time = LocalTime.now();
-            activity = new UserActivity(
-                    CurrentUser.getCurrentUser().getId(),
-                    CurrentUser.getCurrentUser().getName(),
-                    CurrentUser.getCurrentUser().getLastName(),
-                    CurrentUser.getCurrentUser().getEmail(),
-                    "Actualizar Proveedor",
-                    "Proveedor",
-                    date,
-                    time
-            );
-            log.create(activity);
+            activity.registerActivity(activity.UPDATE, "Proveedores");
         }catch (SQLException ex){
             ex.printStackTrace();
         }finally {
@@ -232,4 +191,39 @@ public class ProviderCrud {
             }
         }
     }
+
+    @Override
+    public void delete(Object object) {
+        Provider provider = (Provider) object;
+        String sqlQuery = "DELETE FROM proveedores Where id = ?";
+        try {
+            JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+            connection = JDBConnection.getConnection();
+            preparedStatement = connection.prepareStatement(sqlQuery);
+            preparedStatement.setInt(1, provider.getId());
+            preparedStatement.executeUpdate();
+
+            activity .registerActivity(activity.DELETE, "Proveedores");
+        }catch (SQLException ex){
+            ex.printStackTrace();
+        }finally {
+            try {
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+                JDBConnection.disconnect();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private Connection connection;
+    private PreparedStatement preparedStatement;
+    private JDBConnection JDBConnection;
+    private ObservableList<Provider> providersList;
+    UserActivity activity = new UserActivity();
 }

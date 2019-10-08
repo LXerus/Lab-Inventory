@@ -1,8 +1,8 @@
 package Clases.Cruds;
 
 import Clases.BaseDeDatos.JDBConnection;
-import Clases.Modelos.UserActivity;
-import Clases.Modelos.CurrentUser;
+import Clases.Models.UserActivity;
+import Clases.Models.CurrentUser;
 import Iterfaces.ICrudable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

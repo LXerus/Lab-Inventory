@@ -1,9 +1,10 @@
 package Clases.Cruds;
 
 import Clases.BaseDeDatos.JDBConnection;
-import Clases.Modelos.User;
-import Clases.Modelos.UserActivity;
-import Clases.Modelos.CurrentUser;
+import Clases.Models.User;
+import Clases.Models.UserActivity;
+import Clases.Models.CurrentUser;
+import Iterfaces.ICrudable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -11,18 +12,11 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class UserCrud {
-    JDBConnection JDBConnection;
-    Connection connection;
-    PreparedStatement preparedStatement;
-    Statement statement = null;
-    UserActivity activity;
-    LocalDate date;
-    LocalTime time;
-    ActivityLogCrud log;
+public class UserCrud implements ICrudable {
 
-
-    public void create(User user){
+    @Override
+    public void create(Object object){
+        User user = (User) object;
         JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
         connection = JDBConnection.getConnection();
         String instruccionSQL = "INSERT INTO usuario (nombres, apellidos, password, fecha_de_ingreso, area, activo, correo_electronico, id_privilegios) "+
@@ -39,20 +33,7 @@ public class UserCrud {
             preparedStatement.setInt(8, user.getPrivileges());
             preparedStatement.executeUpdate();
 
-            log = new ActivityLogCrud();
-            date = LocalDate.now();
-            time = LocalTime.now();
-            activity = new UserActivity(
-                    CurrentUser.getCurrentUser().getId(),
-                    CurrentUser.getCurrentUser().getName(),
-                    CurrentUser.getCurrentUser().getLastName(),
-                    CurrentUser.getCurrentUser().getEmail(),
-                    "Registro de nuevo usuario",
-                    "Usuario",
-                    date,
-                    time
-            );
-            log.create(activity);
+            activity.registerActivity(activity.REGISTER, "Usuario");
         } catch (SQLException e) {
             e.printStackTrace();
         }finally {
@@ -70,7 +51,9 @@ public class UserCrud {
         }
     }
 
-    public ObservableList<User> read(User user){
+    @Override
+    public ObservableList<User> read(Object object){
+        User user = (User) object;
         //Retorna una lista observable con la lista de usuario dependiendo de los parametros recibidos.
         ObservableList<User> userList = FXCollections.observableArrayList();
         Statement usuarioStatement = null;
@@ -123,21 +106,8 @@ public class UserCrud {
                  userList.add(new User(id, name, password, lastName, startDate, area, active, email, id_privileges));
              }
 
-            log = new ActivityLogCrud();
-            date = LocalDate.now();
-            time = LocalTime.now();
-            activity = new UserActivity(
-                    CurrentUser.getCurrentUser().getId(),
-                    CurrentUser.getCurrentUser().getName(),
-                    CurrentUser.getCurrentUser().getLastName(),
-                    CurrentUser.getCurrentUser().getEmail(),
-                    "Busqueda de Usuario",
-                    "Usuario",
-                    date,
-                    time
-            );
-            log.create(activity);
-        }catch (SQLException e){
+            activity.registerActivity(activity.SEARCH, "Usuario");
+            }catch (SQLException e){
             e.printStackTrace();
         }finally {
             try{
@@ -158,7 +128,9 @@ public class UserCrud {
         return userList;
     }
 
-    public void update(User user){
+    @Override
+    public void update(Object object){
+        User user = (User) object;
         String sqlQuery = "UPDATE usuario SET nombres =? , apellidos=?, password=?, fecha_de_ingreso=?, area=?, activo=?, correo_electronico=?, id_privilegios=? WHERE id="+ user.getId();
         statement = null;
         preparedStatement = null;
@@ -195,20 +167,7 @@ public class UserCrud {
 
             privilegiosActualizar.executeUpdate("FLUSH PRIVILEGES");*/
 
-            log = new ActivityLogCrud();
-            date = LocalDate.now();
-            time = LocalTime.now();
-            activity = new UserActivity(
-                    CurrentUser.getCurrentUser().getId(),
-                    CurrentUser.getCurrentUser().getName(),
-                    CurrentUser.getCurrentUser().getLastName(),
-                    CurrentUser.getCurrentUser().getEmail(),
-                    "Actualizacion de Usuario",
-                    "Usuario",
-                    date,
-                    time
-            );
-            log.create(activity);
+            activity.registerActivity(activity.UPDATE, "Usuario");
         }catch (SQLException ex){
             ex.printStackTrace();
             ex.getErrorCode();
@@ -226,6 +185,35 @@ public class UserCrud {
                 JDBConnection.disconnect();
             }catch (SQLException ex){
                 ex.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void delete(Object object) {
+        User user = (User) object;
+        String sqlQuery = "DELETE FROM usuario Where id = ?";
+        try {
+            JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+            connection = JDBConnection.getConnection();
+            preparedStatement = connection.prepareStatement(sqlQuery);
+            preparedStatement.setInt(1, user.getId());
+            preparedStatement.executeUpdate();
+
+            activity .registerActivity(activity.DELETE, "Usuario");
+        }catch (SQLException ex){
+            ex.printStackTrace();
+        }finally {
+            try {
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+                if (connection != null) {
+                    connection.close();
+                }
+                JDBConnection.disconnect();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
     }
@@ -263,4 +251,10 @@ public class UserCrud {
         }
         return privilege;
     }
+
+    JDBConnection JDBConnection;
+    Connection connection;
+    PreparedStatement preparedStatement;
+    Statement statement = null;
+    UserActivity activity = new UserActivity();
 }

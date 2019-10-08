@@ -1,7 +1,7 @@
 package Clases.Cruds;
 
 import Clases.BaseDeDatos.JDBConnection;
-import Clases.Modelos.UserActivity;
+import Clases.Models.UserActivity;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,10 +17,7 @@ public class ConfigurationCrud {
     PreparedStatement configuracionPreparedStatement = null;
     ResultSet configuracionResultSet = null;
     String sqlQuery = "";
-    UserActivity actividad;
-    LocalDate fecha;
-    LocalTime hora;
-    ActivityLogCrud log;
+    UserActivity actividad = new UserActivity();
 
 
 }

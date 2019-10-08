@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="200.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.Configuration.ConfiguracionPresemtaciones_Controlador">
+    <children>
+        <TextField fx:id="configurar_presentacion_txtfl_id" disable="true" layoutX="180.0" layoutY="30.0" />
+        <Button fx:id="configurar_registro_btn_eliminar" layoutX="400.0" layoutY="30.0" mnemonicParsing="false" prefWidth="110.0" text="Eliminar" />
+        <Button fx:id="configurar_registro_btn_guardar" layoutX="400.0" layoutY="90.0" mnemonicParsing="false" prefWidth="110.0" text="Guardar Cambios" />
+        <TextField fx:id="configurar_presentacion_txtfl_presentacion" layoutX="180.0" layoutY="90.0" />
+        <Label layoutX="40.0" layoutY="30.0" text="ID:" />
+        <Label layoutX="40.0" layoutY="90.0" text="Presentacion:" />
+        <Button fx:id="configurar_registro_btn_cancelar" layoutX="400.0" layoutY="150.0" mnemonicParsing="false" prefWidth="110.0" text="Cancelar" />
+      <TextField fx:id="configurar_presentacion_txtfl_unidad_medida" layoutX="180.0" layoutY="150.0" />
+      <Label layoutX="40.0" layoutY="150.0" text="Unidad de Medida:" />
+    </children>
+</AnchorPane>

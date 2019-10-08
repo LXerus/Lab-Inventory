@@ -1,6 +1,6 @@
 package Clases.BaseDeDatos;
 
-import Clases.Modelos.Peresentation;
+import Clases.Models.Presentation;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -140,9 +140,9 @@ public class DBCreador {
         sqlQuery = "INSERT INTO presentaciones(presentacion, unidad_medida) VALUES (?,?)";
         try{
             connection = DriverManager.getConnection(url, user, password);
-            ObservableList<Peresentation> listaPresentaciones = FXCollections.observableArrayList();
-            listaPresentaciones.addAll(new Peresentation("mg", "Masa"), new Peresentation("g", "Masa"),
-                                        new Peresentation("kg","Masa"), new Peresentation("litro","Volumen"));
+            ObservableList<Presentation> listaPresentaciones = FXCollections.observableArrayList();
+            listaPresentaciones.addAll(new Presentation("mg", "Masa"), new Presentation("g", "Masa"),
+                                        new Presentation("kg","Masa"), new Presentation("litro","Volumen"));
             for(int i = 0; i <listaPresentaciones.size();i++){
                 PreparedStatement DBPreparedStatement = connection.prepareStatement(sqlQuery);
                 DBPreparedStatement.setString(1, listaPresentaciones.get(i).getPresentation());

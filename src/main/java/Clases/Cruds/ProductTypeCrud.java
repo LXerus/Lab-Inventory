@@ -1,9 +1,10 @@
 package Clases.Cruds;
 
 import Clases.BaseDeDatos.JDBConnection;
-import Clases.Modelos.ProductType;
-import Clases.Modelos.UserActivity;
-import Clases.Modelos.CurrentUser;
+import Clases.Models.ProductType;
+import Clases.Models.UserActivity;
+import Clases.Models.CurrentUser;
+import Iterfaces.ICrudable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -11,9 +12,11 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class ProductTypeCrud {
+public class ProductTypeCrud implements ICrudable {
 
-    public void create(ProductType productType){
+    @Override
+    public void create(Object object){
+        ProductType productType = (ProductType) object;
         sqlQuery ="INSERT INTO tipo_producto(tipo_de_producto, descripcion) VALUES(?,?);";
         try{
             JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
@@ -23,20 +26,7 @@ public class ProductTypeCrud {
             preparedStatement.setString(2, productType.getDescription());
             preparedStatement.executeUpdate();
 
-            log = new ActivityLogCrud();
-            date = LocalDate.now();
-            time = LocalTime.now();
-            activity = new UserActivity(
-                    CurrentUser.getCurrentUser().getId(),
-                    CurrentUser.getCurrentUser().getName(),
-                    CurrentUser.getCurrentUser().getLastName(),
-                    CurrentUser.getCurrentUser().getEmail(),
-                    "Nuevo Tipo de Producto.",
-                    "Tipo de Producto.",
-                    date,
-                    time
-            );
-            log.create(activity);
+            activity.registerActivity(activity.REGISTER, "Tipo de Productos");
         }catch (SQLException ex){
             ex.printStackTrace();
         }finally {
@@ -54,7 +44,9 @@ public class ProductTypeCrud {
         }
     }
 
-    public ObservableList<ProductType> read(ProductType productType){
+    @Override
+    public ObservableList<ProductType> read(Object object){
+        ProductType productType = (ProductType) object;
         ObservableList<ProductType> productTypeList = FXCollections.observableArrayList();
         sqlQuery = "SELECT id, tipo_de_producto, descripcion FROM tipo_producto WHERE ";
         if(productType.getId() != 0){
@@ -86,6 +78,8 @@ public class ProductTypeCrud {
                 String descripcion = resultSet.getString("descripcion");
 
                 productTypeList.add(new ProductType(id, tipo_de_producto, descripcion));
+
+                activity.registerActivity(activity.SEARCH, "Tipo de Productos");
             }
 
         }catch (SQLException ex){
@@ -109,7 +103,9 @@ public class ProductTypeCrud {
         }
     }
 
-    public void update(ProductType productType){
+    @Override
+    public void update(Object object){
+        ProductType productType = (ProductType) object;
         sqlQuery = "UPDATE tipo_producto SET tipo_de_producto = ?, descripcion = ? WHERE id = ?";
         try{
             JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
@@ -120,20 +116,7 @@ public class ProductTypeCrud {
             preparedStatement.setInt(3, productType.getId());
             preparedStatement.executeUpdate();
 
-            log = new ActivityLogCrud();
-            date = LocalDate.now();
-            time = LocalTime.now();
-            activity = new UserActivity(
-                    CurrentUser.getCurrentUser().getId(),
-                    CurrentUser.getCurrentUser().getName(),
-                    CurrentUser.getCurrentUser().getLastName(),
-                    CurrentUser.getCurrentUser().getEmail(),
-                    "Actualizar registro",
-                    "Registro.",
-                    date,
-                    time
-            );
-            log.create(activity);
+            activity.registerActivity(activity.UPDATE, "Tipo de Productos");
         }catch (SQLException ex){
             ex.printStackTrace();
         }finally {
@@ -151,7 +134,9 @@ public class ProductTypeCrud {
         }
     }
 
-    public void delete(ProductType productType){
+    @Override
+    public void delete(Object object){
+        ProductType productType = (ProductType) object;
         sqlQuery = "DELETE FROM tipo_producto WHERE id=?";
         try {
             JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
@@ -160,20 +145,7 @@ public class ProductTypeCrud {
             preparedStatement.setInt(1, productType.getId());
             preparedStatement.executeUpdate();
 
-            log = new ActivityLogCrud();
-            date = LocalDate.now();
-            time = LocalTime.now();
-            activity = new UserActivity(
-                    CurrentUser.getCurrentUser().getId(),
-                    CurrentUser.getCurrentUser().getName(),
-                    CurrentUser.getCurrentUser().getLastName(),
-                    CurrentUser.getCurrentUser().getEmail(),
-                    "Borrar registro",
-                    "Registro.",
-                    date,
-                    time
-            );
-            log.create(activity);
+            activity.registerActivity(activity.DELETE, "Tipo de Productos");
         }catch (SQLException ex){
             ex.printStackTrace();
         }finally {
@@ -197,8 +169,5 @@ public class ProductTypeCrud {
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
     String sqlQuery = "";
-    UserActivity activity;
-    LocalDate date;
-    LocalTime time;
-    ActivityLogCrud log;
+    UserActivity activity = new UserActivity();
 }

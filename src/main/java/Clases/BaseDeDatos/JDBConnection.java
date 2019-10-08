@@ -1,6 +1,6 @@
 package Clases.BaseDeDatos;
 
-import Clases.Modelos.Configuration;
+import Clases.Models.Configuration;
 
 import javax.swing.*;
 import java.sql.Connection;
