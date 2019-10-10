@@ -73,7 +73,6 @@ public class selectedProductController implements Initializable {
         amount = Double.parseDouble(producto_seleccionado_txtfl_cantidad.getText());
         unitConsume = producto_seleccionado_cbox_unidad_medida.getValue();
         if(presentationConfirmer.presentationType(selectedProduct).equals("mass")){
-            System.out.println(unitConsume);
             producto_seleccionado_txtfl_costo_consumo.setText(Double.toString(consumptionMass.calculateConsumeCost(unitConsume, amount)));
             convertedAmount = consumptionMass.calculateRemainingStock(unitConsume,amount);
         }else if (presentationConfirmer.presentationType(selectedProduct).equals("volume")){
