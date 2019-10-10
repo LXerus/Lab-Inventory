@@ -2,6 +2,8 @@ package Controllers.Product;
 
 import Clases.Cruds.ProductCrud;
 import Clases.Models.*;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -9,6 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -18,17 +21,10 @@ public class selectedProductController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         producto_seleccionado_txtfl_cantidad.setText("0");
-        producto_seleccionado_txtfl_cantidad.textProperty().addListener(((observable, oldValue, newValue) -> {
-            if(!producto_seleccionado_txtfl_cantidad.getText().isEmpty()){
-                consumeCost();
-            }else {
-                producto_seleccionado_txtfl_cantidad.setText("0");
-            }
-        }));
     }
 
     public void productData(Product product){
-        this.selectedProduct = product;
+        selectedProduct = product;
         id = product.getId();
         name = product.getName();
         brand = product.getBrand();
@@ -58,40 +54,59 @@ public class selectedProductController implements Initializable {
         if (ghs != 0){
             selectedGHS();
         }
+        consumptionMass = new ConsumptionMass(selectedProduct);
+        consumptionVolume = new ConsumptionVolume(selectedProduct);
+        producto_seleccionado_cbox_unidad_medida.setOnAction(event -> {
+            consumeCost();
+        });
+        producto_seleccionado_txtfl_cantidad.textProperty().addListener(((observable, oldValue, newValue) -> {
+            if(!producto_seleccionado_txtfl_cantidad.getText().isEmpty()){
+                consumeCost();
+            }else {
+                producto_seleccionado_txtfl_cantidad.setText("0");
+            }
+        }));
     }
 
 
     public void consumeCost(){
         amount = Double.parseDouble(producto_seleccionado_txtfl_cantidad.getText());
+        unitConsume = producto_seleccionado_cbox_unidad_medida.getValue();
         if(presentationConfirmer.presentationType(selectedProduct).equals("mass")){
-            producto_seleccionado_txtfl_costo_consumo.setText(Double.toString(consumptionMass.calculateConsumeCost(producto_seleccionado_cbox_unidad_medida.getValue().toString(), selectedProduct.getPresentation(), amount, selectedProduct.getCostPerUnit())));
+            System.out.println(unitConsume);
+            producto_seleccionado_txtfl_costo_consumo.setText(Double.toString(consumptionMass.calculateConsumeCost(unitConsume, amount)));
+            convertedAmount = consumptionMass.calculateRemainingStock(unitConsume,amount);
         }else if (presentationConfirmer.presentationType(selectedProduct).equals("volume")){
-            producto_seleccionado_txtfl_costo_consumo.setText(Double.toString(consumptionVolume.calculateConsumeCost(producto_seleccionado_cbox_unidad_medida.getValue().toString(), selectedProduct.getPresentation(), amount, selectedProduct.getCostPerUnit())));
+            producto_seleccionado_txtfl_costo_consumo.setText(Double.toString(consumptionVolume.calculateConsumeCost(unitConsume, amount)));
+            convertedAmount = consumptionVolume.calculateRemainingStock(unitConsume,amount);
         }
     }
 
     public void consume(){
-        amount = Double.parseDouble(producto_seleccionado_txtfl_cantidad.getText());
-        Alert confirmacion = new Alert(Alert.AlertType.CONFIRMATION);
-        confirmacion.setTitle("Consumo de producto");
-        confirmacion.setHeaderText("Realizando un consumo");
-        confirmacion.setContentText("Esta a punto de consumir "+ amount +" "+ presentation +" de "+ name +" ¿desea continuar?");
-        Optional<ButtonType> resultado = confirmacion.showAndWait();
-        if(resultado.get() == ButtonType.OK) {
-            double stockLeft = stock - Double.parseDouble(producto_seleccionado_txtfl_cantidad.getText());
-            productCrud.updateStock(id, stockLeft);
-            Alert confirmacionConsumo = new Alert(Alert.AlertType.INFORMATION);
-            confirmacionConsumo.setTitle("Consumo");
-            confirmacionConsumo.setHeaderText("Consumo realizado");
-            confirmacionConsumo.setContentText("Se ha efectuado el consumo, la cantidad restante de "+ name +" en stock es de: "+stockLeft);
-            confirmacionConsumo.show();
-            cancel();
-        }else{
-            Alert confirmacionCancelar = new Alert(Alert.AlertType.INFORMATION);
-            confirmacionCancelar.setTitle("Consumo");
-            confirmacionCancelar.setHeaderText("Consumo cancelado");
-            confirmacionCancelar.setContentText("Se ha cancelado el consumo");
-            confirmacionCancelar.show();
+        double stockLeft = stock - convertedAmount;
+        if(stockLeft > 0) {
+            Alert confirmacion = new Alert(Alert.AlertType.CONFIRMATION);
+            confirmacion.setTitle("Consumo de producto");
+            confirmacion.setHeaderText("Realizando un consumo");
+            confirmacion.setContentText("Esta a punto de consumir " + amount + " " + presentation + " de " + name + " ¿desea continuar?");
+            Optional<ButtonType> resultado = confirmacion.showAndWait();
+            if (resultado.get() == ButtonType.OK) {
+                productCrud.updateStock(id, stockLeft);
+                Alert confirmacionConsumo = new Alert(Alert.AlertType.INFORMATION);
+                confirmacionConsumo.setTitle("Consumo");
+                confirmacionConsumo.setHeaderText("Consumo realizado");
+                confirmacionConsumo.setContentText("Se ha efectuado el consumo, la cantidad restante de " + name + " en stock es de: " + stockLeft);
+                confirmacionConsumo.show();
+                cancel();
+            } else {
+                Alert confirmacionCancelar = new Alert(Alert.AlertType.INFORMATION);
+                confirmacionCancelar.setTitle("Consumo");
+                confirmacionCancelar.setHeaderText("Consumo cancelado");
+                confirmacionCancelar.setContentText("Se ha cancelado el consumo");
+                confirmacionCancelar.show();
+            }
+        }else {
+            JOptionPane.showMessageDialog(null,"El consumo excede a la cantidad actual de producto.");
         }
     }
 
@@ -108,7 +123,7 @@ public class selectedProductController implements Initializable {
         }
     }
 
-    public void selectedGHS(){
+    private void selectedGHS(){
         int position = ghs + 1;
         Image ghsImage;
         switch (position){
@@ -175,8 +190,10 @@ public class selectedProductController implements Initializable {
     private Product selectedProduct;
     private Presentation presentationConfirmer = new Presentation();
     private ListGenerator listGenerator = new ListGenerator();
-    private ConsumptionMass consumptionMass = new ConsumptionMass(selectedProduct);
-    private ConsumptionVolume consumptionVolume = new ConsumptionVolume(selectedProduct);
+    private ConsumptionMass consumptionMass;
+    private ConsumptionVolume consumptionVolume;
+    private String unitConsume;
+    private double convertedAmount;
 
     @FXML private TextField producto_seleccionado_txtfl_nombre;
     @FXML private TextField producto_seleccionado_txtfl_marca;
@@ -191,7 +208,7 @@ public class selectedProductController implements Initializable {
     @FXML private TextField producto_seleccionado_txtfl_bodega;
     @FXML private TextField producto_seleccionado_txtfl_cantidad;
     @FXML private TextField producto_seleccionado_txtfl_costo_consumo;
-    @FXML private ComboBox producto_seleccionado_cbox_unidad_medida;
+    @FXML private ComboBox<String> producto_seleccionado_cbox_unidad_medida;
     @FXML private ImageView producto_seleccionado_img_ghs;
     @FXML private Button btn_guardar_cancelar;
 }

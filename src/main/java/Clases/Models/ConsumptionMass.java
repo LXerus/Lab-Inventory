@@ -9,27 +9,35 @@ package Clases.Models;
  * */
 
 public class ConsumptionMass {
-    private String unitProduct = "g";
-    private String unitConsume = "g";
-    private double consumeAmount = 0;
-    private double costPerUnit = 1;
-    private double consumeCost = 1;
-    private Product product;
+    private String unitProduct;
+    private String unitConsume;
+    private double consumeAmount;
+    private double costPerUnit;
+    private double consumeCost;
+    private double stockConsumed;
+    private double result;
 
     public ConsumptionMass(Product selectedProduct) {
-        product = selectedProduct;
+        costPerUnit = selectedProduct.getCostPerUnit();
+        unitProduct = selectedProduct.getPresentation();
     }
 
-    public double calculateConsumeCost(String unit, String unitProduct, double consumeAmount, double costPerUnit){
+    public double calculateConsumeCost(String unit, double consumeAmount){
         this.consumeAmount = consumeAmount;
         this.unitConsume = unit;
-        this.costPerUnit = costPerUnit;
-        this.unitProduct = unitProduct;
-        consumeCost = this.costPerUnit * convert();
+        convert();
+        consumeCost = costPerUnit * result;
         return consumeCost;
     }
 
-    private double convert(){
+    public double calculateRemainingStock(String unit, double consumeAmount){
+        this.consumeAmount = consumeAmount;
+        this.unitConsume = unit;
+        convert();
+        return stockConsumed;
+    }
+
+    private void convert(){
         switch (unitProduct){
             case "kg":
                 kgConvert();
@@ -55,12 +63,16 @@ public class ConsumptionMass {
             default:
                 break;
         }
-        return consumeAmount;
+
     }
 
     //Metodos de unidades
 
-    private double kgConvert(){
+    private void kgConvert(){
+        if(unitConsume.equals("kg")){
+            result = consumeAmount * 1;
+            stockConsumed = consumeAmount * 1;
+        }
         if(unitConsume.equals("hg")){
            kgTohg();
         }
@@ -79,12 +91,15 @@ public class ConsumptionMass {
         if(unitConsume.equals("mg")){
             kgTomg();
         }
-        return consumeAmount;
     }
 
-    private double hgConvert(){
+    private void hgConvert(){
         if(unitConsume.equals("kg")){
             hgTokg();
+        }
+        if(unitConsume.equals("hg")){
+            result = consumeAmount * 1;
+            stockConsumed = consumeAmount * 1;
         }
         if(unitConsume.equals("dag") ){
             hgTodag();
@@ -101,15 +116,18 @@ public class ConsumptionMass {
         if(unitConsume.equals("mg")){
             hgTomg();
         }
-        return consumeAmount;
     }
 
-    private double dagConvert(){
+    private void dagConvert(){
         if(unitConsume.equals("kg")){
             dagTokg();
         }
         if(unitConsume.equals("hg") ){
             dagTohg();
+        }
+        if(unitConsume.equals("dag")){
+            result = consumeAmount * 1;
+            stockConsumed = consumeAmount * 1;
         }
         if(unitConsume.equals("g")){
             dagTog();
@@ -123,10 +141,9 @@ public class ConsumptionMass {
         if(unitConsume.equals("mg")){
             dagTomg();
         }
-        return consumeAmount;
     }
 
-    private double gConvert(){
+    private void gConvert(){
         if(unitConsume.equals("kg")){
             gTokg();
         }
@@ -135,6 +152,10 @@ public class ConsumptionMass {
         }
         if(unitConsume.equals("dag")){
             gTodag();
+        }
+        if(unitConsume.equals("g")){
+            result = consumeAmount * 1;
+            stockConsumed = consumeAmount * 1;
         }
         if(unitConsume.equals("dg")){
             gTodg();
@@ -145,10 +166,9 @@ public class ConsumptionMass {
         if(unitConsume.equals("mg")){
             gTomg();
         }
-        return consumeAmount;
     }
 
-    private double dgConvert(){
+    private void dgConvert(){
         if(unitConsume.equals("kg")){
             dgTokg();
         }
@@ -161,16 +181,19 @@ public class ConsumptionMass {
         if(unitConsume.equals("g")){
             dgTog();
         }
+        if(unitConsume.equals("dg")){
+            result = consumeAmount * 1;
+            stockConsumed = consumeAmount * 1;
+        }
         if(unitConsume.equals("cg")){
             dgTocg();
         }
         if(unitConsume.equals("mg")){
             dgTomg();
         }
-        return consumeAmount;
     }
 
-    private double cgConvert(){
+    private void cgConvert(){
         if(unitConsume.equals("kg")){
             cgTokg();
         }
@@ -186,13 +209,16 @@ public class ConsumptionMass {
         if(unitConsume.equals("dg")){
             cgTodg();
         }
+        if(unitConsume.equals("cg")){
+            result = consumeAmount * 1;
+            stockConsumed = consumeAmount * 1;
+        }
         if(unitConsume.equals("mg")){
             cgTomg();
         }
-        return consumeAmount;
     }
 
-    private double mgConvert(){
+    private void mgConvert(){
         if(unitConsume.equals("kg")){
             mgTokg();
         }
@@ -211,146 +237,192 @@ public class ConsumptionMass {
         if(unitConsume.equals("cg")){
             mgTocg();
         }
-        return consumeAmount;
+        if(unitConsume.equals("mg")){
+            result = consumeAmount * 1;
+            stockConsumed = consumeAmount * 1;
+        }
     }
 
     //Convertion Methods
-
-    private double kgTohg(){
-        return consumeAmount * 10;
+    //kg
+    private void kgTohg(){
+        result = consumeAmount / 10;
+        stockConsumed = consumeAmount / 10;
     }
-    private double kgTodag(){
-        return consumeAmount * 100;
+    private void kgTodag(){
+        result= consumeAmount / 100;
+        stockConsumed = consumeAmount / 100;
     }
-    private double kgTog(){
-        return consumeAmount * 1000;
+    private void kgTog(){
+        result = consumeAmount / 1000;
+        stockConsumed = consumeAmount / 1000;
     }
-    private double kgTodg(){
-        return consumeAmount * 10000;
+    private void kgTodg(){
+        result = consumeAmount / 10000;
+        stockConsumed = consumeAmount / 1000;
     }
-    private double kgTocg(){
-        return consumeAmount * 100000;
+    private void kgTocg(){
+        result = consumeAmount / 100000;
+        stockConsumed = consumeAmount / 10000;
     }
-    private double kgTomg(){
-        return consumeAmount * 1000000;
-    }
-
-    private double hgTokg(){
-        return consumeAmount / 10;
-    }
-    private double hgTodag(){
-        return consumeAmount * 10;
-    }
-    private double hgTog(){
-        return consumeAmount * 100;
-    }
-    private double hgTodg(){
-        return consumeAmount * 1000;
-    }
-    private double hgTocg(){
-        return consumeAmount * 10000;
-    }
-    private double hgTomg(){
-        return consumeAmount * 100000;
+    private void kgTomg(){
+        result = consumeAmount / 1000000;
+        stockConsumed = consumeAmount / 1000000;
     }
 
-    private double dagTokg(){
-        return consumeAmount / 100;
+    //hg
+    private void hgTokg(){
+        result = consumeAmount * 10;
+        stockConsumed = consumeAmount * 10;
     }
-    private double dagTohg(){
-        return consumeAmount / 10;
+    private void hgTodag(){
+        result = consumeAmount / 10;
+        stockConsumed = consumeAmount / 10;;
     }
-    private double dagTog(){
-        return consumeAmount * 10;
+    private void hgTog(){
+        result = consumeAmount / 100;
+        stockConsumed = consumeAmount / 100;
     }
-    private double dagTodg(){
-        return consumeAmount * 100;
+    private void hgTodg(){
+        result = consumeAmount / 1000;
+        stockConsumed = consumeAmount / 1000;
     }
-    private double dagTocg(){
-        return consumeAmount * 1000;
+    private void hgTocg(){
+        result = consumeAmount / 10000;
+        stockConsumed = consumeAmount / 10000;
     }
-    private double dagTomg(){
-        return consumeAmount * 10000;
-    }
-
-    private double gTokg(){
-        return consumeAmount / 1000;
-    }
-    private double gTohg(){
-        return consumeAmount / 100;
-    }
-    private double gTodag(){
-        return consumeAmount / 10;
-    }
-    private double gTodg(){
-        return consumeAmount * 10;
-    }
-    private double gTocg(){
-        return consumeAmount * 100;
-    }
-    private double gTomg(){
-        return consumeAmount * 1000;
+    private void hgTomg(){
+        result = consumeAmount / 100000;
+        stockConsumed = consumeAmount / 100000;
     }
 
-    private double dgTokg(){
-        return consumeAmount / 10000;
+    //dag
+    private void dagTokg(){
+        result = consumeAmount * 100;
+        stockConsumed = consumeAmount * 100;
     }
-    private double dgTohg(){
-        return consumeAmount / 1000;
+    private void dagTohg(){
+        result = consumeAmount * 10;
+        stockConsumed = consumeAmount * 10;
     }
-    private double dgTodag(){
-        return consumeAmount / 100;
+    private void dagTog(){
+        result = consumeAmount / 10;
+        stockConsumed = consumeAmount / 10;
     }
-    private double dgTog(){
-        return consumeAmount / 10;
+    private void dagTodg(){
+        result = consumeAmount / 100;
+        stockConsumed = consumeAmount / 100;
     }
-    private double dgTocg(){
-        return consumeAmount * 10;
+    private void dagTocg(){
+        result = consumeAmount / 1000;
+        stockConsumed = consumeAmount / 1000;
     }
-    private double dgTomg(){
-        return consumeAmount * 100;
-    }
-
-    private double cgTokg(){
-        return consumeAmount / 100000;
-    }
-    private double cgTohg(){
-        return consumeAmount / 10000;
-    }
-    private double cgTodag(){
-        return consumeAmount / 1000;
-    }
-    private double cgTog(){
-        return consumeAmount / 100;
-    }
-    private double cgTodg(){
-        return consumeAmount / 10;
-    }
-    private double cgTomg(){
-        return consumeAmount * 10;
+    private void dagTomg(){
+        result = consumeAmount / 10000;
+        stockConsumed = consumeAmount / 10000;
     }
 
-    private double mgTokg(){
-        return consumeAmount / 1000000;
+    //g
+    private void gTokg(){
+        result = consumeAmount * 1000;
+        stockConsumed = consumeAmount * 1000;
     }
-    private double mgTohg(){
-        return consumeAmount / 100000;
+    private void gTohg(){
+        result = consumeAmount * 100;
+        stockConsumed = consumeAmount * 100;
     }
-    private double mgTodag(){
-        return consumeAmount / 10000;
+    private void gTodag(){
+        result = consumeAmount * 10;
+        stockConsumed = consumeAmount * 10;
     }
-    private double mgTog(){
-        return consumeAmount / 1000;
+    private void gTodg(){
+        result = consumeAmount / 10;
+        stockConsumed = consumeAmount / 10;
     }
-    private double mgTodg(){
-        return consumeAmount / 100;
+    private void gTocg(){
+        result = consumeAmount / 100;
+        stockConsumed = consumeAmount / 100;
     }
-    private double mgTocg(){
-        return consumeAmount / 10;
+    private void gTomg(){
+        result = consumeAmount / 1000;
+        stockConsumed = consumeAmount / 1000;;
     }
 
+    //dg
+    private void dgTokg(){
+        result = consumeAmount * 10000;
+        stockConsumed = consumeAmount * 10000;
+    }
+    private void dgTohg(){
+        result = consumeAmount * 1000;
+        stockConsumed = consumeAmount * 1000;
+    }
+    private void dgTodag(){
+        result = consumeAmount * 100;
+        stockConsumed = consumeAmount * 100;
+    }
+    private void dgTog(){
+        result = consumeAmount * 10;
+        stockConsumed = consumeAmount * 10;;
+    }
+    private void dgTocg(){
+        result = consumeAmount / 10;
+        stockConsumed = consumeAmount / 10;
+    }
+    private void dgTomg(){
+        result = consumeAmount / 100;
+        stockConsumed = consumeAmount / 100;
+    }
 
+    //cg
+    private void cgTokg(){
+        result = consumeAmount * 100000;
+        stockConsumed = consumeAmount * 100000;
+    }
+    private void cgTohg(){
+        result = consumeAmount * 10000;
+        stockConsumed = consumeAmount * 10000;
+    }
+    private void cgTodag(){
+        result = consumeAmount * 1000;
+        stockConsumed = consumeAmount * 1000;
+    }
+    private void cgTog(){
+        result = consumeAmount * 100;
+        stockConsumed = consumeAmount * 100;
+    }
+    private void cgTodg(){
+        result = consumeAmount * 10;
+        stockConsumed = consumeAmount * 10;
+    }
+    private void cgTomg(){
+        result = consumeAmount / 10;
+        stockConsumed = consumeAmount / 10;
+    }
 
-
-
+    //mg
+    private void mgTokg(){
+        result = consumeAmount * 1000000;
+        stockConsumed = consumeAmount * 1000000;
+    }
+    private void mgTohg(){
+        result = consumeAmount * 100000;
+        stockConsumed = consumeAmount * 100000;
+    }
+    private void mgTodag(){
+        result = consumeAmount * 10000;
+        stockConsumed = consumeAmount * 10000;
+    }
+    private void mgTog(){
+        result = consumeAmount * 1000;
+        stockConsumed = consumeAmount * 1000;
+    }
+    private void mgTodg(){
+        result = consumeAmount * 100;
+        stockConsumed = consumeAmount * 100;
+    }
+    private void mgTocg(){
+        result = consumeAmount * 10;
+        stockConsumed = consumeAmount * 10;
+    }
 }
