@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="panel_buscar_producto" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.Product.SearchProductController">
+   <children>
+      <ScrollPane fx:id="spane_buscarp" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="615.0" prefWidth="830.0">
+         <content>
+            <VBox>
+               <children>
+                  <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+                     <children>
+                        <Label layoutX="315.0" layoutY="29.0" text="Buscar Producto">
+                           <font>
+                              <Font name="Times New Roman" size="30.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="buscar_producto_txtfl_nombre" layoutX="122.0" layoutY="107.0" />
+                        <TextField fx:id="buscar_producto_txtfl_marca" layoutX="122.0" layoutY="164.0" />
+                        <TextField fx:id="buscar_producto_txtfl_lote" layoutX="122.0" layoutY="215.0" />
+                        <TextField fx:id="buscar_producto_txtfl_factura" layoutX="122.0" layoutY="270.0" />
+                        <ComboBox fx:id="buscar_producto_cmbox_prov" layoutX="532.0" layoutY="107.0" prefWidth="150.0" />
+                        <ComboBox fx:id="buscar_producto_cmbox_bodega" layoutX="532.0" layoutY="164.0" prefWidth="150.0" />
+                        <DatePicker fx:id="buscar_producto_dtpcker_vence" layoutX="532.0" layoutY="215.0" />
+                        <TextField fx:id="buscar_producto_txtfl_cas" layoutX="315.0" layoutY="107.0" />
+                        <TextField fx:id="buscar_producto_txtfl_codinterno" layoutX="315.0" layoutY="164.0" />
+                        <TextField fx:id="buscar_producto_txtfl_codstandard" layoutX="315.0" layoutY="215.0" />
+                        <Label layoutX="122.0" layoutY="90.0" text="Nombre:" />
+                        <Label layoutX="122.0" layoutY="147.0" text="Marca:" />
+                        <Label layoutX="122.0" layoutY="198.0" text="Lote:" />
+                        <Label layoutX="122.0" layoutY="253.0" text="Factura:" />
+                        <Label layoutX="315.0" layoutY="90.0" text="CAS:" />
+                        <Label layoutX="315.0" layoutY="147.0" text="Codigo Interno:" />
+                        <Label layoutX="315.0" layoutY="198.0" text="Codigo Standard:" />
+                        <Label layoutX="532.0" layoutY="90.0" text="Proveedor:" />
+                        <Label layoutX="532.0" layoutY="147.0" text="Bodega:" />
+                        <Label layoutX="532.0" layoutY="198.0" text="Fecha de vencimiento:" />
+                        <Label layoutX="315.0" layoutY="253.0" text="Fecha de ingreso:" />
+                        <DatePicker fx:id="buscar_producto_dtpcker_ingreso" layoutX="315.0" layoutY="270.0" />
+                        <Button layoutX="535.0" layoutY="270.0" mnemonicParsing="false" onAction="#getProduct" prefWidth="75.0" text="Buscar" />
+                        <Button fx:id="buscar_producto_btn_cancelar" layoutX="631.0" layoutY="270.0" mnemonicParsing="false" onAction="#cancel" prefWidth="75.0" text="Cancelar" />
+                        <TableView fx:id="buscar_producto_table_lista_productos" layoutX="39.0" layoutY="356.0" prefHeight="232.0" prefWidth="753.0">
+                          <columns>
+                            <TableColumn fx:id="producto_cl_id" prefWidth="46.0" text="ID" />
+                            <TableColumn fx:id="producto_cl_nombre" prefWidth="104.0" text="Nombre" />
+                              <TableColumn fx:id="producto_cl_marca" prefWidth="75.0" text="Marca" />
+                              <TableColumn fx:id="producto_cl_bodega" prefWidth="75.0" text="Bodega" />
+                              <TableColumn fx:id="producto_cl_cas" prefWidth="75.0" text="CAS" />
+                              <TableColumn fx:id="producto_cl_cod_interno" prefWidth="98.0" text="Codigo Interno" />
+                              <TableColumn fx:id="producto_cl_cod_stnd" prefWidth="108.0" text="Codigo Standard" />
+                              <TableColumn fx:id="producto_cl_lote" prefWidth="68.0" text="Lote" />
+                              <TableColumn fx:id="producto_cl_fingreso" prefWidth="107.0" text="Fecha de Ingreso" />
+                              <TableColumn fx:id="producto_cl_fvencimiento" prefWidth="75.0" text="Fecha de vencimiento" />
+                              <TableColumn fx:id="producto_cl_fabierto" prefWidth="75.0" text="Fecha abierto" />
+                              <TableColumn fx:id="producto_cl_presentacion" prefWidth="75.0" text="Presentacion" />
+                              <TableColumn fx:id="producto_cl_stock" prefWidth="75.0" text="Stock" />
+                              <TableColumn fx:id="producto_cl_costo" prefWidth="75.0" text="Costo" />
+                              <TableColumn fx:id="producto_cl_proveedor" prefWidth="75.0" text="Proveedor" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>
