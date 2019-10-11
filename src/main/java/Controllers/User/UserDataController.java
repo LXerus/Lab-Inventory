@@ -1,6 +1,6 @@
 package Controllers.User;
 
-import Clases.BaseDeDatos.JDBConnection;
+import Clases.BaseDeDatos.connection;
 import Clases.Cruds.UserCrud;
 import Clases.Models.User;
 import Clases.Models.CurrentUser;
@@ -87,7 +87,7 @@ public class UserDataController implements Initializable {
     public ObservableList<String> getPrivilegesList(){
         javafx.collections.ObservableList<java.lang.String> privilegesList = FXCollections.observableArrayList();
         java.lang.String consultaSQL = "SELECT id, tipo_de_privilegios, descripcion FROM privilegios_de_usuario";
-        JDBConnection JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+        connection JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
         Connection conexionSQL = JDBConnection.getConnection();
         try{
             Statement statement = conexionSQL.createStatement();

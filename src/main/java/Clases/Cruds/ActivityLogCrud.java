@@ -1,6 +1,6 @@
 package Clases.Cruds;
 
-import Clases.BaseDeDatos.JDBConnection;
+import Clases.BaseDeDatos.connection;
 import Clases.Models.UserActivity;
 import Clases.Models.CurrentUser;
 import Iterfaces.ICrudable;
@@ -12,13 +12,13 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class ActivityLogCrud implements ICrudable {
-    JDBConnection JDBConnection;
+    Clases.BaseDeDatos.connection JDBConnection;
     Connection connection;
     PreparedStatement preparedStatement;
 
     public void create(Object object){
         UserActivity activity = (UserActivity) object;
-        JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+        JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
         connection = JDBConnection.getConnection();
         String sqlQuery = "INSERT INTO registro_de_actividades (id_usuario, nombre, apellidos, correo_electronico, tipo_de_actividad, tabla, fecha, hora, id_producto) " +
                 "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -78,7 +78,7 @@ public class ActivityLogCrud implements ICrudable {
         sqlQuery = cleanQuery;
 
 
-        JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+        JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
         connection = JDBConnection.getConnection();
         try{
             Statement statement = connection.createStatement();

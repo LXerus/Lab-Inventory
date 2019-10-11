@@ -1,6 +1,6 @@
 package Controllers.User;
 
-import Clases.BaseDeDatos.JDBConnection;
+import Clases.BaseDeDatos.connection;
 import Clases.Models.Configuration;
 import Clases.Models.User;
 import Clases.Models.CurrentUser;
@@ -60,7 +60,7 @@ public class LoginController implements Initializable {
         if(verifyData()){
             userName = login_txtfl_id.getText();
             password = login_pswfl_password.getText();
-            JDBConnection = new JDBConnection(userName, password);
+            JDBConnection = new connection(userName, password);
             connection = JDBConnection.getConnection();
             ResultSet usuarioResultSet = null;
 
@@ -142,7 +142,7 @@ public class LoginController implements Initializable {
 
     private Stage loginStage;
     private MainMenuController menuPrincipalControlador = new MainMenuController();
-    private JDBConnection JDBConnection;
+    private Clases.BaseDeDatos.connection JDBConnection;
     private Connection connection;
     private String userName;
     private String password;

@@ -1,6 +1,6 @@
 package Clases.Cruds;
 
-import Clases.BaseDeDatos.JDBConnection;
+import Clases.BaseDeDatos.connection;
 import Clases.Models.*;
 import Iterfaces.ICrudable;
 import javafx.collections.FXCollections;
@@ -9,7 +9,6 @@ import javafx.collections.ObservableList;
 import javax.swing.*;
 import java.sql.*;
 import java.time.LocalDate;
-import java.time.LocalTime;
 
 public class ProductCrud implements ICrudable {
     //Clase encargada de todas las conexiones con la base de datos para la tabla productos.
@@ -17,7 +16,7 @@ public class ProductCrud implements ICrudable {
     @Override
     public void create(Object object) {
         Product product = (Product) object;
-        JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+        JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
         connection = JDBConnection.getConnection();
         String sqlQuery = "INSERT INTO productos(nombre, marca, cas, codigo_interno, codigo_standard, lote, fecha_ingreso, fecha_vence, " +
                 "fecha_abierto, fecha_factura, factura, stock, costo, producto_controlado, ghs, presentacion,  id_bodega, id_proveedor, " +
@@ -72,7 +71,7 @@ public class ProductCrud implements ICrudable {
                 " fecha_factura, factura, stock, costo, costo_x_unidad, producto_controlado, ghs, presentacion, id_bodega, id_proveedor, id_tipo_producto," +
                 " id_registro FROM productos WHERE ";
         ObservableList<Product> productList = FXCollections.observableArrayList();
-        JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+        JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
         connection = JDBConnection.getConnection();
 
         if (!product.getName().isEmpty()) {
@@ -176,7 +175,7 @@ public class ProductCrud implements ICrudable {
 
     public void updateStock(int idProducto, double consumo) {
         String sqlQuery = "UPDATE productos SET stock=? WHERE id=" + idProducto;
-        JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+        JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
         connection = JDBConnection.getConnection();
         try {
             preparedStatement = connection.prepareStatement(sqlQuery);
@@ -210,7 +209,7 @@ public class ProductCrud implements ICrudable {
         Product product = (Product) object;
         String sqlQuery = "DELETE FROM bodega Where id = ?";
         try {
-            JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+            JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
             connection = JDBConnection.getConnection();
             preparedStatement = connection.prepareStatement(sqlQuery);
             preparedStatement.setInt(1, product.getId());
@@ -239,7 +238,7 @@ public class ProductCrud implements ICrudable {
     public ObservableList<String> getCellarList() {
         ObservableList<String> cellarList = FXCollections.observableArrayList();
         String sqlQuery = "SELECT nombre, condicion, region, tramo FROM bodega";
-        JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+        JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
         connection = JDBConnection.getConnection();
         try {
             Statement statement = connection.createStatement();
@@ -271,7 +270,7 @@ public class ProductCrud implements ICrudable {
         String product_type;
         ObservableList<String> productList = FXCollections.observableArrayList();
         String sqlQuery = "SELECT tipo_de_producto FROM tipo_producto";
-        JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+        JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
         connection = JDBConnection.getConnection();
         try {
             Statement statement = connection.createStatement();
@@ -299,7 +298,7 @@ public class ProductCrud implements ICrudable {
         String registry_name;
         ObservableList<String> registryList = FXCollections.observableArrayList();
         String sqlQuery = "SELECT nombre FROM registro";
-        JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+        JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
         connection = JDBConnection.getConnection();
         try {
             Statement statement = connection.createStatement();
@@ -329,7 +328,7 @@ public class ProductCrud implements ICrudable {
 
         ObservableList<Provider> providersList = FXCollections.observableArrayList();
         String sqlQuery = "SELECT id, nombre, telefono, contacto, codigo_de_proveedor, servicio, critico, aprobado, punteo, fecha_aprobacion, fecha_revalidacion FROM " + Configuration.getDataBase() + ".proveedores";
-        JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+        JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
         connection = JDBConnection.getConnection();
         try {
             Statement statement = connection.createStatement();
@@ -373,7 +372,7 @@ public class ProductCrud implements ICrudable {
         Statement statement = null;
         ResultSet resultSet = null;
         try {
-            JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+            JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
             connection = JDBConnection.getConnection();
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sqlQuery);
@@ -408,7 +407,7 @@ public class ProductCrud implements ICrudable {
         Statement statement = null;
         ResultSet resultSet = null;
         try {
-            JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+            JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
             connection = JDBConnection.getConnection();
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sqlQuery);
@@ -443,7 +442,7 @@ public class ProductCrud implements ICrudable {
         Statement statement = null;
         ResultSet resultSet = null;
         try {
-            JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+            JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
             connection = JDBConnection.getConnection();
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sqlQuery);
@@ -478,7 +477,7 @@ public class ProductCrud implements ICrudable {
         Statement statement = null;
         ResultSet resultSet = null;
         try {
-            JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+            JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
             connection = JDBConnection.getConnection();
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sqlQuery);
@@ -513,7 +512,7 @@ public class ProductCrud implements ICrudable {
         Statement statement = null;
         ResultSet resultSet = null;
         try {
-            JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+            JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
             connection = JDBConnection.getConnection();
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sqlQuery);
@@ -552,7 +551,7 @@ public class ProductCrud implements ICrudable {
         Statement statement = null;
         ResultSet resultSet = null;
         try {
-            JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+            JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
             connection = JDBConnection.getConnection();
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sqlQuery);
@@ -598,7 +597,7 @@ public class ProductCrud implements ICrudable {
         Statement statement = null;
         ResultSet resultSet = null;
         try {
-            JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+            JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
             connection = JDBConnection.getConnection();
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sqlQuery);
@@ -638,7 +637,7 @@ public class ProductCrud implements ICrudable {
         Statement statement = null;
         ResultSet resultSet = null;
         try {
-            JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+            JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
             connection = JDBConnection.getConnection();
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sqlQuery);
@@ -676,7 +675,7 @@ public class ProductCrud implements ICrudable {
         Statement statement = null;
         ResultSet resultSet = null;
         try {
-            JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+            JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
             connection = JDBConnection.getConnection();
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sqlQuery);
@@ -715,7 +714,7 @@ public class ProductCrud implements ICrudable {
         Statement statement = null;
         ResultSet resultSet = null;
         try {
-            JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+            JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
             connection = JDBConnection.getConnection();
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sqlQuery);
@@ -748,7 +747,7 @@ public class ProductCrud implements ICrudable {
     }
 
     //**********************************************************************************************************************************************************************************************
-    JDBConnection JDBConnection;
+    Clases.BaseDeDatos.connection JDBConnection;
     Connection connection;
     Configuration configuration = new Configuration();
     private ObservableList<Cellar> productList;

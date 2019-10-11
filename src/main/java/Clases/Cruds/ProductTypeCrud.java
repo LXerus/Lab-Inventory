@@ -1,6 +1,6 @@
 package Clases.Cruds;
 
-import Clases.BaseDeDatos.JDBConnection;
+import Clases.BaseDeDatos.connection;
 import Clases.Models.ProductType;
 import Clases.Models.UserActivity;
 import Clases.Models.CurrentUser;
@@ -9,8 +9,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
-import java.time.LocalDate;
-import java.time.LocalTime;
 
 public class ProductTypeCrud implements ICrudable {
 
@@ -19,7 +17,7 @@ public class ProductTypeCrud implements ICrudable {
         ProductType productType = (ProductType) object;
         sqlQuery ="INSERT INTO tipo_producto(tipo_de_producto, descripcion) VALUES(?,?);";
         try{
-            JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+            JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
             connection = JDBConnection.getConnection();
             preparedStatement = connection.prepareStatement(sqlQuery);
             preparedStatement.setString(1, productType.getProductType());
@@ -67,7 +65,7 @@ public class ProductTypeCrud implements ICrudable {
         sqlQuery = cleanQuery;
 
         try{
-            JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+            JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
             connection = JDBConnection.getConnection();
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sqlQuery);
@@ -108,7 +106,7 @@ public class ProductTypeCrud implements ICrudable {
         ProductType productType = (ProductType) object;
         sqlQuery = "UPDATE tipo_producto SET tipo_de_producto = ?, descripcion = ? WHERE id = ?";
         try{
-            JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+            JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
             connection = JDBConnection.getConnection();
             preparedStatement = connection.prepareStatement(sqlQuery);
             preparedStatement.setString(1, productType.getProductType());
@@ -139,7 +137,7 @@ public class ProductTypeCrud implements ICrudable {
         ProductType productType = (ProductType) object;
         sqlQuery = "DELETE FROM tipo_producto WHERE id=?";
         try {
-            JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+            JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
             connection = JDBConnection.getConnection();
             preparedStatement = connection.prepareStatement(sqlQuery);
             preparedStatement.setInt(1, productType.getId());
@@ -163,7 +161,7 @@ public class ProductTypeCrud implements ICrudable {
         }
     }
 
-    JDBConnection JDBConnection = null;
+    Clases.BaseDeDatos.connection JDBConnection = null;
     Connection connection = null;
     Statement statement = null;
     PreparedStatement preparedStatement = null;

@@ -1,6 +1,6 @@
 package Clases.Cruds;
 
-import Clases.BaseDeDatos.JDBConnection;
+import Clases.BaseDeDatos.connection;
 import Clases.Models.Cellar;
 import Clases.Models.UserActivity;
 import Clases.Models.CurrentUser;
@@ -9,8 +9,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
-import java.time.LocalDate;
-import java.time.LocalTime;
 
 public class CellarCrud implements ICrudable {
 
@@ -20,7 +18,7 @@ public class CellarCrud implements ICrudable {
         String condition = cellar.getCondition();
         String region = cellar.getRegion();
         String section = cellar.getSection();
-        JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+        JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
 
         try {
             String sqlQuery = "INSERT INTO bodega(nombre, condicion, region, tramo) VALUES(?, ?, ?, ?)";
@@ -71,7 +69,7 @@ public class CellarCrud implements ICrudable {
 
     ResultSet resultSet = null;
     cellarList = FXCollections.observableArrayList();
-    JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+     JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
     connection = JDBConnection.getConnection();
     try {
         Statement consultarBase = connection.createStatement();
@@ -104,7 +102,7 @@ public class CellarCrud implements ICrudable {
         Cellar cellar = (Cellar) object;
         String sqlQuery = "UPDATE bodega SET nombre='?', condicion='?', tramo='?', region='?' WHERE id="+ cellar.getId();
         try {
-            JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+            JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
             connection = JDBConnection.getConnection();
             preparedStatement = connection.prepareStatement(sqlQuery);
             preparedStatement.setString(1, cellar.getName());
@@ -144,7 +142,7 @@ public class CellarCrud implements ICrudable {
         Cellar cellar = (Cellar) object;
         String sqlQuery = "DELETE FROM bodega Where id = ?";
         try {
-            JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+            JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
             connection = JDBConnection.getConnection();
             preparedStatement = connection.prepareStatement(sqlQuery);
             preparedStatement.setInt(1, cellar.getId());
@@ -170,7 +168,7 @@ public class CellarCrud implements ICrudable {
     }
 
     private Connection connection;
-    private JDBConnection JDBConnection;
+    private Clases.BaseDeDatos.connection JDBConnection;
     private ObservableList<Cellar> cellarList;
     private PreparedStatement preparedStatement;
     UserActivity activity = new UserActivity();

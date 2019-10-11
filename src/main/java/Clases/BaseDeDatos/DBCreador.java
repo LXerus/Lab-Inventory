@@ -27,28 +27,28 @@ public class DBCreador {
     }
 
     public void createDataBase(){
-      /*  if(comprobarExistencia()){
+        if (comprobarExistencia()) {
             JOptionPane.showMessageDialog(null, "La base de datos ya existe");
         }else{
             try{
                 sqlQuery = "CREATE DATABASE "+DBNombre;
-                JDBConnection = DriverManager.getConnection(url, user, password);
-                DBStatement = JDBConnection.createStatement();
-                DBStatement.executeUpdate(sqlQuery);
+                connection = DriverManager.getConnection(url, user, password);
+                statement = connection.createStatement();
+                statement.executeUpdate(sqlQuery);
                 JOptionPane.showMessageDialog(null, "Base de datos creada exitosamente!");
             }catch (SQLException e){
                 e.printStackTrace();
             }finally {
-                if (DBStatement != null){
+                if (statement != null) {
                     try{
-                        DBStatement.close();
+                        statement.close();
                     }catch (SQLException e){
                         e.printStackTrace();
                     }
                 }
-                if (JDBConnection != null){
+                if (connection != null) {
                     try{
-                        JDBConnection.close();
+                        connection.close();
                     }catch (SQLException e){
                         e.printStackTrace();
                     }
@@ -56,7 +56,7 @@ public class DBCreador {
 
                 sqlQuery = null;
             }
-        }*/
+        }
 
         crearTablaPresentaciones();
         crearTablaBodega();

@@ -1,6 +1,6 @@
 package Clases.Cruds;
 
-import Clases.BaseDeDatos.JDBConnection;
+import Clases.BaseDeDatos.connection;
 import Clases.Models.Registry;
 import Clases.Models.UserActivity;
 import Clases.Models.CurrentUser;
@@ -9,8 +9,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
-import java.time.LocalDate;
-import java.time.LocalTime;
 
 public class RegistryCrud implements ICrudable {
 
@@ -19,7 +17,7 @@ public class RegistryCrud implements ICrudable {
         Registry registry = (Registry) object;
         sqlQuery ="INSERT INTO registro(nombre, descripcion) VALUES(?,?);";
         try{
-            JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+            JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
             connection = JDBConnection.getConnection();
             preparedStatement = connection.prepareStatement(sqlQuery);
             preparedStatement.setString(1, registry.getName());
@@ -67,7 +65,7 @@ public class RegistryCrud implements ICrudable {
         sqlQuery = cleanQuery;
 
         try{
-            JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+            JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
             connection = JDBConnection.getConnection();
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sqlQuery);
@@ -108,7 +106,7 @@ public class RegistryCrud implements ICrudable {
         Registry registry = (Registry) object;
         sqlQuery = "UPDATE registro SET nombre = ?, descripcion = ? WHERE id = ?";
         try{
-            JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+            JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
             connection = JDBConnection.getConnection();
             preparedStatement = connection.prepareStatement(sqlQuery);
             preparedStatement.setString(1, registry.getName());
@@ -139,7 +137,7 @@ public class RegistryCrud implements ICrudable {
         Registry registry = (Registry) object;
         sqlQuery = "DELETE FROM registro WHERE id=?";
         try {
-            JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+            JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
             connection = JDBConnection.getConnection();
             preparedStatement = connection.prepareStatement(sqlQuery);
             preparedStatement.setInt(1, registry.getId());
@@ -163,7 +161,7 @@ public class RegistryCrud implements ICrudable {
         }
     }
 
-    JDBConnection JDBConnection = null;
+    Clases.BaseDeDatos.connection JDBConnection = null;
     Connection connection = null;
     Statement statement = null;
     PreparedStatement preparedStatement = null;

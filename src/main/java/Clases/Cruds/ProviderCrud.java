@@ -1,6 +1,6 @@
 package Clases.Cruds;
 
-import Clases.BaseDeDatos.JDBConnection;
+import Clases.BaseDeDatos.connection;
 import Clases.Models.*;
 import Iterfaces.ICrudable;
 import javafx.collections.FXCollections;
@@ -8,7 +8,6 @@ import javafx.collections.ObservableList;
 
 import java.sql.*;
 import java.time.LocalDate;
-import java.time.LocalTime;
 
 public class ProviderCrud implements ICrudable {
 
@@ -28,7 +27,7 @@ public class ProviderCrud implements ICrudable {
         LocalDate approvalDate = provider.getApprovalDate();
         LocalDate revalidationDate = provider.getRevalidationDate();
 
-        JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+        JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
         PreparedStatement preparedStatement = null;
         String instruccionSQL = "INSERT INTO proveedores (nombre, telefono, contacto, codigo_de_proveedor, servicio, critico, aprobado, punteo, fecha_aprobacion, fecha_revalidacion) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -95,7 +94,7 @@ public class ProviderCrud implements ICrudable {
         sqlQuery = cleanQuery;
 
         try{
-            JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+            JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
             connection = JDBConnection.getConnection();
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sqlQuery);
@@ -151,7 +150,7 @@ public class ProviderCrud implements ICrudable {
         String sqlInstruccion = "UPDATE proveedores SET nombre=?, telefono=?, contacto=?, codigo_de_proveedor=?, servicio=?, critico=?, aprobado=?, punteo=?, fecha_aprobacion=?, fecha_revalidacion=? WHERE id="+ provider.getId();
         PreparedStatement preparedStatement = null;
         try {
-            JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+            JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
             connection = JDBConnection.getConnection();
             preparedStatement = connection.prepareStatement(sqlInstruccion);
             preparedStatement.setString(1, provider.getName());
@@ -197,7 +196,7 @@ public class ProviderCrud implements ICrudable {
         Provider provider = (Provider) object;
         String sqlQuery = "DELETE FROM proveedores Where id = ?";
         try {
-            JDBConnection = new JDBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+            JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
             connection = JDBConnection.getConnection();
             preparedStatement = connection.prepareStatement(sqlQuery);
             preparedStatement.setInt(1, provider.getId());
@@ -223,7 +222,7 @@ public class ProviderCrud implements ICrudable {
 
     private Connection connection;
     private PreparedStatement preparedStatement;
-    private JDBConnection JDBConnection;
+    private Clases.BaseDeDatos.connection JDBConnection;
     private ObservableList<Provider> providersList;
     UserActivity activity = new UserActivity();
 }

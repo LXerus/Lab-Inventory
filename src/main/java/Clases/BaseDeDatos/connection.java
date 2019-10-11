@@ -7,7 +7,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class JDBConnection {
+public class connection {
     private Connection connection;
     private static String port = "";
     private static String server = "";
@@ -15,7 +15,7 @@ public class JDBConnection {
     private static final String DRIVER = "com.mysql.jdbc.Driver";
     private static String URL;
 
-    public JDBConnection(String userName, String password){
+    public connection(String userName, String password) {
        //Codigo para esteblecer la conexion con la base de datos con los datos del usuario actualmente en uso del programa.
         server = Configuration.getServer();
         port = Configuration.getPort();
@@ -45,7 +45,7 @@ public class JDBConnection {
     }
 
     public static void setPort(String port) {
-        JDBConnection.port = port;
+        Clases.BaseDeDatos.connection.port = port;
     }
 
     public static String getURL() {
@@ -53,6 +53,6 @@ public class JDBConnection {
     }
 
     public static void setURL(String URL) {
-        JDBConnection.URL = URL;
+        Clases.BaseDeDatos.connection.URL = URL;
     }
 }
