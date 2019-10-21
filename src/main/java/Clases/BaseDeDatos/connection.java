@@ -7,6 +7,15 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * <h2>connection Class</h2>
+ * <p>This class has the responsability to create the connection between
+ * the application and the data base, using the JDBC connector<p>
+ * 
+ * 
+ * 
+ */
+
 public class connection {
     private Connection connection;
     private static String port = "";
