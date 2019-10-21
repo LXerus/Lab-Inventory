@@ -6,10 +6,18 @@ import Clases.Models.CurrentUser;
 import Iterfaces.ICrudable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
+
+/**
+ * <h2>ActivityLogCrud</h2>
+ * <p>This class has the responsability to handle the SQL queries and register
+ * the log in it's table</p> 
+ * 
+ * 
+ * 
+ */
 
 public class ActivityLogCrud implements ICrudable {
     Clases.BaseDeDatos.connection JDBConnection;
