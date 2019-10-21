@@ -4,6 +4,7 @@ package Clases.Launcher;
  * <p> The launcher purpose is for Maven to recognize the Main class and
  * the javaFX framework.</p> 
  * 
+ * code(main())
  */
 public class Launcher {
     public static void main(String[] args){
