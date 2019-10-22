@@ -1,6 +1,6 @@
 package Controllers.User;
 
-import Clases.BaseDeDatos.connection;
+import Clases.BaseDeDatos.DBConnection;
 import Clases.Cruds.UserCrud;
 import Clases.Models.User;
 import Clases.Models.CurrentUser;
@@ -73,8 +73,8 @@ public class CreateUserController implements Initializable {
     private ObservableList<String> getPrivilegesList(){
         ObservableList<String> privilegesList = FXCollections.observableArrayList();
         String consultaSQL = "SELECT id, tipo_de_privilegios, descripcion FROM privilegios_de_usuario";
-        connection JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
-        Connection connection = JDBConnection.getConnection();
+        DBConnection JDBDBConnection = new DBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+        Connection connection = JDBDBConnection.getConnection();
         try{
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(consultaSQL);
@@ -86,7 +86,7 @@ public class CreateUserController implements Initializable {
             e.printStackTrace();
         }finally {
             connection = null;
-            JDBConnection.disconnect();
+            JDBDBConnection.disconnect();
         }
         return privilegesList;
     }

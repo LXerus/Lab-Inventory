@@ -1,6 +1,6 @@
 package Clases.Cruds;
 
-import Clases.BaseDeDatos.connection;
+import Clases.BaseDeDatos.DBConnection;
 import Clases.Models.UserActivity;
 
 import java.sql.Connection;
@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class ConfigurationCrud {
-    connection JDBConnection = null;
+    DBConnection JDBDBConnection = null;
     Connection ConexionSQL = null;
     Statement configuracionStatement = null;
     PreparedStatement configuracionPreparedStatement = null;

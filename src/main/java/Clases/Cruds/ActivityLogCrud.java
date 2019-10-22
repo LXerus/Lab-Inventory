@@ -1,6 +1,6 @@
 package Clases.Cruds;
 
-import Clases.BaseDeDatos.connection;
+import Clases.BaseDeDatos.DBConnection;
 import Clases.Models.UserActivity;
 import Clases.Models.CurrentUser;
 import Iterfaces.ICrudable;
@@ -20,14 +20,14 @@ import java.time.LocalTime;
  */
 
 public class ActivityLogCrud implements ICrudable {
-    Clases.BaseDeDatos.connection JDBConnection;
+    DBConnection JDBDBConnection;
     Connection connection;
     PreparedStatement preparedStatement;
 
     public void create(Object object){
         UserActivity activity = (UserActivity) object;
-        JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
-        connection = JDBConnection.getConnection();
+        JDBDBConnection = new DBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+        connection = JDBDBConnection.getConnection();
         String sqlQuery = "INSERT INTO registro_de_actividades (id_usuario, nombre, apellidos, correo_electronico, tipo_de_actividad, tabla, fecha, hora, id_producto) " +
                 "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
@@ -51,7 +51,7 @@ public class ActivityLogCrud implements ICrudable {
             if (connection != null){
                 connection = null;
             }
-            JDBConnection.disconnect();
+            JDBDBConnection.disconnect();
         }
     }
 
@@ -86,8 +86,8 @@ public class ActivityLogCrud implements ICrudable {
         sqlQuery = cleanQuery;
 
 
-        JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
-        connection = JDBConnection.getConnection();
+        JDBDBConnection = new DBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+        connection = JDBDBConnection.getConnection();
         try{
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sqlQuery);
@@ -111,7 +111,7 @@ public class ActivityLogCrud implements ICrudable {
                 if(connection != null){
                     connection.close();
                 }
-                JDBConnection.disconnect();
+                JDBDBConnection.disconnect();
             }catch (SQLException ex){
                 ex.printStackTrace();
             }

@@ -1,5 +1,6 @@
 package Clases.Models;
 
+import Clases.BaseDeDatos.DBConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -9,7 +10,7 @@ import java.sql.PreparedStatement;
 public class ListGenerator {
     private ObservableList<String> presentationListMass = FXCollections.observableArrayList();
     private ObservableList<String> presentationListVolume = FXCollections.observableArrayList();
-    Clases.BaseDeDatos.connection JDBConnection;
+    DBConnection JDBDBConnection;
     Connection connection;
     Configuration configuration = new Configuration();
     private PreparedStatement preparedStatement;

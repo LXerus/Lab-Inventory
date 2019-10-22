@@ -1,6 +1,6 @@
 package Clases.Cruds;
 
-import Clases.BaseDeDatos.connection;
+import Clases.BaseDeDatos.DBConnection;
 import Clases.Models.Cellar;
 import Clases.Models.UserActivity;
 import Clases.Models.CurrentUser;
@@ -18,11 +18,11 @@ public class CellarCrud implements ICrudable {
         String condition = cellar.getCondition();
         String region = cellar.getRegion();
         String section = cellar.getSection();
-        JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+        JDBDBConnection = new DBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
 
         try {
             String sqlQuery = "INSERT INTO bodega(nombre, condicion, region, tramo) VALUES(?, ?, ?, ?)";
-            connection = JDBConnection.getConnection();
+            connection = JDBDBConnection.getConnection();
             preparedStatement = connection.prepareStatement(sqlQuery);
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, condition);
@@ -41,7 +41,7 @@ public class CellarCrud implements ICrudable {
             if (connection != null){
                 connection = null;
             }
-            JDBConnection.disconnect();
+            JDBDBConnection.disconnect();
         }
     }
 
@@ -69,8 +69,8 @@ public class CellarCrud implements ICrudable {
 
     ResultSet resultSet = null;
     cellarList = FXCollections.observableArrayList();
-     JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
-    connection = JDBConnection.getConnection();
+     JDBDBConnection = new DBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+     connection = JDBDBConnection.getConnection();
     try {
         Statement consultarBase = connection.createStatement();
         resultSet = consultarBase.executeQuery(sqlQuery);
@@ -93,7 +93,7 @@ public class CellarCrud implements ICrudable {
             if (connection != null){
                 connection = null;
             }
-            JDBConnection.disconnect();
+        JDBDBConnection.disconnect();
         }
      return cellarList;
     }
@@ -102,8 +102,8 @@ public class CellarCrud implements ICrudable {
         Cellar cellar = (Cellar) object;
         String sqlQuery = "UPDATE bodega SET nombre='?', condicion='?', tramo='?', region='?' WHERE id="+ cellar.getId();
         try {
-            JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
-            connection = JDBConnection.getConnection();
+            JDBDBConnection = new DBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+            connection = JDBDBConnection.getConnection();
             preparedStatement = connection.prepareStatement(sqlQuery);
             preparedStatement.setString(1, cellar.getName());
             preparedStatement.setString(2, cellar.getCondition());
@@ -131,8 +131,8 @@ public class CellarCrud implements ICrudable {
                 ex.printStackTrace();
             }
 
-            if(JDBConnection != null){
-                JDBConnection.disconnect();
+            if (JDBDBConnection != null) {
+                JDBDBConnection.disconnect();
             }
         }
     }
@@ -142,8 +142,8 @@ public class CellarCrud implements ICrudable {
         Cellar cellar = (Cellar) object;
         String sqlQuery = "DELETE FROM bodega Where id = ?";
         try {
-            JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
-            connection = JDBConnection.getConnection();
+            JDBDBConnection = new DBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+            connection = JDBDBConnection.getConnection();
             preparedStatement = connection.prepareStatement(sqlQuery);
             preparedStatement.setInt(1, cellar.getId());
             preparedStatement.executeUpdate();
@@ -159,7 +159,7 @@ public class CellarCrud implements ICrudable {
                 if (connection != null) {
                     connection.close();
                 }
-                JDBConnection.disconnect();
+                JDBDBConnection.disconnect();
             }catch (SQLException e){
                 e.printStackTrace();
             }
@@ -168,7 +168,7 @@ public class CellarCrud implements ICrudable {
     }
 
     private Connection connection;
-    private Clases.BaseDeDatos.connection JDBConnection;
+    private DBConnection JDBDBConnection;
     private ObservableList<Cellar> cellarList;
     private PreparedStatement preparedStatement;
     UserActivity activity = new UserActivity();

@@ -1,6 +1,6 @@
 package Clases.Cruds;
 
-import Clases.BaseDeDatos.connection;
+import Clases.BaseDeDatos.DBConnection;
 import Clases.Models.User;
 import Clases.Models.UserActivity;
 import Clases.Models.CurrentUser;
@@ -16,8 +16,8 @@ public class UserCrud implements ICrudable {
     @Override
     public void create(Object object){
         User user = (User) object;
-        JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
-        connection = JDBConnection.getConnection();
+        JDBDBConnection = new DBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+        connection = JDBDBConnection.getConnection();
         String instruccionSQL = "INSERT INTO usuario (nombres, apellidos, password, fecha_de_ingreso, area, activo, correo_electronico, id_privilegios) "+
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try {
@@ -43,7 +43,7 @@ public class UserCrud implements ICrudable {
                 if (connection != null){
                     connection.close();
                 }
-                JDBConnection.disconnect();
+                JDBDBConnection.disconnect();
             }catch (SQLException ex){
                 ex.printStackTrace();
             }           
@@ -86,8 +86,8 @@ public class UserCrud implements ICrudable {
         sqlInstruction = cleanQuery;
 
         try{
-            JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
-            connection = JDBConnection.getConnection();
+            JDBDBConnection = new DBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+            connection = JDBDBConnection.getConnection();
             usuarioStatement = connection.createStatement();
             usuarioResultset = usuarioStatement.executeQuery(sqlInstruction);
 
@@ -119,7 +119,7 @@ public class UserCrud implements ICrudable {
                 if(connection != null){
                     connection.close();
                 }
-                JDBConnection.disconnect();
+                JDBDBConnection.disconnect();
             }catch (SQLException ex){
                 ex.printStackTrace();
             }
@@ -134,8 +134,8 @@ public class UserCrud implements ICrudable {
         statement = null;
         preparedStatement = null;
         try{
-            JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
-            connection = JDBConnection.getConnection();
+            JDBDBConnection = new DBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+            connection = JDBDBConnection.getConnection();
             preparedStatement = connection.prepareStatement(sqlQuery);
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getLastName());
@@ -181,7 +181,7 @@ public class UserCrud implements ICrudable {
                 if(connection != null){
                     connection.close();
                 }
-                JDBConnection.disconnect();
+                JDBDBConnection.disconnect();
             }catch (SQLException ex){
                 ex.printStackTrace();
             }
@@ -193,8 +193,8 @@ public class UserCrud implements ICrudable {
         User user = (User) object;
         String sqlQuery = "DELETE FROM usuario Where id = ?";
         try {
-            JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
-            connection = JDBConnection.getConnection();
+            JDBDBConnection = new DBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+            connection = JDBDBConnection.getConnection();
             preparedStatement = connection.prepareStatement(sqlQuery);
             preparedStatement.setInt(1, user.getId());
             preparedStatement.executeUpdate();
@@ -210,7 +210,7 @@ public class UserCrud implements ICrudable {
                 if (connection != null) {
                     connection.close();
                 }
-                JDBConnection.disconnect();
+                JDBDBConnection.disconnect();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -222,8 +222,8 @@ public class UserCrud implements ICrudable {
         String sqlInstruction = "SELECT tipo_de_privilegios FROM privilegios_de_usuario WHERE id=?";
         ResultSet resultSet = null;
         try {
-            JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
-            connection = JDBConnection.getConnection();
+            JDBDBConnection = new DBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+            connection = JDBDBConnection.getConnection();
             preparedStatement = connection.prepareStatement(sqlInstruction);
             preparedStatement.setInt(1, user.getPrivileges());
             resultSet = preparedStatement.executeQuery();
@@ -243,7 +243,7 @@ public class UserCrud implements ICrudable {
                 if(connection != null){
                     connection.close();
                 }
-                JDBConnection.disconnect();
+                JDBDBConnection.disconnect();
             }catch (SQLException ex){
                 ex.printStackTrace();
             }
@@ -251,7 +251,7 @@ public class UserCrud implements ICrudable {
         return privilege;
     }
 
-    Clases.BaseDeDatos.connection JDBConnection;
+    DBConnection JDBDBConnection;
     Connection connection;
     PreparedStatement preparedStatement;
     Statement statement = null;

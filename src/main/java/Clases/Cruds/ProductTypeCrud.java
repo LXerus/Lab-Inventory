@@ -1,6 +1,6 @@
 package Clases.Cruds;
 
-import Clases.BaseDeDatos.connection;
+import Clases.BaseDeDatos.DBConnection;
 import Clases.Models.ProductType;
 import Clases.Models.UserActivity;
 import Clases.Models.CurrentUser;
@@ -17,8 +17,8 @@ public class ProductTypeCrud implements ICrudable {
         ProductType productType = (ProductType) object;
         sqlQuery ="INSERT INTO tipo_producto(tipo_de_producto, descripcion) VALUES(?,?);";
         try{
-            JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
-            connection = JDBConnection.getConnection();
+            JDBDBConnection = new DBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+            connection = JDBDBConnection.getConnection();
             preparedStatement = connection.prepareStatement(sqlQuery);
             preparedStatement.setString(1, productType.getProductType());
             preparedStatement.setString(2, productType.getDescription());
@@ -35,7 +35,7 @@ public class ProductTypeCrud implements ICrudable {
                 if (connection != null) {
                     connection.close();
                 }
-                JDBConnection.disconnect();
+                JDBDBConnection.disconnect();
             }catch (SQLException e){
                 e.printStackTrace();
             }
@@ -65,8 +65,8 @@ public class ProductTypeCrud implements ICrudable {
         sqlQuery = cleanQuery;
 
         try{
-            JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
-            connection = JDBConnection.getConnection();
+            JDBDBConnection = new DBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+            connection = JDBDBConnection.getConnection();
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sqlQuery);
 
@@ -93,7 +93,7 @@ public class ProductTypeCrud implements ICrudable {
                 if (connection != null) {
                     connection.close();
                 }
-                JDBConnection.disconnect();
+                JDBDBConnection.disconnect();
             }catch (SQLException e){
                 e.printStackTrace();
             }
@@ -106,8 +106,8 @@ public class ProductTypeCrud implements ICrudable {
         ProductType productType = (ProductType) object;
         sqlQuery = "UPDATE tipo_producto SET tipo_de_producto = ?, descripcion = ? WHERE id = ?";
         try{
-            JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
-            connection = JDBConnection.getConnection();
+            JDBDBConnection = new DBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+            connection = JDBDBConnection.getConnection();
             preparedStatement = connection.prepareStatement(sqlQuery);
             preparedStatement.setString(1, productType.getProductType());
             preparedStatement.setString(2, productType.getDescription());
@@ -125,7 +125,7 @@ public class ProductTypeCrud implements ICrudable {
                 if (connection != null) {
                     connection.close();
                 }
-                JDBConnection.disconnect();
+                JDBDBConnection.disconnect();
             }catch (SQLException e){
                 e.printStackTrace();
             }
@@ -137,8 +137,8 @@ public class ProductTypeCrud implements ICrudable {
         ProductType productType = (ProductType) object;
         sqlQuery = "DELETE FROM tipo_producto WHERE id=?";
         try {
-            JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
-            connection = JDBConnection.getConnection();
+            JDBDBConnection = new DBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+            connection = JDBDBConnection.getConnection();
             preparedStatement = connection.prepareStatement(sqlQuery);
             preparedStatement.setInt(1, productType.getId());
             preparedStatement.executeUpdate();
@@ -154,14 +154,14 @@ public class ProductTypeCrud implements ICrudable {
                 if (connection != null) {
                     connection.close();
                 }
-                JDBConnection.disconnect();
+                JDBDBConnection.disconnect();
             }catch (SQLException e){
                 e.printStackTrace();
             }
         }
     }
 
-    Clases.BaseDeDatos.connection JDBConnection = null;
+    DBConnection JDBDBConnection = null;
     Connection connection = null;
     Statement statement = null;
     PreparedStatement preparedStatement = null;

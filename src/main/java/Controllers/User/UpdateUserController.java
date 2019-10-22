@@ -1,6 +1,6 @@
 package Controllers.User;
 
-import Clases.BaseDeDatos.connection;
+import Clases.BaseDeDatos.DBConnection;
 import Clases.Cruds.UserCrud;
 import Clases.Models.User;
 import Clases.Models.CurrentUser;
@@ -75,8 +75,8 @@ public class UpdateUserController implements Initializable {
     public ObservableList<String> getPrivilegesList(){
         javafx.collections.ObservableList<java.lang.String> privelegesList = FXCollections.observableArrayList();
         java.lang.String consultaSQL = "SELECT id, tipo_de_privilegios, descripcion FROM privilegios_de_usuario";
-        connection JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
-        Connection conexionSQL = JDBConnection.getConnection();
+        DBConnection JDBDBConnection = new DBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+        Connection conexionSQL = JDBDBConnection.getConnection();
         try{
             Statement statement = conexionSQL.createStatement();
             ResultSet resultSet = statement.executeQuery(consultaSQL);
@@ -94,7 +94,7 @@ public class UpdateUserController implements Initializable {
             }catch (SQLException ex){
                 ex.printStackTrace();
             }
-            JDBConnection.disconnect();
+            JDBDBConnection.disconnect();
         }
         return  privelegesList;
     }

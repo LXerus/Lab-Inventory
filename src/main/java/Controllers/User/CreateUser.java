@@ -1,6 +1,6 @@
 package Controllers.User;
 
-import Clases.BaseDeDatos.connection;
+import Clases.BaseDeDatos.DBConnection;
 import Clases.Models.User;
 import Clases.Models.CurrentUser;
 
@@ -14,8 +14,8 @@ public class CreateUser {
 
         try {
             String sqlQuery = "CREATE USER '?'@'%' IDENTIFIED BY '?';";
-            connection JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
-            Connection connection = JDBConnection.getConnection();
+            DBConnection JDBDBConnection = new DBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+            Connection connection = JDBDBConnection.getConnection();
             Statement statement = connection.createStatement();
             statement.executeUpdate( "CREATE USER '"+ user.getName()+"'@'%' IDENTIFIED BY '"+ user.getPassword()+"';");
 
@@ -27,8 +27,8 @@ public class CreateUser {
     public void setPrivileges(User user){
         String sqlQuery = "";
         try {
-            connection JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
-            Connection connection = JDBConnection.getConnection();
+            DBConnection JDBDBConnection = new DBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+            Connection connection = JDBDBConnection.getConnection();
             if (user.getPrivileges() == 1) {
                 sqlQuery = "GRANT ALL PRIVILEGES ON *.* TO '"+ user.getName()+"'@'%' IDENTIFIED BY '"+ user.getPassword()+"'";
             }

@@ -1,6 +1,6 @@
 package Clases.Cruds;
 
-import Clases.BaseDeDatos.connection;
+import Clases.BaseDeDatos.DBConnection;
 import Clases.Models.*;
 import Iterfaces.ICrudable;
 import javafx.collections.FXCollections;
@@ -16,8 +16,8 @@ public class ProductCrud implements ICrudable {
     @Override
     public void create(Object object) {
         Product product = (Product) object;
-        JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
-        connection = JDBConnection.getConnection();
+        JDBDBConnection = new DBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+        connection = JDBDBConnection.getConnection();
         String sqlQuery = "INSERT INTO productos(nombre, marca, cas, codigo_interno, codigo_standard, lote, fecha_ingreso, fecha_vence, " +
                 "fecha_abierto, fecha_factura, factura, stock, costo, producto_controlado, ghs, presentacion,  id_bodega, id_proveedor, " +
                 "id_tipo_producto, id_registro) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -57,7 +57,7 @@ public class ProductCrud implements ICrudable {
                 if (connection != null) {
                     connection.close();
                 }
-                JDBConnection.disconnect();
+                JDBDBConnection.disconnect();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
@@ -71,8 +71,8 @@ public class ProductCrud implements ICrudable {
                 " fecha_factura, factura, stock, costo, costo_x_unidad, producto_controlado, ghs, presentacion, id_bodega, id_proveedor, id_tipo_producto," +
                 " id_registro FROM productos WHERE ";
         ObservableList<Product> productList = FXCollections.observableArrayList();
-        JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
-        connection = JDBConnection.getConnection();
+        JDBDBConnection = new DBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+        connection = JDBDBConnection.getConnection();
 
         if (!product.getName().isEmpty()) {
             sqlQuery += "nombre LIKE '%" + product.getName() + "%' AND ";
@@ -165,7 +165,7 @@ public class ProductCrud implements ICrudable {
                 if (connection != null) {
                     connection.close();
                 }
-                JDBConnection.disconnect();
+                JDBDBConnection.disconnect();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
@@ -175,8 +175,8 @@ public class ProductCrud implements ICrudable {
 
     public void updateStock(int idProducto, double consumo) {
         String sqlQuery = "UPDATE productos SET stock=? WHERE id=" + idProducto;
-        JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
-        connection = JDBConnection.getConnection();
+        JDBDBConnection = new DBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+        connection = JDBDBConnection.getConnection();
         try {
             preparedStatement = connection.prepareStatement(sqlQuery);
             preparedStatement.setDouble(1, consumo);
@@ -192,7 +192,7 @@ public class ProductCrud implements ICrudable {
                 if (connection != null) {
                     connection.close();
                 }
-                JDBConnection.disconnect();
+                JDBDBConnection.disconnect();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
@@ -209,8 +209,8 @@ public class ProductCrud implements ICrudable {
         Product product = (Product) object;
         String sqlQuery = "DELETE FROM bodega Where id = ?";
         try {
-            JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
-            connection = JDBConnection.getConnection();
+            JDBDBConnection = new DBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+            connection = JDBDBConnection.getConnection();
             preparedStatement = connection.prepareStatement(sqlQuery);
             preparedStatement.setInt(1, product.getId());
             preparedStatement.executeUpdate();
@@ -226,7 +226,7 @@ public class ProductCrud implements ICrudable {
                 if (connection != null) {
                     connection.close();
                 }
-                JDBConnection.disconnect();
+                JDBDBConnection.disconnect();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -238,8 +238,8 @@ public class ProductCrud implements ICrudable {
     public ObservableList<String> getCellarList() {
         ObservableList<String> cellarList = FXCollections.observableArrayList();
         String sqlQuery = "SELECT nombre, condicion, region, tramo FROM bodega";
-        JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
-        connection = JDBConnection.getConnection();
+        JDBDBConnection = new DBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+        connection = JDBDBConnection.getConnection();
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sqlQuery);
@@ -258,7 +258,7 @@ public class ProductCrud implements ICrudable {
                 if (connection != null) {
                     connection.close();
                 }
-                JDBConnection.disconnect();
+                JDBDBConnection.disconnect();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
@@ -270,8 +270,8 @@ public class ProductCrud implements ICrudable {
         String product_type;
         ObservableList<String> productList = FXCollections.observableArrayList();
         String sqlQuery = "SELECT tipo_de_producto FROM tipo_producto";
-        JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
-        connection = JDBConnection.getConnection();
+        JDBDBConnection = new DBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+        connection = JDBDBConnection.getConnection();
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sqlQuery);
@@ -286,7 +286,7 @@ public class ProductCrud implements ICrudable {
                 if (connection != null) {
                     connection.close();
                 }
-                JDBConnection.disconnect();
+                JDBDBConnection.disconnect();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
@@ -298,8 +298,8 @@ public class ProductCrud implements ICrudable {
         String registry_name;
         ObservableList<String> registryList = FXCollections.observableArrayList();
         String sqlQuery = "SELECT nombre FROM registro";
-        JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
-        connection = JDBConnection.getConnection();
+        JDBDBConnection = new DBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+        connection = JDBDBConnection.getConnection();
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sqlQuery);
@@ -316,7 +316,7 @@ public class ProductCrud implements ICrudable {
                 if (connection != null) {
                     connection.close();
                 }
-                JDBConnection.disconnect();
+                JDBDBConnection.disconnect();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
@@ -328,8 +328,8 @@ public class ProductCrud implements ICrudable {
 
         ObservableList<Provider> providersList = FXCollections.observableArrayList();
         String sqlQuery = "SELECT id, nombre, telefono, contacto, codigo_de_proveedor, servicio, critico, aprobado, punteo, fecha_aprobacion, fecha_revalidacion FROM " + Configuration.getDataBase() + ".proveedores";
-        JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
-        connection = JDBConnection.getConnection();
+        JDBDBConnection = new DBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+        connection = JDBDBConnection.getConnection();
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sqlQuery);
@@ -355,7 +355,7 @@ public class ProductCrud implements ICrudable {
                 if (connection != null) {
                     connection.close();
                 }
-                JDBConnection.disconnect();
+                JDBDBConnection.disconnect();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
@@ -372,8 +372,8 @@ public class ProductCrud implements ICrudable {
         Statement statement = null;
         ResultSet resultSet = null;
         try {
-            JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
-            connection = JDBConnection.getConnection();
+            JDBDBConnection = new DBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+            connection = JDBDBConnection.getConnection();
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sqlQuery);
 
@@ -393,7 +393,7 @@ public class ProductCrud implements ICrudable {
                 if (connection != null) {
                     connection.close();
                 }
-                JDBConnection.disconnect();
+                JDBDBConnection.disconnect();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
@@ -407,8 +407,8 @@ public class ProductCrud implements ICrudable {
         Statement statement = null;
         ResultSet resultSet = null;
         try {
-            JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
-            connection = JDBConnection.getConnection();
+            JDBDBConnection = new DBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+            connection = JDBDBConnection.getConnection();
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sqlQuery);
 
@@ -428,7 +428,7 @@ public class ProductCrud implements ICrudable {
                 if (connection != null) {
                     connection.close();
                 }
-                JDBConnection.disconnect();
+                JDBDBConnection.disconnect();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
@@ -442,8 +442,8 @@ public class ProductCrud implements ICrudable {
         Statement statement = null;
         ResultSet resultSet = null;
         try {
-            JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
-            connection = JDBConnection.getConnection();
+            JDBDBConnection = new DBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+            connection = JDBDBConnection.getConnection();
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sqlQuery);
 
@@ -463,7 +463,7 @@ public class ProductCrud implements ICrudable {
                 if (connection != null) {
                     connection.close();
                 }
-                JDBConnection.disconnect();
+                JDBDBConnection.disconnect();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
@@ -477,8 +477,8 @@ public class ProductCrud implements ICrudable {
         Statement statement = null;
         ResultSet resultSet = null;
         try {
-            JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
-            connection = JDBConnection.getConnection();
+            JDBDBConnection = new DBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+            connection = JDBDBConnection.getConnection();
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sqlQuery);
 
@@ -498,7 +498,7 @@ public class ProductCrud implements ICrudable {
                 if (connection != null) {
                     connection.close();
                 }
-                JDBConnection.disconnect();
+                JDBDBConnection.disconnect();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
@@ -512,8 +512,8 @@ public class ProductCrud implements ICrudable {
         Statement statement = null;
         ResultSet resultSet = null;
         try {
-            JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
-            connection = JDBConnection.getConnection();
+            JDBDBConnection = new DBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+            connection = JDBDBConnection.getConnection();
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sqlQuery);
 
@@ -533,7 +533,7 @@ public class ProductCrud implements ICrudable {
                 if (connection != null) {
                     connection.close();
                 }
-                JDBConnection.disconnect();
+                JDBDBConnection.disconnect();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
@@ -551,8 +551,8 @@ public class ProductCrud implements ICrudable {
         Statement statement = null;
         ResultSet resultSet = null;
         try {
-            JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
-            connection = JDBConnection.getConnection();
+            JDBDBConnection = new DBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+            connection = JDBDBConnection.getConnection();
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sqlQuery);
             while (resultSet.next()) {
@@ -583,7 +583,7 @@ public class ProductCrud implements ICrudable {
                 if (connection != null) {
                     connection.close();
                 }
-                JDBConnection.disconnect();
+                JDBDBConnection.disconnect();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
@@ -597,8 +597,8 @@ public class ProductCrud implements ICrudable {
         Statement statement = null;
         ResultSet resultSet = null;
         try {
-            JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
-            connection = JDBConnection.getConnection();
+            JDBDBConnection = new DBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+            connection = JDBDBConnection.getConnection();
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sqlQuery);
             while (resultSet.next()) {
@@ -623,7 +623,7 @@ public class ProductCrud implements ICrudable {
                 if (connection != null) {
                     connection.close();
                 }
-                JDBConnection.disconnect();
+                JDBDBConnection.disconnect();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
@@ -637,8 +637,8 @@ public class ProductCrud implements ICrudable {
         Statement statement = null;
         ResultSet resultSet = null;
         try {
-            JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
-            connection = JDBConnection.getConnection();
+            JDBDBConnection = new DBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+            connection = JDBDBConnection.getConnection();
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sqlQuery);
             while (resultSet.next()) {
@@ -661,7 +661,7 @@ public class ProductCrud implements ICrudable {
                 if (connection != null) {
                     connection.close();
                 }
-                JDBConnection.disconnect();
+                JDBDBConnection.disconnect();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
@@ -675,8 +675,8 @@ public class ProductCrud implements ICrudable {
         Statement statement = null;
         ResultSet resultSet = null;
         try {
-            JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
-            connection = JDBConnection.getConnection();
+            JDBDBConnection = new DBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+            connection = JDBDBConnection.getConnection();
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sqlQuery);
             while (resultSet.next()) {
@@ -700,7 +700,7 @@ public class ProductCrud implements ICrudable {
                 if (connection != null) {
                     connection.close();
                 }
-                JDBConnection.disconnect();
+                JDBDBConnection.disconnect();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
@@ -714,8 +714,8 @@ public class ProductCrud implements ICrudable {
         Statement statement = null;
         ResultSet resultSet = null;
         try {
-            JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
-            connection = JDBConnection.getConnection();
+            JDBDBConnection = new DBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+            connection = JDBDBConnection.getConnection();
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sqlQuery);
             while (resultSet.next()) {
@@ -738,7 +738,7 @@ public class ProductCrud implements ICrudable {
                 if (connection != null) {
                     connection.close();
                 }
-                JDBConnection.disconnect();
+                JDBDBConnection.disconnect();
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
@@ -747,7 +747,7 @@ public class ProductCrud implements ICrudable {
     }
 
     //**********************************************************************************************************************************************************************************************
-    Clases.BaseDeDatos.connection JDBConnection;
+    DBConnection JDBDBConnection;
     Connection connection;
     Configuration configuration = new Configuration();
     private ObservableList<Cellar> productList;

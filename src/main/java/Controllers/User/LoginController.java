@@ -1,6 +1,6 @@
 package Controllers.User;
 
-import Clases.BaseDeDatos.connection;
+import Clases.BaseDeDatos.DBConnection;
 import Clases.Models.Configuration;
 import Clases.Models.User;
 import Clases.Models.CurrentUser;
@@ -60,11 +60,11 @@ public class LoginController implements Initializable {
         if(verifyData()){
             userName = login_txtfl_id.getText();
             password = login_pswfl_password.getText();
-            JDBConnection = new connection(userName, password);
-            connection = JDBConnection.getConnection();
+            JDBDBConnection = new DBConnection(userName, password);
+            connection = JDBDBConnection.getConnection();
             ResultSet usuarioResultSet = null;
 
-                if(JDBConnection.getConnection() == null){
+            if (JDBDBConnection.getConnection() == null) {
                     login_texto_loginfail.setText("El ID de usuario o contraseña son invalidos");
                 }else{
                     try {
@@ -142,7 +142,7 @@ public class LoginController implements Initializable {
 
     private Stage loginStage;
     private MainMenuController menuPrincipalControlador = new MainMenuController();
-    private Clases.BaseDeDatos.connection JDBConnection;
+    private DBConnection JDBDBConnection;
     private Connection connection;
     private String userName;
     private String password;

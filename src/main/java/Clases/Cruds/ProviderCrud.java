@@ -1,6 +1,6 @@
 package Clases.Cruds;
 
-import Clases.BaseDeDatos.connection;
+import Clases.BaseDeDatos.DBConnection;
 import Clases.Models.*;
 import Iterfaces.ICrudable;
 import javafx.collections.FXCollections;
@@ -27,13 +27,13 @@ public class ProviderCrud implements ICrudable {
         LocalDate approvalDate = provider.getApprovalDate();
         LocalDate revalidationDate = provider.getRevalidationDate();
 
-        JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+        JDBDBConnection = new DBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
         PreparedStatement preparedStatement = null;
         String instruccionSQL = "INSERT INTO proveedores (nombre, telefono, contacto, codigo_de_proveedor, servicio, critico, aprobado, punteo, fecha_aprobacion, fecha_revalidacion) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try{
-            connection = JDBConnection.getConnection();
+            connection = JDBDBConnection.getConnection();
             preparedStatement = connection.prepareStatement(instruccionSQL);
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, telephone);
@@ -57,7 +57,7 @@ public class ProviderCrud implements ICrudable {
             if (connection != null){
                 connection = null;
             }
-            JDBConnection.disconnect();
+            JDBDBConnection.disconnect();
         }
     }
 
@@ -94,8 +94,8 @@ public class ProviderCrud implements ICrudable {
         sqlQuery = cleanQuery;
 
         try{
-            JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
-            connection = JDBConnection.getConnection();
+            JDBDBConnection = new DBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+            connection = JDBDBConnection.getConnection();
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sqlQuery);
 
@@ -139,7 +139,7 @@ public class ProviderCrud implements ICrudable {
             }catch (SQLException e){
                 e.printStackTrace();
             }
-            JDBConnection.disconnect();
+            JDBDBConnection.disconnect();
         }
         return providersList;
     }
@@ -150,8 +150,8 @@ public class ProviderCrud implements ICrudable {
         String sqlInstruccion = "UPDATE proveedores SET nombre=?, telefono=?, contacto=?, codigo_de_proveedor=?, servicio=?, critico=?, aprobado=?, punteo=?, fecha_aprobacion=?, fecha_revalidacion=? WHERE id="+ provider.getId();
         PreparedStatement preparedStatement = null;
         try {
-            JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
-            connection = JDBConnection.getConnection();
+            JDBDBConnection = new DBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+            connection = JDBDBConnection.getConnection();
             preparedStatement = connection.prepareStatement(sqlInstruccion);
             preparedStatement.setString(1, provider.getName());
             preparedStatement.setString(2, provider.getTelephone());
@@ -185,8 +185,8 @@ public class ProviderCrud implements ICrudable {
                 ex.printStackTrace();
             }
 
-            if(JDBConnection != null){
-                JDBConnection.disconnect();
+            if (JDBDBConnection != null) {
+                JDBDBConnection.disconnect();
             }
         }
     }
@@ -196,8 +196,8 @@ public class ProviderCrud implements ICrudable {
         Provider provider = (Provider) object;
         String sqlQuery = "DELETE FROM proveedores Where id = ?";
         try {
-            JDBConnection = new connection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
-            connection = JDBConnection.getConnection();
+            JDBDBConnection = new DBConnection(CurrentUser.getCurrentUser().getName(), CurrentUser.getCurrentUser().getPassword());
+            connection = JDBDBConnection.getConnection();
             preparedStatement = connection.prepareStatement(sqlQuery);
             preparedStatement.setInt(1, provider.getId());
             preparedStatement.executeUpdate();
@@ -213,7 +213,7 @@ public class ProviderCrud implements ICrudable {
                 if (connection != null) {
                     connection.close();
                 }
-                JDBConnection.disconnect();
+                JDBDBConnection.disconnect();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -222,7 +222,7 @@ public class ProviderCrud implements ICrudable {
 
     private Connection connection;
     private PreparedStatement preparedStatement;
-    private Clases.BaseDeDatos.connection JDBConnection;
+    private DBConnection JDBDBConnection;
     private ObservableList<Provider> providersList;
     UserActivity activity = new UserActivity();
 }
