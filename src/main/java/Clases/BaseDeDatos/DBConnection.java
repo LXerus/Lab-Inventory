@@ -12,7 +12,8 @@ import java.sql.SQLException;
  * <p>This class has the responsability to create the connection between
  * the application and the data base, using the JDBC connector<p>
  * 
- * 
+ * <p>code(DBConnection()) gets the server, port and data base name to establish and test the
+ * connection with the MySQL data base.</p>
  * 
  */
 
